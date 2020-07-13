@@ -1,0 +1,44 @@
+{
+  "name": "covidsimple",
+  "version": "1.0.0",
+  "description": "565 Full Stack Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm start --prefix client",
+    "server": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosimogonnelli/COVIDsimple.git"
+  },
+  "keywords": [
+    "postgres",
+    "express",
+    "node",
+    "react"
+  ],
+  "author": "Connor Robetorye, Cosimo Gonnelli, Meghan Mueller-Cox",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cosimogonnelli/COVIDsimple/issues"
+  },
+  "homepage": "https://github.com/cosimogonnelli/COVIDsimple#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "create-react-app": "^3.4.1",
+    "express": "^4.17.1",
+    "pg": "^8.3.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.3"
+  }
+}
