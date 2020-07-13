@@ -6,7 +6,7 @@ export default class Navbar extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link to="/" className="navbar-brand">COVID-Simple</Link>
+                <Link to="/" className="navbar-brand">COVIDsimple</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -14,6 +14,8 @@ export default class Navbar extends Component {
                     <div className="navbar-nav">
                     <Link to="/state-view"className="nav-item nav-link">StateView</Link>
                     <Link to="/news" className="nav-item nav-link">News</Link>
+                    <Link to="/about" className="nav-item nav-link">About</Link>
+                    <Link to="/help" className="nav-item nav-link">Help</Link>
                     </div>
                 </div>
             </nav>
