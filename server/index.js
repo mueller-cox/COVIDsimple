@@ -7,7 +7,8 @@ var db = require('./database') // (shorthand for requiring index.js)
 
 /* Environment variables */
 const ENV = process.env.NODE_ENV;
-const PORT = process.env.PORT || 5000; // use registered port or default to 5000 for server
+// use registered port or default to 5000 for server
+const PORT = process.env.PORT || 5000; 
 
 /* Register middleware */
 const app = express(); // init express
