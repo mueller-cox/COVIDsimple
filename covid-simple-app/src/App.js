@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <br />
       <Route path="/" exact component={NationalView} />
-      <Route path="/state_view" exact component={StateView} />
+      <Route path="/state-view" exact component={StateView} />
       <Route path="/news" exact component={NewsList} />
     </Router>
     
