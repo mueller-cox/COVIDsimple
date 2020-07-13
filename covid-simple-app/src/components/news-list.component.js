@@ -8,7 +8,7 @@ export default class NewsList extends Component {
     render() {
         return (
             <div>
-            <p>News View</p>
+                <p>News View</p>
             </div>  
         );
     }
