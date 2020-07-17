@@ -1,0 +1,126 @@
+
+
+/******************************/
+/* Custom font                */
+/******************************/
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
+body {
+    font-family: 'Roboto', serif;
+}
+
+
+/******************************/
+/* Index page                 */
+/******************************/
+
+.national-map {
+    display: table;
+    border-radius: 0.2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border: 1px solid gainsboro;
+}
+
+.recommended-news {
+    border-radius: 0.2em;
+    /* margin-left: 1em; */
+    margin-right: 1em;
+    border: 1px solid gainsboro;
+}
+
+/******************************/
+/* State view                 */
+/******************************/
+.graph {
+    display: table;
+    border-radius: 0.2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border: 1px solid gainsboro;
+}
+
+.menu{
+    border-radius: 0.2em;
+    /* margin-left: 1em; */
+    margin-right: 1em;
+    border: 1px solid gainsboro;
+}
+
+/******************************/
+/* News                       */ 
+/******************************/
+
+.news{
+    border-radius: 0.2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border: 1px solid gainsboro;
+}
+
+.abstract{
+    border-radius: 0.2em;
+    /* margin-left: 1em; */
+    margin-right: 1em;
+    border: 1px solid gainsboro;
+}
+
+.button1 {
+    margin-right: 1em;
+}
+
+
+/******************************/
+/* About                      */ 
+/******************************/
+.card-body {
+    padding: 0.7rem;
+}
+
+.card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.5rem;
+}
+
+.inner {
+    overflow: hidden;
+}
+
+.inner img {
+    transition: all 1.5s ease;
+}
+
+.inner:hover img {
+    transform: scale(1.5);
+}
+    
+
+.cardSet1 {
+    background-color: #37a7a799;
+}
+.cardSet2 {
+    background-color: #d8515199;
+}
+.cardSet3 {
+    background-color: #cbd449;
+}
+
+h3.card-title {
+    font-size: 1.5rem;
+}
+
+h5.card-subtitle {
+    font-size: 0.8rem;
+    margin-top: -.380rem;
+    margin-bottom: 0;
+    ;
+}
+
+p.card-text {
+    padding-bottom: 0.8rem;
+    line-height: 1.2rem;
+}
+
+
+
