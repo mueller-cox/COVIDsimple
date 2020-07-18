@@ -1,14 +1,26 @@
+
 var { Pool } = require('pg');
 
+//pg environment variables
+const PG_USER= process.env.DB_USER;
+const PG_DB= process.env.DB_NAME;
+const PG_HOST= process.env.DB_HOST;
+const PG_PWD=process.env.DB_PWD;
+const PG_PORT=process.env.PG_PORT;
+
 const CONNECTION_STRING = process.env.DATABASE_URL 
-                          || 'postgresql://postgres:postgres@localhost:5432/covid-db';
+                          || `postgresql://${PG_USER}:${PG_PWD}@${PG_HOST}:${PG_PORT}/${PG_DB}`;
 const SSL = process.env.NODE_ENV === 'production';
+
+console.log(CONNECTION_STRING);
+console.log(SSL);
 
 class Database {
     constructor () {
         this._pool = new Pool({
             connectionString: CONNECTION_STRING,
-            ssl: SSL
+            
+            //ssl: SSL
           });
       
           this._pool.on('error', (err, client) => {
