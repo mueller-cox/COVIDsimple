@@ -12,8 +12,6 @@ const CONNECTION_STRING = process.env.DATABASE_URL
                           || `postgresql://${PG_USER}:${PG_PWD}@${PG_HOST}:${PG_PORT}/${PG_DB}`;
 const SSL = process.env.NODE_ENV === 'production';
 
-console.log(CONNECTION_STRING);
-console.log(SSL);
 
 class Database {
     constructor () {
