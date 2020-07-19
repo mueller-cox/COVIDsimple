@@ -2,6 +2,10 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+
+/* enable dotenv so we can read variables from .env file*/
+dotenv.config();
 
 var db = require('./database') // (shorthand for requiring index.js)
 
