@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 /* Register API endpoints */
 app.use('/api/articles', require('./api/articles'));
 app.use('/api/covid-data', require('./api/covid-data'));
+app.use('/api/news', require ('./api/news'));
 
 /* request handling */
 app.listen(PORT, () => {
