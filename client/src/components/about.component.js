@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button, Jumbotron } from 'reactstrap';
 /* import { Link } from 'react-router-dom'; */
 
 import '../App.css';
@@ -27,7 +26,7 @@ export default class About extends Component {
                     <div class="card cardSet1">
                         <div class="card-body">
                             <div class="inner">
-                                {/* DOTO add image here */}
+                                <img src="https://avatars1.githubusercontent.com/u/21066381?s=400&u=f459405e8ac019e30cfa764d72c4cc432eacd0ce&v=4" alt="developer"></img>
                             </div>
                             <h3 class="card-title mt-2">Connor Robetorye</h3>
                             <h5 class="card-subtitle">Graduate Student</h5>
@@ -43,6 +42,7 @@ export default class About extends Component {
                     <div class="card cardSet2 ">
                         <div class="card-body">
                             <div class="inner">
+                                <img src="https://avatars3.githubusercontent.com/u/27927826?s=460&u=cdc6fbdf407938cd1c23d940cf15a999fbc30491&v=4" alt="developer"></img>
                                 {/* DOTO add image here */}
                             </div>
                             <h3 class="card-title mt-2">Cosimo Gonnelli</h3>
@@ -69,7 +69,7 @@ export default class About extends Component {
                             minima
                             dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
                         exercitationem aliquam.</p>
-                            <a href="https://github.com/mlmcx" class="btn btn-dark btn-sm float-right">GitHub</a>
+                            <a href="https://github.com/mueller-cox" class="btn btn-dark btn-sm float-right">GitHub</a>
                         </div>
                     </div>
                 </div>
