@@ -38,10 +38,15 @@ app.listen(PORT, () => {
     console.log(`postgreSQL is connected: ${res[0].now}.`)
 });*/
 
-/* Exit server on Ctrl-C */
+/* Close server on Ctrl-C or uncaught exception */
 process.on('SIGINT', () => {
-    console.log('Closing server...')
+    console.log('\nClosing server...')
     process.exit(0);
+});
+process.on('uncaughtException', (e) => {
+    console.error(e);
+    console.error(e.stack);
+    process.exit(99);
 });
 
 // export app variable so it can be run on command
