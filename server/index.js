@@ -2,13 +2,12 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
+
+/* Add variables from .env file to environment */
+const dotenv = require('dotenv').config();
 
 // load db Object
 let db = require('./database') // (shorthand for requiring database/index.js)
-
-/* enable dotenv so we can read variables from .env file */
-dotenv.config();
 
 /* Environment variables */
 const ENV = process.env.NODE_ENV;
@@ -32,11 +31,11 @@ app.listen(PORT, () => {
 });
 
 /* log successful DB connection */
-/*db.query('SELECT NOW()', (err, res) => {
+db.query('SELECT NOW()', (err, res) => {
     if(err.error)
         console.error(err.error);
     console.log(`postgreSQL is connected: ${res[0].now}.`)
-});*/
+});
 
 /* Close server on Ctrl-C or uncaught exception */
 process.on('SIGINT', () => {

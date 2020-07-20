@@ -1,5 +1,5 @@
 
-var { Pool } = require('pg');
+let { Pool } = require('pg');
 
 //pg environment variables
 const PG_USER= process.env.DB_USER;
@@ -17,7 +17,6 @@ class Database {
     constructor () {
         this._pool = new Pool({
             connectionString: CONNECTION_STRING,
-            
             //ssl: SSL
           });
       
