@@ -4,10 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 
-/* enable dotenv so we can read variables from .env file*/
-dotenv.config();
+// load db Object
+let db = require('./database') // (shorthand for requiring database/index.js)
 
-var db = require('./database') // (shorthand for requiring index.js)
+/* enable dotenv so we can read variables from .env file */
+dotenv.config();
 
 /* Environment variables */
 const ENV = process.env.NODE_ENV;
@@ -25,15 +26,22 @@ app.use('/api/articles', require('./api/articles'));
 app.use('/api/covid-data', require('./api/covid-data'));
 app.use('/api/news', require ('./api/news'));
 
-/* request handling */
+/* Setup request handling */
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`)
 });
 
-db.query('SELECT NOW()', (err, res) => {
+/* log successful DB connection */
+/*db.query('SELECT NOW()', (err, res) => {
     if(err.error)
-        return console.log(err.error);
+        console.error(err.error);
     console.log(`postgreSQL is connected: ${res[0].now}.`)
+});*/
+
+/* Exit server on Ctrl-C */
+process.on('SIGINT', () => {
+    console.log('Closing server...')
+    process.exit(0);
 });
 
 // export app variable so it can be run on command
