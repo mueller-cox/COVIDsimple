@@ -26,7 +26,7 @@ app.use('/api/articles', require('./api/articles'));
 app.use('/api/covid-data', require('./api/covid-data'));
 app.use('/api/news', require ('./api/news'));
 
-/* Setup request handling */
+/* Setup listening on PORT for request handling*/
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`)
 });
