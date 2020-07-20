@@ -11,10 +11,18 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
-  var article = req.body.article;
-
+router.post('/add', (req, res) => {
+  let article = req.body.article;
   Articles.insert(article, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+router.post('/update', (req, res) => {
+  let article = req.body.article;
+  Articles.update(article, (err, result) => {
     if (err)
       return res.json(err);
     return res.json(result);
