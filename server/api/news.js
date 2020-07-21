@@ -3,21 +3,16 @@ var News = require('../models/news');
 
 var router = express.Router();
 
-/* WHO news data request */
-router.get('/who', (req, res) => {
-  News.retrieveWhoNews((err, data) => {
+/* news data request should go to /api/news 
+returns all articles from who and cdc rss feeds in sorted order from most recent
+to least recent */
+router.get('/', (req, res) => {
+  News.retrieveNews((err, data) => {
     if (err) 
       return res.json(err);
     return res.json(data);
   });
 });
 
-router.get('/cdc', (req, res) => {
-  News.retrieveCdcNews((err, data) => {
-    if (err) 
-      return res.json(err);
-    return res.json(data);
-  });
-});
 
 module.exports = router;
