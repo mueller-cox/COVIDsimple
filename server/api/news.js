@@ -12,6 +12,7 @@ router.get('/who', (req, res) => {
   });
 });
 
+/* CDC news data request */
 router.get('/cdc', (req, res) => {
   News.retrieveCdcNews((err, data) => {
     if (err) 
@@ -19,5 +20,15 @@ router.get('/cdc', (req, res) => {
     return res.json(data);
   });
 });
+
+/* news data request */
+router.get('/', (req, res) => {
+  News.retrieveNews((err, data) => {
+    if (err) 
+      return res.json(err);
+    return res.json(data);
+  });
+});
+
 
 module.exports = router;
