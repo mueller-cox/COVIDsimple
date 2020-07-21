@@ -17,7 +17,7 @@ export default class StateView extends Component {
             stateList: [],
             startDate: new Date(),
             endDate: null,
-            radioSelect: '',
+            radioSelected: '',
             requestedData: []
         };
     }
@@ -116,7 +116,8 @@ export default class StateView extends Component {
                                             id="select-states" 
                                             value={this.state.stateList} 
                                             onChange={this.handleChangeStates} 
-                                            multiple>
+                                            multiple
+                                            required>
                                         <option value="AL">Alabama</option>
                                         <option value="AK">Alaska</option>
                                         <option value="AZ">Arizona</option>
@@ -182,6 +183,7 @@ export default class StateView extends Component {
                                         selectsRange
                                         inline
                                         onChange={this.handleChangeDates}
+                                        required
                                     />
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
@@ -190,7 +192,8 @@ export default class StateView extends Component {
                                     <Input  type="radio" 
                                             name="radioSelected"
                                             value="infected"
-                                            onClick={this.handleChange}/>{' '}
+                                            onClick={this.handleChange}
+                                            required/>{' '}
                                         Total Infected
                                         </Label>
                                 </FormGroup>
