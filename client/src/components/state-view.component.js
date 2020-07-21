@@ -51,14 +51,14 @@ export default class StateView extends Component {
     }
 
     /* Submit handler: fetch requested data from API, call renderGraph */
-    handleSubmit = async (event) => {
+    handleSubmit = (event) => {
         event.preventDefault();
         //console.log('State on submit:', this.state);
         
         let data = this.fetchStateData();
         //console.log('Fetched data', data);
-        await this.setState({ payload: data });
-        await this.setState({ isSubmitted: true });
+        this.setState({ payload: data });
+        this.setState({ isSubmitted: true });
     }
 
     /* use current this.state variables to request and filter api data */
@@ -91,7 +91,7 @@ export default class StateView extends Component {
                 <Row className='state-view-row'>
                     <Col xs='9'>
                         { this.state.isSubmitted && <Graph data={this.state}/> }
-                        { /* ? find a way to turn off isSubmitted upon Graph rendering 
+                        { /* TODO ? find a way to turn off isSubmitted upon Graph rendering 
                              to avoid regraphing on every component state change 
                              after initial graph */}
                     </Col>
