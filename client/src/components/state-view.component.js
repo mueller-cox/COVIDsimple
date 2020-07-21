@@ -14,7 +14,7 @@ export default class StateView extends Component {
         this.state = {
             graph: '',
             var: '',
-            states: [],
+            stateList: [],
             startDate: new Date(),
             endDate: null,
             radioSelect: '',
@@ -39,11 +39,39 @@ export default class StateView extends Component {
         this.setState({ endDate : end });
     }
 
-    /* Submit handler */
+    /* Submit handler: fetch requested data from API, call renderGraph */
     handleSubmit = (event) => {
-        event.preventDefault()
-        console.log(this.state)
+        event.preventDefault();
+        console.log('State on submit:', this.state);
+        
+        let data = []; // array holding requested data, index by US state.
+        for (const state of this.state.stateList) {
+            let stateCode = state.toLowerCase();
+            console.log('Fetching data:', state);
+            fetch(`http://localhost:5000/api/covid-data/${stateCode}`)
+                .then(res => {
+                    console.log('res', res);
+                    let json = res.json();
+                    console.log('json', json);
+                    return json;
+                })
+                .then(json => {
+                    let filtered = json;
+                    // TODO: filter data by state variables selected by user.
+                    data.push(filtered);
+                })
+                .catch(err => console.error(err));
+        }
+        this.setState({ requestedData: data });
+        this.renderGraph();
+    }
 
+    renderGraph = () => {
+        let data = this.state.requestedData;
+        console.log('rendering', data);
+
+        // TODO: replace with call to data rendering library
+        document.querySelector('#graph').innerHTML = data;
     }
 
     render() {
@@ -52,6 +80,7 @@ export default class StateView extends Component {
                 <Row className='state-view-row'>
                     <Col xs='9' className='graph'>
                         <mark>here goes the selected graph</mark>
+                        <div id="graph"></div>
                     </Col>
                     <Col className='menu'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>
@@ -83,9 +112,9 @@ export default class StateView extends Component {
                                 <FormGroup>
                                     <Label for="select-states">Select State(s):</Label>
                                     <Input type="select" 
-                                            name="states" 
+                                            name="stateList" 
                                             id="select-states" 
-                                            value={this.state.states} 
+                                            value={this.state.stateList} 
                                             onChange={this.handleChangeStates} 
                                             multiple>
                                         <option value="AL">Alabama</option>
