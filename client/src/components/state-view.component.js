@@ -6,7 +6,7 @@ import { Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reac
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; // styling for Datepicker
 
-import Graph from './graph.js'
+import Graph from './graph.component.js'
 import '../App.css';
 
 const initialState = { // save initial state for reset
@@ -76,7 +76,7 @@ export default class StateView extends Component {
                 })
                 .then(json => {
                     let filtered = json;
-                    console.log('filtered', filtered);
+                    //console.log('filtered', filtered);
                     // TODO: filter data by state variables selected by user.
                     data.push(filtered);
                 })
@@ -92,7 +92,8 @@ export default class StateView extends Component {
                     <Col xs='9'>
                         { this.state.isSubmitted && <Graph data={this.state}/> }
                         { /* ? find a way to turn off isSubmitted upon Graph rendering 
-                             to avoid regraphing on every component state change */}
+                             to avoid regraphing on every component state change 
+                             after initial graph */}
                     </Col>
                     <Col className='menu'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>
