@@ -17,7 +17,7 @@ export default class StateView extends Component {
             states: [],
             startDate: new Date(),
             endDate: null,
-            radioSelected: '',
+            radioSelect: '',
             requestedData: []
         };
     }
@@ -37,9 +37,6 @@ export default class StateView extends Component {
         const [start, end] = dates;
         this.setState({ startDate : start });
         this.setState({ endDate : end });
-    }
-    handleChangeRadio = (radioSelected) => {
-        
     }
 
     /* Submit handler */
@@ -162,29 +159,35 @@ export default class StateView extends Component {
                                 <FormGroup check>
                                     <Label check>
                                     <Input  type="radio" 
-                                            name="infected"
-                                            onClick={this.handleChangeRadio}/>{' '}
+                                            name="radioSelected"
+                                            value="infected"
+                                            onClick={this.handleChange}/>{' '}
                                         Total Infected
                                         </Label>
                                 </FormGroup>
                                 <FormGroup check>
                                     <Label check>
-                                    <Input type="radio" name="deaths" onClick={this.handleChangeRadio}/>{' '}
+                                    <Input  type="radio" 
+                                            name="radioSelected"
+                                            value="deaths"
+                                            onClick={this.handleChange}/>{' '}
                                         Total Deaths
                                         </Label>
                                 </FormGroup>
                                 <FormGroup check>
                                     <Label check>
                                         <Input  type="radio" 
-                                                name="daily-new-cases" 
-                                                onClick={this.handleChangeRadio}/>{' '}
+                                                name="radioSelected"
+                                                value="new-cases"
+                                                onClick={this.handleChange}/>{' '}
                                         Daily New Cases</Label>
                                 </FormGroup>
                                 <FormGroup check>
                                     <Label check>
                                         <Input  type="radio" 
-                                                name="active-cases" 
-                                                onClick={this.handleChangeRadio}/>{' '}
+                                                name="radioSelected"
+                                                value="active-cases"
+                                                onClick={this.handleChange}/>{' '}
                                         Active Cases
                                         </Label>
                                 </FormGroup>
