@@ -34,6 +34,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "covid-simple-app": "file:client",
     "create-react-app": "^3.4.1",
     "dotenv": "^8.2.0",

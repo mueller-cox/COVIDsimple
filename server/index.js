@@ -2,6 +2,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 /* Add variables from .env file to environment */
 const dotenv = require('dotenv').config();
@@ -19,6 +20,12 @@ const app = express(); // init express
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
+// enable CORS on all requests from origin localhost:3000
+// may need to change to a function allowing multiple origins on deployment:
+//  Ref: https://medium.com/@alexishevia/using-cors-in-express-cac7e29b005b
+app.use(cors({
+    origin: 'http://localhost:3000'
+})); 
 
 /* Register API endpoints */
 app.use('/api/articles', require('./api/articles'));

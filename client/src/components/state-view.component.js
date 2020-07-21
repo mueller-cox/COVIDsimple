@@ -5,24 +5,35 @@ import $ from 'jquery';
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; // styling for Datepicker
+
+import Graph from './graph.js'
 import '../App.css';
 
-export default class StateView extends Component {
+const initialState = { // save initial state for reset
+    graph: '',
+    var: '',
+    stateList: [],
+    startDate: new Date(),
+    endDate: null,
+    radioSelected: '',
+    isSubmitted: false,
+    payload: []
+};
 
+export default class StateView extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            graph: '',
-            var: '',
-            stateList: [],
-            startDate: new Date(),
-            endDate: null,
-            radioSelected: '',
-            requestedData: []
-        };
+        let initState = Object.assign({}, initialState) // copy state to avoid overwrite
+        this.state = initState;
     }
 
-    /* Change Handlers */
+    /* Reset Handler */
+    handleReset = (event) => {
+        let initState = Object.assign({}, initialState)
+        this.setState(initState);
+    }
+
+    /* Change Handlers: */
     handleChange = (event) => { // use if solely updating value field
         this.setState({[event.target.name]: event.target.value});
         //console.log(this.state);
@@ -40,47 +51,48 @@ export default class StateView extends Component {
     }
 
     /* Submit handler: fetch requested data from API, call renderGraph */
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('State on submit:', this.state);
+        //console.log('State on submit:', this.state);
         
-        let data = []; // array holding requested data, index by US state.
+        let data = this.fetchStateData();
+        //console.log('Fetched data', data);
+        await this.setState({ payload: data });
+        await this.setState({ isSubmitted: true });
+    }
+
+    /* use current this.state variables to request and filter api data */
+    fetchStateData = () => {
+        let data = [];
         for (const state of this.state.stateList) {
             let stateCode = state.toLowerCase();
-            console.log('Fetching data:', state);
+            //console.log('Fetching data:', state);
             fetch(`http://localhost:5000/api/covid-data/${stateCode}`)
                 .then(res => {
-                    console.log('res', res);
+                    //console.log('res', res);
                     let json = res.json();
-                    console.log('json', json);
+                    //console.log('json', json);
                     return json;
                 })
                 .then(json => {
                     let filtered = json;
+                    console.log('filtered', filtered);
                     // TODO: filter data by state variables selected by user.
                     data.push(filtered);
                 })
                 .catch(err => console.error(err));
         }
-        this.setState({ requestedData: data });
-        this.renderGraph();
-    }
-
-    renderGraph = () => {
-        let data = this.state.requestedData;
-        console.log('rendering', data);
-
-        // TODO: replace with call to data rendering library
-        document.querySelector('#graph').innerHTML = data;
+        return data;
     }
 
     render() {
         return (
             <Container className='grid-container state-view' fluid>
                 <Row className='state-view-row'>
-                    <Col xs='9' className='graph'>
-                        <mark>here goes the selected graph</mark>
-                        <div id="graph"></div>
+                    <Col xs='9'>
+                        { this.state.isSubmitted && <Graph data={this.state}/> }
+                        { /* ? find a way to turn off isSubmitted upon Graph rendering 
+                             to avoid regraphing on every component state change */}
                     </Col>
                     <Col className='menu'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>
@@ -173,8 +185,7 @@ export default class StateView extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="select-date">Select Date(s):</Label>
-                                    {/* issues: selection doesn't clear with 'Reset' button.
-                                                selected value doesn't clear if changing month menu
+                                    {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
                                     <DatePicker
                                         startDate={this.state.startDate}
@@ -224,7 +235,10 @@ export default class StateView extends Component {
                                         </Label>
                                 </FormGroup>
                             </FormGroup>
-                            <Button type="reset" className='button2 float-right btn-dark'>Reset</Button>
+                            <Button type="reset" 
+                                    className='button2 float-right btn-dark'
+                                    onClick={this.handleReset}>Reset
+                            </Button>
                             <Button type="submit" className='button1 float-left btn-dark'>Graph</Button>
                         </Form>
                     </Col>
