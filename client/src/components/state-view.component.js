@@ -243,6 +243,7 @@ export default class StateView extends Component {
                                         minDate={initialState.startDate}
                                         maxDate={initialState.endDate}
                                         onChange={this.handleChangeStartDate}
+                                        popperPlacement="left-end"
                                     />
                                     <DatePicker className="date"
                                         selected={this.state.endDate}
@@ -252,6 +253,7 @@ export default class StateView extends Component {
                                         minDate={this.state.startDate}
                                         maxDate={initialState.endDate}
                                         onChange={this.handleChangeEndDate}
+                                        popperPlacement="left-end"
                                     />                             
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
