@@ -5,7 +5,7 @@ const request = require('request-promise');
 class CovidData {
   static retrieveByState (state, callback) {
     request({
-      uri: `https://covidtracking.com/api/v1/states/${state}/current.json`,
+      uri: `https://covidtracking.com/api/v1/states/${state}/daily.json`,
       json: true
     }).then((res) => {
       callback(res);
@@ -17,7 +17,7 @@ class CovidData {
 
   static retrieveNational (callback) {
     request({
-      uri: `https://covidtracking.com/api/v1/us/current.json`,
+      uri: `https://covidtracking.com/api/v1/us/daily.json`,
       json: true
     }).then((res) => {
       callback(res);

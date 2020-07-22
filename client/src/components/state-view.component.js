@@ -13,8 +13,8 @@ const initialState = { // save initial state for reset
     graph: '',
     var: '',
     stateList: [],
-    startDate: new Date(),
-    endDate: null,
+    startDate: new Date('2020/01/22'),
+    endDate: new Date(),
     radioSelected: '',
     isSubmitted: false,
     payload: []
@@ -43,11 +43,11 @@ export default class StateView extends Component {
         this.setState({[event.target.name] : $('#select-states').val()});
         //console.log(this.state);
     }
-    handleChangeDates = (dates) => {
-        //console.log('dates', dates);
-        const [start, end] = dates;
-        this.setState({ startDate : start });
-        this.setState({ endDate : end });
+    handleChangeStartDate = (date) => {
+        this.setState({ startDate : date });
+    }
+    handleChangeEndDate = (date) => {
+        this.setState({ endDate : date });
     }
 
     /* Submit handler: fetch requested data from API, call renderGraph */
@@ -66,8 +66,9 @@ export default class StateView extends Component {
         let data = [];
         for (const state of this.state.stateList) {
             let stateCode = state.toLowerCase();
+            let url =`../api/covid-data/${stateCode}`;
             //console.log('Fetching data:', state);
-            fetch(`http://localhost:5000/api/covid-data/${stateCode}`)
+            fetch(url)
                 .then(res => {
                     //console.log('res', res);
                     let json = res.json();
@@ -185,18 +186,37 @@ export default class StateView extends Component {
                                     </Input>
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label for="select-date">Select Date(s):</Label>
+                                    <Label for="select-date">Select Date Range:</Label>
                                     {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
+                                    {/* Ref: https://reactdatepicker.com/ */}
                                     <DatePicker
+                                        selected={this.state.startDate}
+                                        selectsStart
+                                        startDate={this.state.startDate}
+                                        endDate={this.state.endDate}
+                                        minDate={initialState.startDate}
+                                        maxDate={initialState.endDate}
+                                        onChange={this.handleChangeStartDate}
+                                    />
+                                    <DatePicker
+                                        selected={this.state.endDate}
+                                        selectsEnd
+                                        startDate={this.state.startDate}
+                                        endDate={this.state.endDate}
+                                        minDate={this.state.startDate}
+                                        maxDate={initialState.endDate}
+                                        onChange={this.handleChangeEndDate}
+                                    />                             
+                                    {/*<DatePicker
                                         startDate={this.state.startDate}
                                         endDate={this.state.endDate}
                                         selected={this.state.endDate}
                                         selectsRange
                                         inline
-                                        onChange={this.handleChangeDates}
                                         required
-                                    />
+                                        onChange={this.handleChangeDates}
+                                    />*/}
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
                                 <FormGroup check>
