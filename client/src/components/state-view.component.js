@@ -294,11 +294,17 @@ export default class StateView extends Component {
                                         Daily New Cases</Label>
                                 </FormGroup>
                             </FormGroup>
-                            <Button type="reset" 
-                                    className='btn btn-reset float-right btn-dark'
-                                    onClick={this.handleReset}>Reset
-                            </Button>
-                            <Button type="submit" className='btn btn-submit float-left btn-dark'>Graph</Button>
+                            <Row>
+                                <Col>
+                                    <Button type="submit" className='btn btn-submit btn-dark'>Graph</Button>
+                                </Col>
+                                <Col>
+                                    <Button type="reset" 
+                                            className='btn btn-reset btn-dark'
+                                            onClick={this.handleReset}>Reset
+                                    </Button>
+                                </Col>
+                            </Row>
                         </Form>
                     </Col>
                 </Row>
