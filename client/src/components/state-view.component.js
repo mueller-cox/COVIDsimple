@@ -230,13 +230,8 @@ export default class StateView extends Component {
                                         <option value="WY">Wyoming</option>
                                     </Input>
                                 </FormGroup>
-<<<<<<< HEAD
                                 <FormGroup className="select-date">
                                     <Label for="select-date">Select Date Range:</Label>
-=======
-                                <Label for="select-date">Select Date Range:</Label>
-                                <FormGroup id="select-date">
->>>>>>> e6ea537fb6cb3e7710554dacd7b29e1082340f48
                                     {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
                                     {/* Ref: https://reactdatepicker.com/ */}
@@ -260,12 +255,7 @@ export default class StateView extends Component {
                                     />                             
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
-<<<<<<< HEAD
                                 <FormGroup className="select-statistic1" check>
-=======
-                                {/* Match name fields of radio buttons to covidtracking API data fields */}
-                                <FormGroup check>
->>>>>>> e6ea537fb6cb3e7710554dacd7b29e1082340f48
                                     <Label check>
                                     <Input  required // makes selecting one of the radioSelected group required
                                             type="radio" 
