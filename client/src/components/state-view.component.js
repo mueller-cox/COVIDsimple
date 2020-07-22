@@ -23,7 +23,7 @@ const initialState = { // save initial state for reset
 export default class StateView extends Component {
     constructor(props) {
         super(props);
-        let initState = Object.assign({}, initialState) // copy state to avoid overwrite
+        let initState = Object.assign({}, initialState) // copy state to avoid overwriting initialState
         this.state = initState;
     }
 
@@ -50,20 +50,24 @@ export default class StateView extends Component {
         this.setState({ endDate : date });
     }
 
-    /* Submit handler: fetch requested data from API, call renderGraph */
+    /* Submit handler: fetch requested data from API, start Graph render*/
     handleSubmit = (event) => {
         event.preventDefault();
         //console.log('State on submit:', this.state);
         
-        let data = this.fetchStateData();
+        let data = this.fetchStatesData();
+        let filtered = this.filterStatesData(data);
         //console.log('Fetched data', data);
-        this.setState({ payload: data });
-        this.setState({ isSubmitted: true });
+        this.setState({ payload: filtered });
+        this.setState({ isSubmitted: true }); // triggers Graph to render
     }
 
-    /* use current this.state variables to request and filter api data */
-    fetchStateData = () => {
-        let data = [];
+    /* Helpers to Submit handler: */
+    /*  method:     fetchStatesData:
+        purpose:    use current this.state.stateList variable to fetch historic data for all requested states
+        return:     [stateData1, stateData2...], where each stateData is an array in reverse-chron order*/
+    fetchStatesData = () => {
+        let data = []; // array whose entries correspond to states' historical data
         for (const state of this.state.stateList) {
             let stateCode = state.toLowerCase();
             let url =`../api/covid-data/${stateCode}`;
@@ -76,14 +80,22 @@ export default class StateView extends Component {
                     return json;
                 })
                 .then(json => {
-                    let filtered = json;
-                    //console.log('filtered', filtered);
-                    // TODO: filter data by state variables selected by user.
-                    data.push(filtered);
+                    // append state's data to container
+                    data.push(json);
                 })
                 .catch(err => console.error(err));
         }
         return data;
+    }
+    /* use this.state variables to filter data down to match user request */
+    /*  method:     filterStatesData:
+        purpose:    use current this.state variables filter states' data down to match user request,
+                    for passing to <Graph> component
+        return:     [filteredData1, filteredData2...]*/
+    filterStatesData = (data) => {
+        let filtered = data;
+
+        return filtered;
     }
 
     render() {
