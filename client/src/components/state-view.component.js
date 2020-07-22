@@ -57,7 +57,7 @@ export default class StateView extends Component {
         //console.log('State on submit:', this.state);
         
         let data = await this.fetchStatesData();
-        let filtered = await this.filterStatesData(data);
+        let filtered = this.filterStatesData(data);
         //console.log('Fetched data', data);
         this.setState({ payload: filtered });
         this.setState({ isSubmitted: true }); // triggers Graph to render
@@ -79,7 +79,7 @@ export default class StateView extends Component {
                     throw (response.error);
                 }
                 let json = await response.json();
-                await data.push(json);
+                data.push(json);
             } catch(error) {
                 console.error(error);
             }
@@ -213,7 +213,7 @@ export default class StateView extends Component {
                                         <option value="NC">North Carolina</option>
                                         <option value="ND">North Dakota</option>
                                         <option value="OH">Ohio</option>
-                                        filtered              <option value="OK">Oklahoma</option>
+                                        <option value="OK">Oklahoma</option>
                                         <option value="OR">Oregon</option>
                                         <option value="PA">Pennsylvania</option>
                                         <option value="RI">Rhode Island</option>
