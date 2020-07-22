@@ -43,7 +43,6 @@ export default class About extends Component {
                         <div class="card-body">
                             <div class="inner">
                                 <img src="https://avatars3.githubusercontent.com/u/27927826?s=460&u=cdc6fbdf407938cd1c23d940cf15a999fbc30491&v=4" alt="developer"></img>
-                                {/* DOTO add image here */}
                             </div>
                             <h3 class="card-title mt-2">Cosimo Gonnelli</h3>
                             <h5 class="card-subtitle">Graduate Student</h5>
@@ -59,7 +58,7 @@ export default class About extends Component {
                     <div class="card cardSet3 ">
                         <div class="card-body">
                             <div class="inner">
-                                {/* DOTO add image here */}
+                                <img src="https://avatars1.githubusercontent.com/u/6835377?s=400&u=6a4741de1ef918135a280438b02cbc28d42bb48b&v=4" alt="developer"></img>
                             </div>
                             <h3 class="card-title mt-2">Meghan Mueller-Cox</h3>
                             <h5 class="card-subtitle">Graduate Student</h5>

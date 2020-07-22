@@ -10,7 +10,7 @@ body {
 
 
 /******************************/
-/* Index page                 */
+/* Index                      */
 /******************************/
 
 .national-map {
@@ -31,6 +31,8 @@ body {
 /******************************/
 /* State view                 */
 /******************************/
+
+/* stile for the graph box */
 .graph {
     display: table;
     border-radius: 0.2em;
@@ -39,12 +41,92 @@ body {
     border: 1px solid gainsboro;
 }
 
-.menu{
+/* style fot the entire window excluded bavbar*/
+.grid-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* style for the menu select variables box */
+.menu {
+    flex-basis: 0;
+    flex-grow: 1;
+    min-width: 0;
+    max-width: 100%;
+    position: absolute;
+    width: 100%;
+    padding: 15px;
+    height: 100%;
     border-radius: 0.2em;
-    /* margin-left: 1em; */
     margin-right: 1em;
     border: 1px solid gainsboro;
 }
+
+/* innner box of the menu */
+.info-selector {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
+
+/* "select-" added to allow custonization for each box 
+since the might have different property  */
+.select-graph {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
+.select-variable {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
+.select-state {
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1.5;
+   color: #212529;
+   text-align: left;
+}
+
+
+.select-date {
+    margin-bottom: 1rem;
+}
+
+/* datepicker boxes */
+.date{
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-left: 12px;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-size: 1rem;
+}
+
+/* radio buttons */
+.form-check {
+    position: relative;
+    display: block;
+    padding-left: 1.25rem;
+}
+
 
 /******************************/
 /* News                       */ 
@@ -72,10 +154,41 @@ body {
 /******************************/
 /* About                      */ 
 /******************************/
+
+.conntainer {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: -15px;
+}
+
+/* top card container */
+.about-project {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
+/* for all four cards */
 .card-body {
     padding: 0.7rem;
 }
 
+/* for the three cards at the bottom */
+.card-deck {
+    display: flex;
+    flex-flow: row wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-bottom: -15px;
+}
+
+/* for the three cards at the bottom */
 .card {
     background-color: #fff;
     background-clip: border-box;
@@ -83,6 +196,7 @@ body {
     border-radius: 0.5rem;
 }
 
+/* zoom effect for all images addes as inner class */
 .inner {
     overflow: hidden;
     width: 100%;
@@ -95,18 +209,7 @@ body {
 
 .inner:hover img {
     transform: scale(1.5);
-}
-    
-
-.cardSet1 {
-    background-color: #37a7a799;
-}
-.cardSet2 {
-    background-color: #d8515199;
-}
-.cardSet3 {
-    background-color: #cbd449;
-}
+}    
 
 h3.card-title {
     font-size: 1.5rem;

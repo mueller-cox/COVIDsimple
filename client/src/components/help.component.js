@@ -1,17 +1,16 @@
 import React, {
     Component
 } from 'react';
-/* import { Link } from 'react-router-dom'; */
 
 import '../App.css';
 export default class Help extends Component {
-    /*constructor(props) { super(props); } */
     render() {
         return ( 
             <div className="container">
                 <div class="about-project">
                     <div class="card-body">
                         <div class="inner">
+                            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.fsb.org.uk%2Fstatic%2Fe277c91e-e867-4832-8456e4fe719a5af3%2FCovid-19.jpg&f=1&nofb=1" alt="developer"></img>
                         </div>
                         <h3 class="card-title mt-2">COVIDsimple</h3>
                         <h5 class="card-subtitle">A more intuitive data representation</h5>

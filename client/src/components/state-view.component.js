@@ -102,7 +102,7 @@ export default class StateView extends Component {
         return (
             <Container className='grid-container state-view' fluid>
                 <Row className='state-view-row'>
-                    <Col xs='9'>
+                    <Col xs='10'>
                         { this.state.isSubmitted && <Graph data={this.state}/> }
                         { /* TODO ? find a way to turn off isSubmitted upon Graph rendering 
                              to avoid regraphing on every component state change 
@@ -111,7 +111,7 @@ export default class StateView extends Component {
                     <Col className='menu'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>
                             <FormGroup tag="fieldset">
-                                <FormGroup>
+                                <FormGroup className="select-graph">
                                     <Label for="select-graph">Select Graph:</Label>
                                     <Input  type="select"
                                             name="graph" 
@@ -123,7 +123,7 @@ export default class StateView extends Component {
                                         <option>graph3</option>
                                     </Input>
                                 </FormGroup>
-                                <FormGroup>
+                                <FormGroup className="select-variable">
                                     <Label for="select-variable">Select Variable:</Label>
                                     <Input  type="select"
                                             name="var"  
@@ -135,7 +135,7 @@ export default class StateView extends Component {
                                         <option>var3</option>
                                     </Input>
                                 </FormGroup>
-                                <FormGroup>
+                                <FormGroup className="select-states">
                                     <Label for="select-states">Select State(s):</Label>
                                     <Input type="select" 
                                             name="stateList" 
@@ -197,12 +197,12 @@ export default class StateView extends Component {
                                         <option value="WY">Wyoming</option>
                                     </Input>
                                 </FormGroup>
-                                <FormGroup>
+                                <FormGroup className="select-date">
                                     <Label for="select-date">Select Date Range:</Label>
                                     {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
                                     {/* Ref: https://reactdatepicker.com/ */}
-                                    <DatePicker
+                                    <DatePicker className="date"
                                         selected={this.state.startDate}
                                         selectsStart
                                         startDate={this.state.startDate}
@@ -211,7 +211,7 @@ export default class StateView extends Component {
                                         maxDate={initialState.endDate}
                                         onChange={this.handleChangeStartDate}
                                     />
-                                    <DatePicker
+                                    <DatePicker className="date"
                                         selected={this.state.endDate}
                                         selectsEnd
                                         startDate={this.state.startDate}
@@ -231,7 +231,7 @@ export default class StateView extends Component {
                                     />*/}
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
-                                <FormGroup check>
+                                <FormGroup className="select-statistic1" check>
                                     <Label check>
                                     <Input  type="radio" 
                                             name="radioSelected"
@@ -241,7 +241,7 @@ export default class StateView extends Component {
                                         Total Infected
                                         </Label>
                                 </FormGroup>
-                                <FormGroup check>
+                                <FormGroup className="select-statistic2" check>
                                     <Label check>
                                     <Input  type="radio" 
                                             name="radioSelected"
@@ -250,7 +250,7 @@ export default class StateView extends Component {
                                         Total Deaths
                                         </Label>
                                 </FormGroup>
-                                <FormGroup check>
+                                <FormGroup className="select-statistic3" check>
                                     <Label check>
                                         <Input  type="radio" 
                                                 name="radioSelected"
@@ -258,7 +258,7 @@ export default class StateView extends Component {
                                                 onClick={this.handleChange}/>{' '}
                                         Daily New Cases</Label>
                                 </FormGroup>
-                                <FormGroup check>
+                                <FormGroup className="select-statistic4" check>
                                     <Label check>
                                         <Input  type="radio" 
                                                 name="radioSelected"
@@ -269,10 +269,10 @@ export default class StateView extends Component {
                                 </FormGroup>
                             </FormGroup>
                             <Button type="reset" 
-                                    className='button2 float-right btn-dark'
+                                    className='btn btn-reset float-right btn-dark'
                                     onClick={this.handleReset}>Reset
                             </Button>
-                            <Button type="submit" className='button1 float-left btn-dark'>Graph</Button>
+                            <Button type="submit" className='btn btn-submit float-left btn-dark'>Graph</Button>
                         </Form>
                     </Col>
                 </Row>
