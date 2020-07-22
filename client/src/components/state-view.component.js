@@ -13,7 +13,8 @@ const initialState = { // save initial state for reset
     graph: '',
     var: '',
     stateList: [],
-    startDate: new Date('2020/01/22'),
+    startDate: new Date('2020/07/18'),
+    //startDate: new Date('2020/01/22'),
     endDate: new Date(),
     radioSelected: '',
     isSubmitted: false,
@@ -51,11 +52,11 @@ export default class StateView extends Component {
     }
 
     /* Submit handler: fetch requested data from API, start Graph render*/
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         //console.log('State on submit:', this.state);
         
-        let data = this.fetchStatesData();
+        let data = await this.fetchStatesData();
         let filtered = this.filterStatesData(data);
         //console.log('Fetched data', data);
         this.setState({ payload: filtered });
@@ -66,36 +67,68 @@ export default class StateView extends Component {
     /*  method:     fetchStatesData:
         purpose:    use current this.state.stateList variable to fetch historic data for all requested states
         return:     [stateData1, stateData2...], where each stateData is an array in reverse-chron order*/
-    fetchStatesData = () => {
+    fetchStatesData = async () => {
         let data = []; // array whose entries correspond to states' historical data
         for (const state of this.state.stateList) {
             let stateCode = state.toLowerCase();
             let url =`../api/covid-data/${stateCode}`;
             //console.log('Fetching data:', state);
-            fetch(url)
-                .then(res => {
-                    //console.log('res', res);
-                    let json = res.json();
-                    //console.log('json', json);
-                    return json;
-                })
-                .then(json => {
-                    // append state's data to container
-                    data.push(json);
-                })
-                .catch(err => console.error(err));
+            try {
+                let response = await fetch(url);
+                if (!response.ok) {
+                    throw (response.error);
+                }
+                let json = await response.json();
+                data.push(json);
+            } catch(error) {
+                console.error(error);
+            }
         }
         return data;
     }
-    /* use this.state variables to filter data down to match user request */
-    /*  method:     filterStatesData:
-        purpose:    use current this.state variables filter states' data down to match user request,
-                    for passing to <Graph> component
-        return:     [filteredData1, filteredData2...]*/
+    /**
+     * method:  filterStatesData:
+     * purpose: use current this.state variables filter states' data down to match user request,
+     *          for passing to <Graph> component
+     * return:  [filteredData1, filteredData2...] */  
     filterStatesData = (data) => {
-        let filtered = data;
+        //console.log('filtering', data);
 
-        return filtered;
+        let filtered = [];
+        /* filter by date range */
+        const startDate = formatDate(this.state.startDate);
+        const endDate = formatDate(this.state.endDate)
+        data.forEach((stateData) => {
+            let dateFiltered = stateData.filter((entry) => {
+                return entry.date >= startDate && entry.date <= endDate; 
+            });
+            filtered.push(dateFiltered);
+        });
+        //console.log('filtered', filtered);
+
+        /* compress by selected statistic(s) */
+        let compressed = [];
+        // might allow multiple user statistics to be selected in future
+        const statistics = ['state', 'date', this.state.radioSelected]; 
+        /* compressor creates new object whose only properties are the selected statistics */
+        const compressor = (obj) => {
+            let result = {};
+            statistics.forEach((stat) =>{
+                if (obj.hasOwnProperty(stat))
+                    result[stat] = obj[stat];
+            });
+            return result;
+        }
+        filtered.forEach((stateData) => {
+            compressed.push(stateData.map(compressor));
+        });
+        return compressed;
+
+        /* format date to YYYYMMDD */
+        function formatDate(date) {
+            let iso = date.toISOString().substring(0,10);
+            return iso.replace(/-/g,'');
+        }
     }
 
     render() {
@@ -197,8 +230,13 @@ export default class StateView extends Component {
                                         <option value="WY">Wyoming</option>
                                     </Input>
                                 </FormGroup>
+<<<<<<< HEAD
                                 <FormGroup className="select-date">
                                     <Label for="select-date">Select Date Range:</Label>
+=======
+                                <Label for="select-date">Select Date Range:</Label>
+                                <FormGroup id="select-date">
+>>>>>>> e6ea537fb6cb3e7710554dacd7b29e1082340f48
                                     {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
                                     {/* Ref: https://reactdatepicker.com/ */}
@@ -220,24 +258,20 @@ export default class StateView extends Component {
                                         maxDate={initialState.endDate}
                                         onChange={this.handleChangeEndDate}
                                     />                             
-                                    {/*<DatePicker
-                                        startDate={this.state.startDate}
-                                        endDate={this.state.endDate}
-                                        selected={this.state.endDate}
-                                        selectsRange
-                                        inline
-                                        required
-                                        onChange={this.handleChangeDates}
-                                    />*/}
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
+<<<<<<< HEAD
                                 <FormGroup className="select-statistic1" check>
+=======
+                                {/* Match name fields of radio buttons to covidtracking API data fields */}
+                                <FormGroup check>
+>>>>>>> e6ea537fb6cb3e7710554dacd7b29e1082340f48
                                     <Label check>
-                                    <Input  type="radio" 
+                                    <Input  required // makes selecting one of the radioSelected group required
+                                            type="radio" 
                                             name="radioSelected"
-                                            value="infected"
-                                            onClick={this.handleChange}
-                                            required/>{' '}
+                                            value="positive"
+                                            onClick={this.handleChange}/>{' '}
                                         Total Infected
                                         </Label>
                                 </FormGroup>
@@ -245,7 +279,7 @@ export default class StateView extends Component {
                                     <Label check>
                                     <Input  type="radio" 
                                             name="radioSelected"
-                                            value="deaths"
+                                            value="death"
                                             onClick={this.handleChange}/>{' '}
                                         Total Deaths
                                         </Label>
@@ -254,18 +288,18 @@ export default class StateView extends Component {
                                     <Label check>
                                         <Input  type="radio" 
                                                 name="radioSelected"
-                                                value="new-cases"
+                                                value="hospitalized"
                                                 onClick={this.handleChange}/>{' '}
-                                        Daily New Cases</Label>
+                                        Total Hospitalized
+                                        </Label>
                                 </FormGroup>
                                 <FormGroup className="select-statistic4" check>
                                     <Label check>
                                         <Input  type="radio" 
                                                 name="radioSelected"
-                                                value="active-cases"
+                                                value="positiveIncrease"
                                                 onClick={this.handleChange}/>{' '}
-                                        Active Cases
-                                        </Label>
+                                        Daily New Cases</Label>
                                 </FormGroup>
                             </FormGroup>
                             <Button type="reset" 

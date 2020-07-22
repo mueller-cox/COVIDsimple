@@ -6,17 +6,36 @@ const Graph = (props) => {
   const { data } = props;
   if (!data) return <div></div>;
 
-  // unpack data
   const { payload } = data;
   return (
     <Row className="graph">
-    <Col xs="12">
-        <mark>This is a graph</mark>
-        { console.log('graphing', payload) }
-        {/*<p>{data.payload}</p>*/}
-    </Col>
+      <Col xs="12">
+        {payload.map(function (stateList, i) {
+          return (
+              <Row>
+              {stateList.map(function (entry, j) {
+                  return (
+                    <Col>
+                      {
+                        Object.keys(entry).map(function (key, k) {
+                          return (
+                            <Row>
+                              <Col>
+                                <p>{key}: {entry[key]}</p>
+                              </Col>
+                            </Row>
+                          )
+                        })
+                      }  
+                    </Col>
+                  );
+              })}
+              </Row>
+          );
+        })}
+        </Col>
     </Row>
   );
-};
+}
 
 export default Graph;

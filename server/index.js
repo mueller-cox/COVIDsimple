@@ -46,7 +46,7 @@ db.query('SELECT NOW()', (err, res) => {
 
 /* Close server on Ctrl-C or uncaught exception */
 process.on('SIGINT', () => {
-    console.log('\nClosing server...')
+    console.log('Closing server...')
     process.exit(0);
 });
 process.on('uncaughtException', (e) => {
