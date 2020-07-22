@@ -9,16 +9,18 @@ import "react-datepicker/dist/react-datepicker.css"; // styling for Datepicker
 import Graph from './graph.component.js'
 import '../App.css';
 
-const initialState = { // save initial state for reset
+/* Save inital state for reset, enforcing date selection boundaries */
+const initialState = { 
     graph: '',
     var: '',
-    stateList: [],
+    stateList: [],                          // list of all requested states
     startDate: new Date('2020/07/18'),
-    //startDate: new Date('2020/01/22'),
+    /* vvv earliest available Covid data, using above date for dev purposes */
+    //startDate: new Date('2020/01/22'), 
     endDate: new Date(),
-    radioSelected: '',
-    isSubmitted: false,
-    payload: []
+    radioSelected: '',                      // tracks selected radio button
+    isSubmitted: false,                     // flag for submission, controls graph render
+    payload: []                             // array to populate with requested data from user
 };
 
 export default class StateView extends Component {
@@ -35,7 +37,8 @@ export default class StateView extends Component {
     }
 
     /* Change Handlers: */
-    handleChange = (event) => { // use if solely updating value field
+    /* basic handler:  use if solely updating value field */
+    handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value});
         //console.log(this.state);
     }
@@ -51,7 +54,7 @@ export default class StateView extends Component {
         this.setState({ endDate : date });
     }
 
-    /* Submit handler: fetch requested data from API, start Graph render*/
+    /* Submit handler: fetch requested data from API, start Graph render */
     handleSubmit = async (event) => {
         event.preventDefault();
         //console.log('State on submit:', this.state);
@@ -66,7 +69,7 @@ export default class StateView extends Component {
     /* Helpers to Submit handler: */
     /*  method:     fetchStatesData:
         purpose:    use current this.state.stateList variable to fetch historic data for all requested states
-        return:     [stateData1, stateData2...], where each stateData is an array in reverse-chron order*/
+        return:     [stateData1, stateData2...], where each stateData is an array in reverse-chron order */
     fetchStatesData = async () => {
         let data = []; // array whose entries correspond to states' historical data
         for (const state of this.state.stateList) {
@@ -95,7 +98,7 @@ export default class StateView extends Component {
         //console.log('filtering', data);
 
         let filtered = [];
-        /* filter by date range */
+        /* filter by selected date range */
         const startDate = formatDate(this.state.startDate);
         const endDate = formatDate(this.state.endDate)
         data.forEach((stateData) => {

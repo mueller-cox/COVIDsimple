@@ -3,7 +3,9 @@ var CovidData = require('../models/covid-data');
 
 var router = express.Router();
 
-/* state data request */
+/**
+ * state data request: localhost:5000/api/covid-data/XX 
+ * fetches array of all historical data for requested state, one entry/day */
 router.get('/:state', (req, res) => {
   var state = req.params.state;
 
@@ -14,7 +16,9 @@ router.get('/:state', (req, res) => {
   });
 });
 
-/* national data request */
+/**
+ * national data request: localhost:5000/api/covid-data
+ * fetches array of nationally accumulated data, one entry/day */
 router.get('/', (req, res) => {
   CovidData.retrieveNational((err, data) => {
     if (err) 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 
 const Graph = (props) => {
-  // gets passed 'data'
+  // gets passed 'data' as prop when Graph is rendered
   const { data } = props;
   if (!data) return <div></div>;
 
