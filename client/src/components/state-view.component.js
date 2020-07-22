@@ -230,8 +230,8 @@ export default class StateView extends Component {
                                         <option value="WY">Wyoming</option>
                                     </Input>
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="select-date">Select Date Range:</Label>
+                                <Label for="select-date">Select Date Range:</Label>
+                                <FormGroup id="select-date">
                                     {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
                                     {/* Ref: https://reactdatepicker.com/ */}
