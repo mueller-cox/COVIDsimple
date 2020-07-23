@@ -17,9 +17,9 @@ const FeedTable = ({ articles}) => {
                 </tr>
             </thead>
             <tbody>
-             {(articles.length > 0) ? articles.map( (article) => {
+             {(articles.length > 0) ? articles.map( (article, i) => {
                    return (
-                    <tr>
+                    <tr key={i}>
                         <td>{ article.name }</td>
                         <td>{ article.date}</td>
                         <td><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>

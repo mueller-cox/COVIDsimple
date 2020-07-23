@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FeedTable from './feed-articles.component';
 import { Container, Row, Col } from 'reactstrap';
 import '../App.css';
-import RatedTable from './rated-articles.component';
+//import RatedTable from './rated-articles.component';
 
 export default class NewsList extends Component {
     /*constructor(props) { super(props); } */
