@@ -13,10 +13,18 @@ export default class NewsList extends Component {
         }
     }
 
-    componentDidMount() {
-        fetch('../api/news')
-        .then(res => res.json())
-        .then(json => this.setState({ 'articles': json }))
+    async componentDidMount() {
+        let url = '../api/news';
+        try {
+            let response = await fetch(url);
+            if (!response.ok) {
+                throw (response.error);
+            }
+            let json = await response.json();
+            this.setState({ 'articles': json });
+        } catch(error) {
+            console.error(error);
+        }
     }
 
     
