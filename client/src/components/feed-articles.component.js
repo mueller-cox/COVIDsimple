@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { Table, Button, ButtonDropdown, DropdownItem, DropdownToggle, DropdownMenu} from 'reactstrap';
+import React, {useState} from 'react';
+import { Table, Button}  from 'reactstrap';
 import '../App.css';
+import PaginationTool from './table-pagination.component';
+import RatingDropDownButton from './rating.component';
 
 
-const FeedTable = ({ articles}) => {
-    const  [dropdownOpen, setOpen] = useState(false);
-    const toggle = () => setOpen(!dropdownOpen);
-
+const FeedTable = ({ articles }) => {
+    const [currentPage, setPage] = useState(0);
+    const pageSize=50;
+    const pageCount = Math.floor((articles.length) / pageSize);
     return(
+        <div>
         <Table>
             <thead>
                 <tr>
@@ -17,42 +20,40 @@ const FeedTable = ({ articles}) => {
                 </tr>
             </thead>
             <tbody>
-             {(articles.length > 0) ? articles.map( (article) => {
+             {(articles.length > 0) ? articles
+                .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
+                .map( (article, i) => {
                    return (
-                    <tr>
+                    <tr key={ i }>
                         <td>{ article.name }</td>
-                        <td>{ article.date}</td>
+                        <td>{ article.date }</td>
                         <td><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
                         <td><Button color="info" size="sm">Preview</Button></td>
-                        <td><ButtonDropdown color="secondary" size="sm" isOpen={dropdownOpen} toggle={toggle}>
-                                <DropdownToggle caret>
-                                    Rate
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                    <DropdownItem>
-                                        5
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        4
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        3
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        2
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        1
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </ButtonDropdown>
-                        </td>
+                        <td><RatingDropDownButton/></td>
                     </tr>
                    )
                }) : <tr><td colSpan="5">Loading Data...</td></tr>}
                          
             </tbody>
-        </Table>
+            </Table>
+            <PaginationTool pageCount={pageCount} 
+            currentPage={currentPage} 
+            handlePageClick={(e, index) => {
+                e.preventDefault();
+                setPage(index);
+            }}
+            handleNextClick={() => {
+                if(currentPage < pageCount){
+                    setPage(currentPage + 1);
+                }
+            }} 
+            handlePrevClick={() => {
+                if(currentPage >= 0){
+                    setPage(currentPage - 1);
+                }
+            }}/>
+            </div>
+                
     );
 }
 
