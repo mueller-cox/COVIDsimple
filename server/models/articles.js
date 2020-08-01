@@ -11,7 +11,7 @@ class Articles {
   }
 
   static insert (article, callback) {
-    let query_string = `INSERT INTO articles (url, name, source, date, rating_sum, rating_count) VALUES ($1, $2, $3, $4, $5, $6)\
+    let query_string = `INSERT INTO articles (name, url, source, date, rating_sum, rating_count) VALUES ($1, $2, $3, $4, $5, $6)\
                        ON CONFLICT (url) DO UPDATE SET rating_sum= articles.rating_sum + $5, rating_count= articles.rating_count + 1`;
     let name = article.name;
     let url = article.url;
