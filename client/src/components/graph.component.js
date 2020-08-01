@@ -23,10 +23,6 @@ const Graph = (props) => {
   ];
 
   const { payload } = data;
-<<<<<<< HEAD
-  //console.log('RENDERING GRAPH...')
-  //console.log(data);
-=======
   console.log("payload", payload)
   console.log("data", data)
 
@@ -42,7 +38,6 @@ const Graph = (props) => {
   // console.log("final data", finalData)
 
   // if (data.graph === 'Simple Lines') {
->>>>>>> f306e8412d9724bcc2c4e85a088996d6722e4b80
   return (
     <Row className="simpleLineChart">
       <Col xs="12">
@@ -489,7 +484,7 @@ function graphsEqual(prevProps, nextProps) {
   // console.log('should graph render??')
   // console.log('prev submit:', prevProps.data.isSubmitted)
   // console.log('next submit:', nextProps.data.isSubmitted)
-  
+
   // if the graph is not set to be submit, don't re-render
   return !nextProps.data.isSubmitted
 }
