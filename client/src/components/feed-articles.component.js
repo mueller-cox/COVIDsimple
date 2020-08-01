@@ -14,24 +14,35 @@ const FeedTable = ({ articles }) => {
         <div>
         <Table>
             <thead>
-                <tr>
-                    <td colSpan="2">
-                    </td>
-                    <td></td>
-                    <td colSpan="2">Sort</td>
-                </tr>
             </thead>
             <tbody>
             {(articles.length > 0) ? articles
                 .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
-                .map( (articles, i) => {
+                .map( (article, i) => {
                    return (
                     <tr key={ i }>
-                        <td>{ articles.name }</td>
-                        <td>{ articles.date }</td>
-                        <td><Button color="primary" size="sm" onClick={() => window.open(`${articles.url}`, "_blank")}>Read</Button></td>
-                        <td><Button color="info" size="sm">Preview</Button></td>
-                        <td><RatingDropDownButton/></td>
+                        <td >{article.name}, {article.date.slice(0,10)}</td>
+                        <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
+                        <td ><Button color="info" size="sm">Preview</Button></td>
+                        <td><RatingDropDownButton 
+                            handleItemClick={async (e, rating) => {
+                                let url = ('../api/articles/add');
+                                let to_send = article;
+                                to_send.rating = rating;
+                                let options = {
+                                    method: 'POST',
+                                    body: JSON.stringify(to_send),
+                                    headers: { 'Content-Type': 'application/json' }
+                                }
+                                try {
+                                    let response = await fetch(url, options);
+                                    let data = await response.json();
+                                    console.log(data);
+                                }catch(error){
+                                    console.log(error);
+                                }
+                            }}/>
+                        </td>
                     </tr>
                    )
                }) : <tr><td colSpan="5">Loading Data...</td></tr>}
