@@ -14,12 +14,6 @@ const FeedTable = ({ articles }) => {
         <div>
         <Table>
             <thead>
-                <tr>
-                    <td colSpan="2">
-                    </td>
-                    <td></td>
-                    <td colSpan="2">Sort</td>
-                </tr>
             </thead>
             <tbody>
             {(articles.length > 0) ? articles
@@ -27,12 +21,10 @@ const FeedTable = ({ articles }) => {
                 .map( (article, i) => {
                    return (
                     <tr key={ i }>
-                        <td>{ article.name }</td>
-                        <td>{ article.date }</td>
-                        <td><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
-                        <td><Button color="info" size="sm">Preview</Button></td>
-                        <td>
-                            <RatingDropDownButton 
+                        <td className="xs=2">{article.name}, {article.date.slice(0,10)}</td>
+                        <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
+                        <td className><Button color="info" size="sm">Preview</Button></td>
+                        <td><RatingDropDownButton 
                             handleItemClick={async (e, rating) => {
                                 let url = ('../api/articles/add');
                                 let to_send = article;
