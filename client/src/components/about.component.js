@@ -30,7 +30,7 @@ export default class About extends Component {
                             </div>
                             <h3 class="card-title mt-2">Connor Robetorye</h3>
                             <h5 class="card-subtitle">Graduate Student</h5>
-                            <p class="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+                            <p class="card-text mt-3">Interests include lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
                             cupiditate laudantium
                             corrupti,
                             minima

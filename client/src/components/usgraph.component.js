@@ -14,7 +14,7 @@ const moment = require('moment'); // for formatting date
 
 // Import geodata maps
 const geoData = require('../geodata/states_topojson.json') // url to a valid topjson file
-const IDtoXX = require('../geodata/stateids.json');        // map from geo id to state abbreviation
+const IDtoXX = require('../geodata/state_ids.json');        // map from geo id to state abbreviation
 const stateToPop = require('../geodata/state_pops.json');  // map from state abbrev. to population
 
 /**
