@@ -21,9 +21,9 @@ const FeedTable = ({ articles }) => {
                 .map( (article, i) => {
                    return (
                     <tr key={ i }>
-                        <td className="xs=2">{article.name}, {article.date.slice(0,10)}</td>
+                        <td >{article.name}, {article.date.slice(0,10)}</td>
                         <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
-                        <td className><Button color="info" size="sm">Preview</Button></td>
+                        <td ><Button color="info" size="sm">Preview</Button></td>
                         <td><RatingDropDownButton 
                             handleItemClick={async (e, rating) => {
                                 let url = ('../api/articles/add');

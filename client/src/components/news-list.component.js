@@ -79,7 +79,7 @@ export default class NewsList extends Component {
                                 </Col>
                             </Row>
                             <Row className='news-filter-row'>
-                                <Col classname='filter'>
+                                <Col className='filter'>
                                     <label htmlFor="news_filter_src">Filter by Source  </label>
                                     <select className='filter' id="news_filter_src" name="news_filter_src" onChange={this.handleNewsSrcFilter}>
                                         <option value="None">None</option>
