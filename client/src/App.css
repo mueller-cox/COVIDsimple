@@ -10,6 +10,23 @@ body {
 
 
 /******************************/
+/* Navbar                      */
+/******************************/
+.navbar {
+    background-color: #cae5ff
+}
+
+.navbar-brand {
+    color: #ffffff;
+
+}
+.nav-item {
+    color: #000000;
+    font-size: larger;
+
+}
+
+/******************************/
 /* Index                      */
 /******************************/
 
@@ -63,6 +80,10 @@ body {
     border-radius: 0.2em;
     margin-right: 1em;
     border: 1px solid gainsboro;
+}
+
+.col {
+    background-color: #89BBFE;
 }
 
 /* innner box of the menu */
