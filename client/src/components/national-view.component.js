@@ -84,7 +84,6 @@ export default class NationalView extends Component {
         //console.log(this.state);
     }
     handleCheck = (event) => {
-        console.log('event', event);
         this.setState({[event.target.name]: event.target.checked});
         //console.log(this.state);
     }
