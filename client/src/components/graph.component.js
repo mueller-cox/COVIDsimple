@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
 const Graph = (props) => {
+  // toggle off isSubmitted flag when component mounts/updates
+  useEffect(props.renderCallback);
+  
   // gets passed 'data' as prop when Graph is rendered
   const { data } = props;
   if (!data) return <div></div>;
 
   const { payload } = data;
+  //console.log('RENDERING GRAPH...')
+  //console.log(data);
   return (
     <Row className="graph">
       <Col xs="12">
@@ -36,4 +41,12 @@ const Graph = (props) => {
   );
 }
 
-export default Graph;
+function graphsEqual(prevProps, nextProps) {
+  // console.log('should graph render??')
+  // console.log('prev submit:', prevProps.data.isSubmitted)
+  // console.log('next submit:', nextProps.data.isSubmitted)
+  // if the graph is not set to be submit, don't re-render
+  return !nextProps.data.isSubmitted
+}
+
+export default React.memo(Graph, graphsEqual)

@@ -12,10 +12,35 @@ export default class NationalView extends Component {
             radioSelected: 'positive',    // tracks selected statistic radio button
             data_type: 'gross',           // interpretation of selected statistic
             payload: [],                  // array to populate with requested data from user
-            date: new Date()              // currently selected date
+            date: new Date(),             // currently selected date
+            data: this.loadData()
 
             // TODO: fetch data and consolidate into one entry per date on load
         }
+    }
+
+    /**
+     * Load and structure all historic US covid data from API on component mount.
+     */
+    async loadData() {
+        try {
+            let response = await fetch(`../api/covid-data/states`);
+            if (!response.ok) {
+                throw (response.error);
+            }
+            let json = await response.json();
+            console.log('loaded', json);
+            return this.structureData(json);
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
+    /**
+     * Data is structured as a Map, with primary keys being YYYYMMDD date strings
+     */
+    structureData(json) {
+        return json
     }
     
     /* Change Handlers: */
@@ -40,7 +65,6 @@ export default class NationalView extends Component {
                                     <Input  type="select"
                                             name="data_type"  
                                             id="select-type" 
-                                            /*value={this.state.data_type} */
                                             onChange={this.handleChange} >
                                         <option value="gross">Aggregate</option>
                                         <option value="per_100k">Per 100,000</option>

@@ -28,6 +28,7 @@ export default class StateView extends Component {
         super(props);
         let initState = Object.assign({}, initialState) // copy state to avoid overwriting initialState
         this.state = initState;
+        this.handleGraphRender = this.handleGraphRender.bind(this); // bind state-view context to render handler for graph
     }
 
     /* Reset Handler */
@@ -64,6 +65,11 @@ export default class StateView extends Component {
         //console.log('Fetched data', data);
         this.setState({ payload: filtered });
         this.setState({ isSubmitted: true }); // triggers Graph to render
+    }
+
+    /* callback to pass to graph child to turn off flag for rendering */
+    handleGraphRender () {
+        this.setState({ isSubmitted: false });
     }
 
     /* Helpers to Submit handler: */
@@ -139,7 +145,7 @@ export default class StateView extends Component {
             <Container className='grid-container state-view' fluid>
                 <Row className='state-view-row'>
                     <Col xs='10'>
-                        { this.state.isSubmitted && <Graph data={this.state}/> }
+                        { <Graph data={this.state} renderCallback={this.handleGraphRender}/> }
                         { /* TODO ? find a way to turn off isSubmitted upon Graph rendering 
                              to avoid regraphing on every component state change 
                              after initial graph */}
@@ -152,11 +158,10 @@ export default class StateView extends Component {
                                     <Input  type="select"
                                             name="graph" 
                                             id="select-graph" 
-                                            value={this.state.graph} 
                                             onChange={this.handleChange} >
-                                        <option>graph1</option>
-                                        <option>graph2</option>
-                                        <option>graph3</option>
+                                        <option value="g1">graph1</option>
+                                        <option value="g2">graph2</option>
+                                        <option value="g3">graph3</option>
                                     </Input>
                                 </FormGroup>
                                 <FormGroup className="select-variable">
