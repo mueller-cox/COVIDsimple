@@ -31,7 +31,7 @@ export default class NationalView extends Component {
 
     /**
      * Only make async request modifying state once component mounts so that
-     * it does not have to immediately re-render on promise fulfillment
+     * it does not have to re-render immediately and can show placeholder while rendering
      * */
     async componentDidMount() {
         //console.log('mount state', this.state);
@@ -171,12 +171,12 @@ export default class NationalView extends Component {
                                                       backgroundColor: 'blue'
                                                     },*/
                                                     active: {
-                                                      backgroundColor: '#60828C'
+                                                      backgroundColor: '#6F8AB7'
                                                     },
                                                     thumb: {
                                                       width: 25,
                                                       //height: 40,
-                                                      opacity: 0.8
+                                                      //opacity: 0.8
                                                     }
                                                   }}
                                             />
