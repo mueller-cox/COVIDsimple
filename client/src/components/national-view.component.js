@@ -7,8 +7,8 @@ import '../App.css'
 
 // "enum" for allowed graph modes
 export const Modes = {
-    AGG: 'aggregate',
-    PER: 'per_100k'
+    AGG: 'Aggregate',
+    INC: 'Increase',
 }
 
 // Time constants for date slider
@@ -22,7 +22,8 @@ export default class NationalView extends Component {
         super(props);
         this.state = {
             radioSelected: 'positive',                 // tracks selected statistic radio button
-            mode: Modes.AGG,                           // mode of interpreting selected statistic for graph
+            mode: Modes.AGG,                           // Aggregate or rolling increase
+            per_capita: false,                         // normalize data per capita?
             date: new Date(TODAY.getTime() - ONE_DAY)  // Currently selected date. Default to yesterday
             // data: this.loadData()                   // all historic covid data, fetched after mount (below)
         }
@@ -82,6 +83,11 @@ export default class NationalView extends Component {
         this.setState({[event.target.name]: event.target.value});
         //console.log(this.state);
     }
+    handleCheck = (event) => {
+        console.log('event', event);
+        this.setState({[event.target.name]: event.target.checked});
+        //console.log(this.state);
+    }
     handleDate = ({y}) => { // unpack y from object {x: xval, y: yval} as parameter
         let nextDate = new Date(); 
         nextDate.setTime(DATE0.getTime()+y*ONE_DAY);
@@ -105,9 +111,20 @@ export default class NationalView extends Component {
                                             id="select-type" 
                                             onChange={this.handleChange} >
                                         <option value={Modes.AGG}>Aggregate</option>
-                                        <option value={Modes.PER}>Per 100,000</option>
+                                        <option value={Modes.INC}>Daily Increase</option>
                                     </Input>
                                 </FormGroup>
+                                <FormGroup check>
+                                    <Label for="per_capita" check>
+                                    <Input 
+                                        name="per_capita"
+                                        type="checkbox"
+                                        checked={this.state.per_capita}
+                                        onChange={this.handleCheck}
+                                    />{' '}
+                                        Per Capita
+                                    </Label>
+                                </FormGroup><br/>
                                 <Label for="select-statistic">Select Statistic:</Label>
                                 <FormGroup id="select-statistic" check>
                                     <Label check>
@@ -137,7 +154,7 @@ export default class NationalView extends Component {
                                             onClick={this.handleChange}/>{' '}
                                         Deaths
                                     </Label>
-                                </FormGroup>
+                                </FormGroup><br/>
                                 <Label for="select-date">Select Date:</Label>
                                 <FormGroup className="select-date" id="select-date">
                                     <Row>
@@ -155,7 +172,7 @@ export default class NationalView extends Component {
                                                       backgroundColor: 'blue'
                                                     },*/
                                                     active: {
-                                                      backgroundColor: '#F6828C'
+                                                      backgroundColor: '#60828C'
                                                     },
                                                     thumb: {
                                                       width: 25,

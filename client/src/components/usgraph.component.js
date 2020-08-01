@@ -18,15 +18,10 @@ const IDtoXX = require('../geodata/stateids.json');        // map from geo id to
 const stateToPop = require('../geodata/state_pops.json');  // map from state abbrev. to population
 
 /**
- * Adjust statistic depending on data_mode user has selected
+ * Adjust statistic depending on data mode user has selected
  */
-function normalizeStatistic(statistic, data_type, state) {
-    let divisor;
-    if (data_type === Modes.AGG) 
-        divisor = 1;
-    else if (data_type === Modes.PER)
-        divisor = stateToPop[state]/100000;
-
+function normalizeStatistic(statistic, per_capita, state) {
+    let divisor = per_capita ? stateToPop[state]/100000 : 1;
     return statistic / divisor;
 }
 
@@ -39,7 +34,6 @@ const USGraph = (props) => {
 
     const { state } = props;
     const data = state.data ? state.data[formatDate(state.date)] : null;
-
     //console.log('rendering graph', data);
     
     // If no data loaded or available for selected date, return placeholder view
@@ -58,13 +52,14 @@ const USGraph = (props) => {
         );
     // otherwise graph by user selection:
     } else {
-        const { radioSelected, mode } = state ; // unpack relevant variables from state
+        const { radioSelected, mode, per_capita } = state ; // unpack relevant variables from state
+        const statistic = mode === Modes.INC ? radioSelected + Modes.INC : radioSelected;
 
         // set color scale based on data to graph
         const colorScale = 
             scaleQuantile()
             .domain(Object.values(data).map(entry => 
-                normalizeStatistic(entry[radioSelected], mode, entry['state'])
+                normalizeStatistic(entry[statistic], per_capita, entry['state'])
             ))
             .range([
             "#ffedea",
@@ -82,9 +77,9 @@ const USGraph = (props) => {
                 <Geographies geography={geoData}>
                 {({geographies}) => geographies.map(geo => {
                     const cur = data[IDtoXX[geo.id]];
-                    //console.log('graphing', cur['state'], radioSelected);
-                    let normalized = cur ? normalizeStatistic(cur[radioSelected], mode, cur['state']): '#FFF9F9';
-                    //console.log(`${cur[radioSelected]} normalized to ${normalized} for ${cur['state']}`);
+                    //console.log('graphing', cur['state'], statistic);
+                    let normalized = cur ? normalizeStatistic(cur[statistic], per_capita, cur['state']): '#FFF9F9';
+                    //console.log(`${cur[statistic]} normalized to ${normalized} for ${cur['state']}`);
                     return (
                         <Geography 
                             key={geo.rsmKey} 
