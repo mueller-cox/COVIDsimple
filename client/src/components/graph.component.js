@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
 const Graph = (props) => {
+
   // toggle off isSubmitted flag when component mounts/updates
   useEffect(props.renderCallback);
   
@@ -45,6 +46,7 @@ function graphsEqual(prevProps, nextProps) {
   // console.log('should graph render??')
   // console.log('prev submit:', prevProps.data.isSubmitted)
   // console.log('next submit:', nextProps.data.isSubmitted)
+  
   // if the graph is not set to be submit, don't re-render
   return !nextProps.data.isSubmitted
 }

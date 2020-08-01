@@ -1,22 +1,42 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import USGraph from './usgraph.component.js'
+import Slider from 'react-input-slider';
+import USGraph from './usgraph.component.js';
 
 import '../App.css'
 
+// "enum" for allowed graph modes
+export const Modes = {
+    AGG: 'aggregate',
+    PER: 'per_100k'
+}
+
+// Time constants for date slider
+const TODAY = new Date();
+const DATE0 = new Date(2020, 0, 22) // Jan 22nd, 2020. First documented case in WA
+const ONE_DAY = 1000*60*60*24;      // number of milliseconds in one day
+const SPAN = Math.floor((TODAY-DATE0)/ONE_DAY); // days since first case
 
 export default class NationalView extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            radioSelected: 'positive',    // tracks selected statistic radio button
-            data_type: 'gross',           // interpretation of selected statistic
-            payload: [],                  // array to populate with requested data from user
-            date: new Date(),             // currently selected date
-            data: this.loadData()
-
-            // TODO: fetch data and consolidate into one entry per date on load
+            radioSelected: 'positive',                 // tracks selected statistic radio button
+            mode: Modes.AGG,                           // mode of interpreting selected statistic for graph
+            date: new Date(TODAY.getTime() - ONE_DAY)  // Currently selected date. Default to yesterday
+            // data: this.loadData()                   // all historic covid data, fetched after mount (below)
         }
+    }
+
+    /**
+     * Only make async request modifying state once component mounts so that
+     * it does not have to immediately re-render on promise fulfillment
+     * */
+    async componentDidMount() {
+        //console.log('mount state', this.state);
+        let covidData = await this.loadData();
+        this.setState({data: covidData});
+        //console.log('state after load', this.state);
     }
 
     /**
@@ -29,18 +49,31 @@ export default class NationalView extends Component {
                 throw (response.error);
             }
             let json = await response.json();
-            console.log('loaded', json);
-            return this.structureData(json);
+            //console.log('covid data loaded', json);
+            let data = this.structureData(json);
+            return data;
         } catch(error) {
             console.error(error);
         }
     }
 
     /**
-     * Data is structured as a Map, with primary keys being YYYYMMDD date strings
+     * Covid data is structured as a map (object), with primary keys being dates (YYYYMMDD date strings)
+     * primary values are themselves map objects with: key=state abbreviation, value=state data for date
+     * {    dateN: { "AL" : {alabama dateN data...},
+     *               "AK" : {alaska  dateN data...},
+     *          ...  "WY" : {wyoming dateN data...}
+     *      },
+     *  ... date0: { .... }
+     * }
      */
     structureData(json) {
-        return json
+        let map = {};
+        for (let entry of json) {
+            if (!map[entry.date]) map[entry.date] = {};
+            map[entry.date][entry.state] = entry;
+        }
+        return map;
     }
     
     /* Change Handlers: */
@@ -49,25 +82,30 @@ export default class NationalView extends Component {
         this.setState({[event.target.name]: event.target.value});
         //console.log(this.state);
     }
+    handleDate = ({y}) => { // unpack y from object {x: xval, y: yval} as parameter
+        let nextDate = new Date(); 
+        nextDate.setTime(DATE0.getTime()+y*ONE_DAY);
+        this.setState({ date: nextDate })
+    }
     
     render() {
         return (
             <Container className='grid-container national-view' fluid>
                 <Row className='national-view-row'>
                     <Col xs='10' className='national-map'>
-                        <USGraph></USGraph>
+                        <USGraph state={this.state}/>
                     </Col>
                     <Col className='menu'>
                         <Form className='info-selector'>
                             <FormGroup tag="fieldset">
-                                <FormGroup className="select-variable">
-                                    <Label for="select-variable">Select Data View:</Label>
+                                <FormGroup className="select-mode">
+                                    <Label for="select-mode">Select Data Mode:</Label>
                                     <Input  type="select"
-                                            name="data_type"  
+                                            name="mode"  
                                             id="select-type" 
                                             onChange={this.handleChange} >
-                                        <option value="gross">Aggregate</option>
-                                        <option value="per_100k">Per 100,000</option>
+                                        <option value={Modes.AGG}>Aggregate</option>
+                                        <option value={Modes.PER}>Per 100,000</option>
                                     </Input>
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
@@ -77,6 +115,7 @@ export default class NationalView extends Component {
                                             type="radio" 
                                             name="radioSelected"
                                             value="positive"
+                                            defaultChecked           // default value
                                             onClick={this.handleChange}/>{' '}
                                         Infections
                                     </Label>
@@ -85,9 +124,9 @@ export default class NationalView extends Component {
                                     <Label check>
                                     <Input  type="radio" 
                                             name="radioSelected"
-                                            value="hospitalized"
+                                            value="hospitalizedCumulative"
                                             onClick={this.handleChange}/>{' '}
-                                        ICU Cases
+                                        Hospitalized
                                     </Label>
                                 </FormGroup>
                                 <FormGroup check>
@@ -99,6 +138,38 @@ export default class NationalView extends Component {
                                         Deaths
                                     </Label>
                                 </FormGroup>
+                                <Label for="select-date">Select Date:</Label>
+                                <FormGroup className="select-date" id="select-date">
+                                    <Row>
+                                        <Col xs="2">
+                                            <Slider /* y value encodes the day since DAY0 */
+                                                axis="y"
+                                                ymin={0}
+                                                ymax={SPAN}
+                                                ystep={1}
+                                                y={Math.floor((this.state.date.getTime() - DATE0)/ONE_DAY)}
+                                                onChange={this.handleDate}
+                                                yreverse
+                                                styles={{
+                                                    /*track: {
+                                                      backgroundColor: 'blue'
+                                                    },*/
+                                                    active: {
+                                                      backgroundColor: '#F6828C'
+                                                    },
+                                                    thumb: {
+                                                      width: 25,
+                                                      //height: 40,
+                                                      opacity: 0.8
+                                                    }
+                                                  }}
+                                            />
+                                        </Col>
+                                        <Col xs="10" className="align-self-center">
+                                            {this.state.date.toLocaleDateString()}
+                                        </Col>
+                                    </Row>
+                                </FormGroup>
                             </FormGroup>
                         </Form>
                     </Col>
@@ -107,4 +178,3 @@ export default class NationalView extends Component {
         );
     }
 }
-
