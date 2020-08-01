@@ -9,7 +9,6 @@ const PaginationTool = ({
     handlePrevClick,
     handleNextClick
 }) => {
-    console.log(pageCount);
     return (
         <Pagination aria-label="Paginate Table">
         <PaginationItem disabled={ currentPage <= 0 }>
