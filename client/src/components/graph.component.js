@@ -461,9 +461,8 @@ function StateToStatistic(x) {
 }
 
 function convertDataset(data) {
-  let convertedData = [];
+  let compressed = [];
   let newPayl = [];
-  let temp = [];
   let n = 0;
   let j = 0;
 
@@ -482,16 +481,15 @@ function convertDataset(data) {
   for (let i = 0; i < n; ++i) {
     if ((j += 1) < n) {
       if (i === 0 && (n === 2)) {                                // Case 1: with 2 objects only
-        return temp = combineObjects(newPayl[i], newPayl[j])     
+        return compressed = combineObjects(newPayl[i], newPayl[j])     
       } else if (i === 0 && (n > 2)) {                           // Case 2A: with more than 2 objects, starting point
-        temp = combineObjects(newPayl[i], newPayl[j])           
+        compressed = combineObjects(newPayl[i], newPayl[j])
       } else {                                                   // Case 2B: use temp to compare to previous merge
-        convertedData = combineObjects(temp, newPayl[j])
+        compressed = combineObjects(compressed, newPayl[j])
       }
     }
   }
-  // console.log("CONVERTED DATA", convertedData)
-  return convertedData                                          // Final combined dataset ready to be graph
+  return compressed                                                // Final compressed dataset ready to be graph
 }
 
 function combineObjects(objA, objB) {
