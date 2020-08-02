@@ -146,9 +146,6 @@ export default class StateView extends Component {
                 <Row className='state-view-row'>
                     <Col xs='10'>
                         { <Graph data={this.state} renderCallback={this.handleGraphRender}/> }
-                        { /* TODO ? find a way to turn off isSubmitted upon Graph rendering 
-                             to avoid regraphing on every component state change 
-                             after initial graph */}
                     </Col>
                     <Col className='menu'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>
