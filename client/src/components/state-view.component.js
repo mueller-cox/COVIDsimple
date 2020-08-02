@@ -159,9 +159,9 @@ export default class StateView extends Component {
                                             name="graph" 
                                             id="select-graph" 
                                             onChange={this.handleChange} >
-                                        <option value="g1">graph1</option>
-                                        <option value="g2">graph2</option>
-                                        <option value="g3">graph3</option>
+                                        <option value="g1">Simple Line</option>
+                                        <option value="g2">Stacked Area</option>
+                                        <option value="g3">Custom Shape Bar Chart</option>
                                     </Input>
                                 </FormGroup>
                                 <FormGroup className="select-variable">
@@ -304,11 +304,11 @@ export default class StateView extends Component {
                             </FormGroup>
                             <Row>
                                 <Col>
-                                    <Button type="submit" className='btn btn-submit btn-dark'>Graph</Button>
+                                    <Button type="submit" className='btn btn-submit btn-dark float-right'>Graph</Button>
                                 </Col>
                                 <Col>
                                     <Button type="reset" 
-                                            className='btn btn-reset btn-dark'
+                                            className='btn btn-reset btn-dark float-left'
                                             onClick={this.handleReset}>Reset
                                     </Button>
                                 </Col>
