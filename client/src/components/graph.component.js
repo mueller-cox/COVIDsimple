@@ -17,6 +17,7 @@ const Graph = (props) => {
     // Get the data
     const { payload } = data;
     console.log("payload", payload)
+    // console.log("data", data)
 
     // Format payload to fit graph requirements
     const finalPayload = convertDataset(payload)
@@ -459,35 +460,39 @@ function StateToStatistic(x) {
   return newDataSet
 }
 
-  function convertDataset(data) {
-    let convertedData = [];
-    let newPayl = [];
-    let temp = [];
-    let n = 0;
-    let j = 0;
+function convertDataset(data) {
+  let convertedData = [];
+  let newPayl = [];
+  let temp = [];
+  let n = 0;
+  let j = 0;
 
-    // Iterate over each object to change data key
-    for (let i = 0; i < data.length; ++i) {
-      newPayl.push(StateToStatistic(data[i]))
-    }
+  // Iterate over each object to change data key
+  for (let i = 0; i < data.length; ++i) {
+    newPayl.push(StateToStatistic(data[i]))
+  }
 
-    n = newPayl.length;
+  n = newPayl.length;
 
-    // Iterate over objects in dataset
-    for (let i = 0; i < n; ++i) {
-      if ((j += 1) < n) {
-        if(i === 0 && (n === 2)){                                  // Use object 0 for first iteration with next one
-          return temp = combineObjects(newPayl[i], newPayl[j])     // Combine objs with same key date
-        } else if(i === 0 && (n > 2)) {                            // Start Combining when more than 2 objs 
-          temp = combineObjects(newPayl[i], newPayl[j])            // Combine objs with same key date
-        } else {                                                   // Use new stored dataset after first iterationn
-          convertedData = combineObjects(temp, newPayl[j])
-        }
+  if (n == 1) {                                                  // case 0: Extra case with only one object
+    return newPayl;
+  }
+
+  // Iterate over objects in dataset
+  for (let i = 0; i < n; ++i) {
+    if ((j += 1) < n) {
+      if (i === 0 && (n === 2)) {                                // Case 1: with 2 objects only
+        return temp = combineObjects(newPayl[i], newPayl[j])     
+      } else if (i === 0 && (n > 2)) {                           // Case 2A: with more than 2 objects, starting point
+        temp = combineObjects(newPayl[i], newPayl[j])           
+      } else {                                                   // Case 2B: use temp to compare to previous merge
+        convertedData = combineObjects(temp, newPayl[j])
       }
     }
-    // console.log("CONVERTED DATA", convertedData)
-    return convertedData                                          // Final combined dataset ready to be graph
   }
+  // console.log("CONVERTED DATA", convertedData)
+  return convertedData                                          // Final combined dataset ready to be graph
+}
 
 function combineObjects(objA, objB) {
   let combined = []
