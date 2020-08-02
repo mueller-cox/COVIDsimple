@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
-import { Table, Button}  from 'reactstrap';
-import '../App.css';
+import { Table, Button, Badge, Popover }  from 'reactstrap';
+import ReactHtmlParser from 'react-html-parser';
+
 import PaginationTool from './table-pagination.component';
 import RatingDropDownButton from './rating.component';
+import Preview from './article-preview.component';
+
+import '../App.css';
 
 
 const FeedTable = ({ articles }) => {
@@ -12,7 +16,7 @@ const FeedTable = ({ articles }) => {
 
     return(
         <div>
-        <Table>
+        <Table borderless responsive>
             <thead>
             </thead>
             <tbody>
@@ -21,9 +25,8 @@ const FeedTable = ({ articles }) => {
                 .map( (article, i) => {
                    return (
                     <tr key={ i }>
-                        <td >{article.name}, {article.date.slice(0,10)}</td>
+                        <td ><span className="name">{ReactHtmlParser(article.name)}</span><Badge color="dark">{ article.date.slice(0,10) }</Badge></td>
                         <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
-                        <td ><Button color="info" size="sm">Preview</Button></td>
                         <td><RatingDropDownButton 
                             handleItemClick={async (e, rating) => {
                                 let url = ('../api/articles/add');
@@ -43,6 +46,7 @@ const FeedTable = ({ articles }) => {
                                 }
                             }}/>
                         </td>
+                        <td ><Preview content={ ReactHtmlParser(article.content) } name={ ReactHtmlParser(article.name) } /></td>
                     </tr>
                    )
                }) : <tr><td colSpan="5">Loading Data...</td></tr>}
