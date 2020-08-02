@@ -6,72 +6,100 @@ const Graph = (props) => {
 
   // toggle off isSubmitted flag when component mounts/updates
   useEffect(props.renderCallback);
-  
+
   // gets passed 'data' as prop when Graph is rendered
   const { data } = props;
-  if (!data) return <div></div>;
-
-
-  const y = [
-    { name: 'Page A', uv: 4000, pv: 2400, xx: 4500, amt: 2400 },
-    { name: 'Page B', uv: 3000, pv: 1398, xx: 6500, amt: 2210 },
-    { name: 'Page C', uv: 2000, pv: 9800, xx: 7099, amt: 2290 },
-    { name: 'Page D', uv: 2780, pv: 3908, xx: 4400, amt: 2000 },
-    { name: 'Page E', uv: 1890, pv: 4800, xx: 2300, amt: 2181 },
-    { name: 'Page F', uv: 2390, pv: 3800, xx: 1200, amt: 2500 },
-    { name: 'Page G', uv: 3490, pv: 4300, xx: 2561, amt: 2100 },
-  ];
-
-  const { payload } = data;
-  console.log("payload", payload)
-  console.log("data", data)
-
-
-  // Iterate over each object to change data key
-  const newData = []
-  for (let i = 0; i < payload.length; ++i) {
-    newData.push(StateToStatistic(payload[i]))
+  if (!data) {
+    return <div> Missing Data!</div>;
   }
-  console.log("AFTER ADDED STATE", newData)
 
-  // const finalData = combineObjects(newData)
-  // console.log("final data", finalData)
+  if (data.graph === 'g1') {
+    // Get the data
+    const { payload } = data;
+    console.log("payload", payload)
 
-  // if (data.graph === 'Simple Lines') {
-  return (
-    <Row className="simpleLineChart">
-      <Col xs="12">
-        <LineChart width={1200} height={700} data={y}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <XAxis dataKey="name" />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey='uv' stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="xx" stroke="#82ca9d" />
-        </LineChart>
-      </Col>
-    </Row>
-  );
+    // Format payload to fit graph requirements
+    const finalPayload = convertDataset(payload)
+    console.log("FINAL DATASET", finalPayload)
+
+    return (
+      <div> graph 1</div>
+      // <Row className="simpleLineChart">
+      //   <Col xs="12">
+      //     <LineChart width={1200} height={700} data={finalPayload}
+      //       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      //       <XAxis dataKey="name" />
+      //       <CartesianGrid strokeDasharray="3 3" />
+      //       <Tooltip />
+      //       <Legend />
+      //       <Line type="monotone" dataKey='AL' stroke="#8884d8" activeDot={{ r: 8 }} />
+      //       <Line type="monotone" dataKey="AK" stroke="#82ca9d" />
+      //       <Line type="monotone" dataKey="AZ" stroke="#82ca9d" />
+      //     </LineChart>
+      //   </Col>
+      // </Row>
+    );
+  } else if (data.graph === 'g2') {
+    return (
+
+      <div> graph 2</div>
+      // <AreaChart width={600} height={400} data={data}
+      //   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+      //   <CartesianGrid strokeDasharray="3 3" />
+      //   <XAxis dataKey="name" />
+      //   <YAxis />
+      //   <Tooltip />
+      //   <Area type='monotone' dataKey='uv' stackId="1" stroke='#8884d8' fill='#8884d8' />
+      //   <Area type='monotone' dataKey='pv' stackId="1" stroke='#82ca9d' fill='#82ca9d' />
+      //   <Area type='monotone' dataKey='amt' stackId="1" stroke='#ffc658' fill='#ffc658' />
+      // </AreaChart>
+
+    );
+  } else if (data.graph === 'g3') {
+    // const getPath = (x, y, width, height) => {
+    //   return `M${x},${y + height}
+    //       C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3} ${x + width / 2}, ${y}
+    //       C${x + width / 2},${y + height / 3} ${x + 2 * width / 3},${y + height} ${x + width}, ${y + height}
+    //       Z`;
+    // };
+
+    // const TriangleBar = (props) => {
+    //   const { fill, x, y, width, height } = props;
+
+    //   return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+    // };
+
+    // TriangleBar.propTypes = {
+    //   fill: PropTypes.string,
+    //   x: PropTypes.number,
+    //   y: PropTypes.number,
+    //   width: PropTypes.number,
+    //   height: PropTypes.number,
+    // };
+
+    return (
+
+      <div> add graph 3</div>
+      // <BarChart width={600} height={300} data={data}
+      //   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+      //   <XAxis dataKey="name" />
+      //   <YAxis />
+      //   <CartesianGrid strokeDasharray="3 3" />
+      //   <Bar dataKey="female" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+      //     {
+      //       data.map((entry, index) => (
+      //         <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+      //       ))
+      //     }
+      //   </Bar>
+      // </BarChart>
+    );
+  } else {
+    return (
+      <h4> Select information from the menu on the right to see a graph</h4>
+    )
+  }
 }
-// }
-
-// function formatData(dataset) {
-//   for (let i=0; i < dataset.length; ++i){
-//     for (let j = 1; j < dataset.length; ++j) {
-
-//   }
-// }
-
-
-
-
-
-
-
-
-
 
 // Ugly but functional. Set state name as key to the statistic value
 function StateToStatistic(x) {
@@ -431,54 +459,48 @@ function StateToStatistic(x) {
   return newDataSet
 }
 
+  function convertDataset(data) {
+    let convertedData = [];
+    let newPayl = [];
+    let temp = [];
+    let n = 0;
+    let j = 0;
 
-// format the data to match the format required for recharts
-function combineObjects(data) {
-  const newData = []
-  let o = null;
-  // Compare objects of array
-  for (let i = 0; i < data.length; ++i) {
-    let curr = data[i]
-    let next = data[i + 1]
-    if (next != null) {
-      //starting case without prev to which add to 
-      if (i === 0) {
-        // check for a matching date with the next object
-        if (curr.date === next.date) {
-          o = addTogether(curr, next)
-          newData.push(o)
-        } else {
-          // if not match add next obj and start over
-          newData.push(next)
-        }
-      } else {
-        let prev = i - 1;
-        if (prev != null) {
-          if (newData[prev].date === next.date) {
-            o = addTogether(newData[prev], next)
-            newData.push(o)
-          } else {
-            newData.push(next)
-          }
+    // Iterate over each object to change data key
+    for (let i = 0; i < data.length; ++i) {
+      newPayl.push(StateToStatistic(data[i]))
+    }
+
+    n = newPayl.length;
+
+    // Iterate over objects in dataset
+    for (let i = 0; i < n; ++i) {
+      if ((j += 1) < n) {
+        if(i === 0 && (n === 2)){                                  // Use object 0 for first iteration with next one
+          return temp = combineObjects(newPayl[i], newPayl[j])     // Combine objs with same key date
+        } else if(i === 0 && (n > 2)) {                            // Start Combining when more than 2 objs 
+          temp = combineObjects(newPayl[i], newPayl[j])            // Combine objs with same key date
+        } else {                                                   // Use new stored dataset after first iterationn
+          convertedData = combineObjects(temp, newPayl[j])
         }
       }
     }
+    // console.log("CONVERTED DATA", convertedData)
+    return convertedData                                          // Final combined dataset ready to be graph
   }
-  //delete the last object since is a copy
-  newData.pop();
-  return newData
+
+function combineObjects(objA, objB) {
+  let combined = []
+  objA.forEach(x => {
+    objB.forEach(y => {
+      if (x.date === y.date) {                                    // Check date, if match merge
+        combined.push({ ...x, ...y })
+      }
+    })
+  })
+  // console.log("COMBINEDOBJ", combined)
+  return combined
 }
-
-
-//performe an operation to add togheter objects
-function addTogether(obj, src) {
-  for (var key in src) {
-    obj[key] = src[key];
-  }
-  return obj;
-}
-
-
 
 function graphsEqual(prevProps, nextProps) {
   // console.log('should graph render??')
