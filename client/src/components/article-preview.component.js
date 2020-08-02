@@ -9,11 +9,11 @@ const Preview = ( {name, content} ) => {
     return(
         <div>
             <Button size='sm' color='info' onClick={toggle}>Preview</Button>
-            <Modal isOpen={modal} toggle={toggle}>
+            <Modal isOpen={modal} toggle={toggle} size='lg'>
                 <ModalHeader toggle={toggle}>Previewing: {name}</ModalHeader>
                 <ModalBody>
                    <div>Summary from source...</div>
-                   <div>{content}</div>
+                   <div fluid>{content}</div>
                 </ModalBody>
              </Modal>
         </div>  

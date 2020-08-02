@@ -25,7 +25,7 @@ const FeedTable = ({ articles }) => {
                 .map( (article, i) => {
                    return (
                     <tr key={ i }>
-                        <td ><span className="name">{ReactHtmlParser(article.name)}</span><Badge color="dark">{ article.date.slice(0,10) }</Badge></td>
+                        <td ><span className="name">{ReactHtmlParser(article.name)}</span> <Badge color="dark">{ article.date.slice(0,10) }</Badge></td>
                         <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
                         <td><RatingDropDownButton 
                             handleItemClick={async (e, rating) => {
