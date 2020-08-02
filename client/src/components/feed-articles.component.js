@@ -12,7 +12,7 @@ import '../App.css';
 const FeedTable = ({ articles }) => {
     const [currentPage, setPage] = useState(0);
     const pageSize=50;
-    const pageCount = Math.floor((articles.length) / pageSize);
+    const pageCount = Math.ceil((articles.length) / pageSize);
 
     return(
         <div>
