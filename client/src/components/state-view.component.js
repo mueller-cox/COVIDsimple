@@ -11,7 +11,7 @@ import '../App.css';
 
 /* Save inital state for reset, enforcing date selection boundaries */
 const initialState = { 
-    graph: '',
+    graph: 'g1',
     var: '',
     stateList: [],                          // list of all requested states
     startDate: new Date('2020/07/18'),
@@ -63,12 +63,12 @@ export default class StateView extends Component {
         let data = await this.fetchStatesData();
         let filtered = this.filterStatesData(data);
         //console.log('Fetched data', data);
-        this.setState({ payload: filtered });
-        this.setState({ isSubmitted: true }); // triggers Graph to render
+        this.setState({ payload: filtered, isSubmitted: true }); // triggers Graph to render
     }
 
     /* callback to pass to graph child to turn off flag for rendering */
     handleGraphRender () {
+        //console.log('setting isSubmitted: false')
         this.setState({ isSubmitted: false });
     }
 

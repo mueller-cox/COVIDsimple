@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, /*YAxis,*/ CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const Graph = (props) => {
 
@@ -9,6 +9,8 @@ const Graph = (props) => {
 
   // gets passed 'data' as prop when Graph is rendered
   const { data } = props;
+  //console.log('rendering graph', data)
+
   if (!data) {
     return <div> Missing Data!</div>;
   }
@@ -23,21 +25,21 @@ const Graph = (props) => {
     console.log("FINAL DATASET", finalPayload)
 
     return (
-      <div> graph 1</div>
-      // <Row className="simpleLineChart">
-      //   <Col xs="12">
-      //     <LineChart width={1200} height={700} data={finalPayload}
-      //       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-      //       <XAxis dataKey="name" />
-      //       <CartesianGrid strokeDasharray="3 3" />
-      //       <Tooltip />
-      //       <Legend />
-      //       <Line type="monotone" dataKey='AL' stroke="#8884d8" activeDot={{ r: 8 }} />
-      //       <Line type="monotone" dataKey="AK" stroke="#82ca9d" />
-      //       <Line type="monotone" dataKey="AZ" stroke="#82ca9d" />
-      //     </LineChart>
-      //   </Col>
-      // </Row>
+      //<div> graph 1</div>
+      <Row className="simpleLineChart">
+        <Col xs="12">
+          <LineChart width={1200} height={700} data={finalPayload}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <XAxis dataKey="name" />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey='AL' stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="AK" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="AZ" stroke="#82ca9d" />
+          </LineChart>
+        </Col>
+      </Row>
     );
   } else if (data.graph === 'g2') {
     return (
@@ -455,6 +457,7 @@ function StateToStatistic(x) {
         "WI": e.positive,
       }
     }
+    return null;
   })
   return newDataSet
 }
@@ -502,13 +505,14 @@ function combineObjects(objA, objB) {
   return combined
 }
 
+/** Controls whether memoized graph re-renders:
+ *  (functional equivalent of shouldComponent(not)Update lifecycle method)
+ */
 function graphsEqual(prevProps, nextProps) {
-  // console.log('should graph render??')
-  // console.log('prev submit:', prevProps.data.isSubmitted)
-  // console.log('next submit:', nextProps.data.isSubmitted)
-
   // if the graph is not set to be submit, don't re-render
+  //console.log('should graph render?')
   return !nextProps.data.isSubmitted
 }
 
+// export a memoized Graph to control re-rendering
 export default React.memo(Graph, graphsEqual)

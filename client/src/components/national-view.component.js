@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import Slider from 'react-input-slider';
 import USGraph from './usgraph.component.js';
+import ReactTooltip from 'react-tooltip';
+
 
 import '../App.css'
 
@@ -24,7 +26,8 @@ export default class NationalView extends Component {
             radioSelected: 'positive',                 // tracks selected statistic radio button
             mode: Modes.AGG,                           // Aggregate or rolling increase
             per_capita: false,                         // normalize data per capita?
-            date: new Date(TODAY.getTime() - ONE_DAY)  // Currently selected date. Default to yesterday
+            date: new Date(TODAY.getTime() - ONE_DAY), // Currently selected date. Default to yesterday
+            tooltip: "Loading..."                      // MouseOver toolip for chart
             // data: this.loadData()                   // all historic covid data, fetched after mount (below)
         }
     }
@@ -36,7 +39,8 @@ export default class NationalView extends Component {
     async componentDidMount() {
         //console.log('mount state', this.state);
         let covidData = await this.loadData();
-        this.setState({data: covidData});
+        this.setState({ data: covidData });
+        this.setState({ tooltip: '' })
         //console.log('state after load', this.state);
     }
 
@@ -92,13 +96,20 @@ export default class NationalView extends Component {
         nextDate.setTime(DATE0.getTime()+y*ONE_DAY);
         this.setState({ date: nextDate })
     }
+    setTooltip = (tip) => {
+        // console.log('setting tooltip', tip);
+        this.setState({ tooltip: tip });
+    }
     
     render() {
         return (
             <Container className='grid-container national-view' fluid>
                 <Row className='national-view-row'>
                     <Col xs='10' className='national-map'>
-                        <USGraph state={this.state}/>
+                        <>
+                        <ReactTooltip>{this.state.tooltip}</ReactTooltip>
+                        <USGraph state={this.state} setTooltip={this.setTooltip}/>
+                        </>
                     </Col>
                     <Col className='menu'>
                         <Form className='info-selector'>
@@ -140,7 +151,7 @@ export default class NationalView extends Component {
                                     <Label check>
                                     <Input  type="radio" 
                                             name="radioSelected"
-                                            value="hospitalizedCumulative"
+                                            value="hospitalized"
                                             onClick={this.handleChange}/>{' '}
                                         Hospitalized
                                     </Label>
