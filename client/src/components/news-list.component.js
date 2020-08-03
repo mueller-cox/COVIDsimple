@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 import FeedTable from './feed-articles.component';
 import RatedTable from './rated-articles.component';
@@ -15,7 +15,7 @@ export default class NewsList extends Component {
             articles: [],
             news_src_filter: "None",
             rated: [],
-            rated_src_filter: "None",
+            rated_src_filter: "None"
         }
     }
 
@@ -53,7 +53,7 @@ export default class NewsList extends Component {
         this.setState({ rated_src_filter: event.target.value })
     }
 
-    updateRated = async () => {
+    handleUpdateRated = async () => {
         let url_rated = '../api/articles';
         try {
             let response = await fetch(url_rated);
@@ -61,7 +61,9 @@ export default class NewsList extends Component {
                 throw (response.error);
             }
             let json = await response.json();
-            this.setState({ 'rated': json });
+            this.setState({ 'rated': json,
+                             'rated_src_filter': 'None' });
+
         } catch(error) {
             console.error(error);
         }
@@ -92,8 +94,8 @@ export default class NewsList extends Component {
                             </Row>
                             <Row className='news-list-row'>
                                 <Col className='news'>
-                                    <FeedTable articles={ this.state.news_src_filter === "None" ? this.state.articles : 
-                                                        this.state.articles.filter(article => article.source.includes(this.state.news_src_filter))} 
+                                    <FeedTable articles={ this.state.news_src_filter === "None" ? this.state.articles : this.state.articles.filter 
+                                                                                (article => article.source.includes(this.state.news_src_filter)) }
                                     />
                                 </Col>
                             </Row>
@@ -103,17 +105,18 @@ export default class NewsList extends Component {
                         <Container>
                             <Row className='header-row'>
                                 <Col >
-                                    <h3>Rated News</h3>
+                                    <h3>Rated News <Button className='rating-refresh' outline color="secondary" size='sm' onClick={this.handleUpdateRated}>Refresh Results</Button></h3>
                                 </Col>
                             </Row>
                             <Row className='news-filter-row'>
                                 <Col>
                                     <label htmlFor="rated_filter_src">Filter by Source  </label>
                                     <select className='filter' id="rated_filter_src" name="rated_filter_src" onChange={this.handleRatedSrcFilter}>
-                                        <option value="None">None</option>
+                                        <option value="All">None</option>
                                         <option value="World">World Health Organization</option>
                                         <option value="Disease">Centers for Disease Control</option>
                                     </select>
+                                    
                                 </Col>
                             </Row>
                             <Row className='news-list-row'>
