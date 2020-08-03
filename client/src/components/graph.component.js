@@ -15,12 +15,16 @@ const Graph = (props) => {
     return <div> Missing Data!</div>;
   }
 
-  if (data.graph === 'g1') {
-    // Get the data
-    const { payload } = data;
-    console.log("payload", payload)
-    // console.log("data", data)
+  // Get the data
+  const { payload } = data;
+  console.log("payload", payload)
 
+  if (payload.length === 0) {
+    return (
+      <h4> Select information from the menu on the right to see a graph</h4>
+    );
+  }
+  else if (data.graph === 'g1') {
 
     // Format payload to fit graph requirements
     const finalPayload = convertDataset(payload, data.radioSelected)
@@ -98,10 +102,6 @@ const Graph = (props) => {
       //   </Bar>
       // </BarChart>
     );
-  } else {
-    return (
-      <h4> Select information from the menu on the right to see a graph</h4>
-    )
   }
 }
 
