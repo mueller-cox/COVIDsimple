@@ -19,9 +19,11 @@ const Graph = (props) => {
     // Get the data
     const { payload } = data;
     console.log("payload", payload)
+    // console.log("data", data)
+
 
     // Format payload to fit graph requirements
-    const finalPayload = convertDataset(payload)
+    const finalPayload = convertDataset(payload, data.radioSelected)
     console.log("FINAL DATASET", finalPayload)
 
     return (
@@ -103,405 +105,70 @@ const Graph = (props) => {
   }
 }
 
-// Ugly but functional. Set state name as key to the statistic value
-function StateToStatistic(x) {
-  let newDataSet = x.map(e => {
-    if (e.state === "AL") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "AL": e.positive,
-      }
-    }
-    if (e.state === "AK") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "AK": e.positive,
-      }
-    }
-    if (e.state === "AZ") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "AZ": e.positive,
-      }
-    }
-    if (e.state === "AR") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "AR": e.positive,
-      }
-    }
-    if (e.state === "CA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "CA": e.positive,
-      }
-    }
+// Change statistic key into state name
+function StateToStatistic(data, stat) {
+  let newDataSet = data.map(e => {
+    let obj = {}
+    obj["state"] = e.state
+    obj["date"] = e.date
 
-    if (e.state === "CO") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "CO": e.positive,
-      }
+    if (stat === 'positive') {
+      obj[e.state] = e.positive
+    } else if (stat === 'death') {
+      obj[e.state] = e.death
+    } else if (stat === 'hospitalized') {
+      obj[e.state] = e.hospitalized
+    } else {
+      obj[e.state] = e.positiveIncrease
     }
-    if (e.state === "CT") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "CT": e.positive,
-      }
-    }
-    if (e.state === "DE") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "DE": e.positive,
-      }
-    }
-    if (e.state === "DC") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "DC": e.positive,
-      }
-    }
-    if (e.state === "FL") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "FL": e.positive,
-      }
-    }
-    if (e.state === "GA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "GA": e.positive,
-      }
-    }
-    if (e.state === "HI") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "HI": e.positive,
-      }
-    }
-    if (e.state === "ID") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "ID": e.positive,
-      }
-    }
-    if (e.state === "IL") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "IL": e.positive,
-      }
-    }
-    if (e.state === "IN") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "IN": e.positive,
-      }
-    }
-    if (e.state === "IA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "IA": e.positive,
-      }
-    }
-    if (e.state === "KS") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "KS": e.positive,
-      }
-    }
-    if (e.state === "KY") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "KY": e.positive,
-      }
-    }
-    if (e.state === "LA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "LA": e.positive,
-      }
-    }
-    if (e.state === "ME") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "ME": e.positive,
-      }
-    }
-    if (e.state === "MD") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "MD": e.positive,
-      }
-    }
-    if (e.state === "MA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "MA": e.positive,
-      }
-    }
-    if (e.state === "MI") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "MI": e.positive,
-      }
-    }
-    if (e.state === "MN") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "MN": e.positive,
-      }
-    }
-    if (e.state === "MS") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "MS": e.positive,
-      }
-    }
-    if (e.state === "MO") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "MO": e.positive,
-      }
-    }
-    if (e.state === "MT") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "MT": e.positive,
-      }
-    }
-    if (e.state === "NE") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "NE": e.positive,
-      }
-    }
-    if (e.state === "NV") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "NV": e.positive,
-      }
-    }
-    if (e.state === "NH") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "NH": e.positive,
-      }
-    }
-    if (e.state === "NJ") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "NJ": e.positive,
-      }
-    }
-    if (e.state === "NM") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "NM": e.positive,
-      }
-    }
-    if (e.state === "NY") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "NY": e.positive,
-      }
-    }
-    if (e.state === "NC") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "NC": e.positive,
-      }
-    }
-    if (e.state === "ND") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "ND": e.positive,
-      }
-    }
-    if (e.state === "OH") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "OH": e.positive,
-      }
-    }
-    if (e.state === "OK") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "OK": e.positive,
-      }
-    }
-    if (e.state === "OR") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "OR": e.positive,
-      }
-    }
-    if (e.state === "PA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "PA": e.positive,
-      }
-    }
-    if (e.state === "RI") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "RI": e.positive,
-      }
-    }
-    if (e.state === "SC") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "SC": e.positive,
-      }
-    }
-    if (e.state === "SD") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "SD": e.positive,
-      }
-    }
-    if (e.state === "TN") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "TN": e.positive,
-      }
-    }
-    if (e.state === "TX") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "TX": e.positive,
-      }
-    }
-    if (e.state === "UT") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "UT": e.positive,
-      }
-    }
-    if (e.state === "VT") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "VT": e.positive,
-      }
-    }
-    if (e.state === "VA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "VA": e.positive,
-      }
-    }
-    if (e.state === "WA") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "WA": e.positive,
-      }
-    }
-    if (e.state === "WV") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "WV": e.positive,
-      }
-    }
-    if (e.state === "WI") {
-      return {
-        "state": e.state,
-        "date": e.date,
-        "WI": e.positive,
-      }
-    }
-    return null;
+    return obj
   })
   return newDataSet
 }
 
-  function convertDataset(data) {
-    let convertedData = [];
-    let newPayl = [];
-    let temp = [];
-    let n = 0;
-    let j = 0;
+// Add state statistics with same date together
+function convertDataset(data, statistic) {
+  let compressed = [];
+  let newPayl = [];
+  let n = 0;
+  let j = 0;
 
-    // Iterate over each object to change data key
-    for (let i = 0; i < data.length; ++i) {
-      newPayl.push(StateToStatistic(data[i]))
-    }
-
-    n = newPayl.length;
-
-    // Iterate over objects in dataset
-    for (let i = 0; i < n; ++i) {
-      if ((j += 1) < n) {
-        if(i === 0 && (n === 2)){                                  // Use object 0 for first iteration with next one
-          return temp = combineObjects(newPayl[i], newPayl[j])     // Combine objs with same key date
-        } else if(i === 0 && (n > 2)) {                            // Start Combining when more than 2 objs 
-          temp = combineObjects(newPayl[i], newPayl[j])            // Combine objs with same key date
-        } else {                                                   // Use new stored dataset after first iterationn
-          convertedData = combineObjects(temp, newPayl[j])
-        }
-      }
-    }
-    // console.log("CONVERTED DATA", convertedData)
-    return convertedData                                          // Final combined dataset ready to be graph
+  // Iterate over each object to change data key
+  for (let i = 0; i < data.length; ++i) {
+    newPayl.push(StateToStatistic(data[i], statistic))
   }
 
-function combineObjects(objA, objB) {
+  n = newPayl.length;
+
+  if (n === 1) {                                                  // case 0: Extra case with only one object
+    return newPayl;
+  }
+
+  // Iterate over objects in dataset
+  for (let i = 0; i < n; ++i) {
+    if ((j += 1) < n) {
+      if (i === 0 && (n === 2)) {                                // Case 1: with 2 objects only
+        return compressed = combineObjs(newPayl[i], newPayl[j])     
+      } else if (i === 0 && (n > 2)) {                           // Case 2A: with more than 2 objects, starting point
+        compressed = combineObjs(newPayl[i], newPayl[j])
+      } else {                                                   // Case 2B: use temp to compare to previous merge
+        compressed = combineObjs(compressed, newPayl[j])
+      }
+    }
+  }
+  return compressed                                              // Final compressed dataset ready to be graph
+}
+
+// Helper function to merge data
+function combineObjs(objA, objB) {
   let combined = []
   objA.forEach(x => {
     objB.forEach(y => {
-      if (x.date === y.date) {                                    // Check date, if match merge
+      if (x.date === y.date) {                                   // Check date, if match merge
         combined.push({ ...x, ...y })
       }
     })
   })
-  // console.log("COMBINEDOBJ", combined)
   return combined
 }
 
