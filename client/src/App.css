@@ -249,5 +249,15 @@ p.card-text {
     line-height: 1.2rem;
 }
 
+.news-container .col {
+    background: white;
+}
 
+.filter {
+    margin: .25em;
+    padding: .25em;
+}
+label {
+    font-weight: bold;
+}
 

@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import { Table, Button, Badge } from 'reactstrap';
+import ReactHtmlParser from 'react-html-parser';
+
 import RatingDropDownButton from './rating.component';
 import PaginationTool from './table-pagination.component';
 import '../App.css';
@@ -7,12 +9,12 @@ import '../App.css';
 
 const RatedTable = ({ articles }) => {
     const [currentPage, setPage] = useState(0);
-    const pageSize=50;
-    const pageCount = Math.floor((articles.length) / pageSize);
+    const pageSize=20;
+    const pageCount = Math.ceil((articles.length) / pageSize);
 
     return(
         <div className="xs=5">
-        <Table>
+        <Table responsive borderless>
             <thead>
             </thead>
             <tbody>
@@ -21,9 +23,9 @@ const RatedTable = ({ articles }) => {
                 .map( (article, index) => {
                    return (
                     <tr key={index}>
-                        <td className="xs=2">{ article.name }, { article.date.slice(0,10) } <Badge color='warning' pill>Rating: { Math.floor(article.rating_sum / article.rating_count)}</Badge></td>
-                        <td className="xs=1"><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
-                        <td className="xs=1">
+                        <td >{ ReactHtmlParser(article.name) } <Badge color="dark">{ article.date.slice(0,10) }</Badge> <Badge color='warning' pill>Rating: { Math.floor(article.rating_sum / article.rating_count)}</Badge></td>
+                        <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
+                        <td >
                             <RatingDropDownButton 
                             handleItemClick={async (e, rating) => {
                                 let url = ('../api/articles/update');

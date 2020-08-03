@@ -9,13 +9,14 @@ const PaginationTool = ({
     handlePrevClick,
     handleNextClick
 }) => {
+   
     return (
         <Pagination aria-label="Paginate Table">
         <PaginationItem disabled={ currentPage <= 0 }>
             <PaginationLink previous onClick={handlePrevClick} href="#">
             </PaginationLink>
         </PaginationItem>
-        {[...Array(pageCount)].map((page, index) => (
+        {[...Array(pageCount)].slice(0,5).map((page, index) => (
             <PaginationItem active={index === currentPage} key={index}>
                 <PaginationLink onClick={e => handlePageClick(e, index)} href="#">
                     {index + 1}
