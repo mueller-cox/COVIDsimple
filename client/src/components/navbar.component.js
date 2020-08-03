@@ -18,7 +18,6 @@ export default class Navbar extends Component {
                     <Link to="/state-view"className="nav-item nav-link">StateView</Link>
                     <Link to="/news" className="nav-item nav-link">News</Link>
                     <Link to="/about" className="nav-item nav-link">About</Link>
-                    <Link to="/help" className="nav-item nav-link">Help</Link>
                     </div>
                 </div>
             </nav>
