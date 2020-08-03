@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Table, Button, Badge, Popover }  from 'reactstrap';
+import { Table, Button, Badge }  from 'reactstrap';
 import ReactHtmlParser from 'react-html-parser';
 
 import PaginationTool from './table-pagination.component';
@@ -11,7 +11,7 @@ import '../App.css';
 
 const FeedTable = ({ articles }) => {
     const [currentPage, setPage] = useState(0);
-    const pageSize=50;
+    const pageSize=20;
     const pageCount = Math.ceil((articles.length) / pageSize);
 
     return(
@@ -58,14 +58,16 @@ const FeedTable = ({ articles }) => {
             handlePageClick={(e, index) => {
                 e.preventDefault();
                 setPage(index);
-            }}
+            }
+                
+            }
             handleNextClick={() => {
                 if(currentPage < pageCount){
                     setPage(currentPage + 1);
                 }
             }} 
             handlePrevClick={() => {
-                if(currentPage >= 0){
+                if(currentPage > 0){
                     setPage(currentPage - 1);
                 }
             }}/>

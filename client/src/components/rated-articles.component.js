@@ -9,7 +9,7 @@ import '../App.css';
 
 const RatedTable = ({ articles }) => {
     const [currentPage, setPage] = useState(0);
-    const pageSize=50;
+    const pageSize=20;
     const pageCount = Math.ceil((articles.length) / pageSize);
 
     return(
