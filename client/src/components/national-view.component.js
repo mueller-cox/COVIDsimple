@@ -132,7 +132,7 @@ export default class NationalView extends Component {
                                         checked={this.state.per_capita}
                                         onChange={this.handleCheck}
                                     />{' '}
-                                        Per Capita
+                                        Per 100,000
                                     </Label>
                                 </FormGroup><br/>
                                 <Label for="select-statistic">Select Statistic:</Label>

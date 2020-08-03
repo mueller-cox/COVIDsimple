@@ -13,23 +13,24 @@ import { Modes } from './national-view.component';
 const moment = require('moment'); // for formatting date
 
 // Import geodata maps
-const geoData = require('../geodata/states_topojson.json')  // url to a valid topjson file
-const IDtoState = require('../geodata/state_ids.json');        // map from geo id to state abbreviation
+const geoData = require('../geodata/states_topojson.json')  // url to a valid topojson file
+const IDtoState = require('../geodata/state_ids.json');     // map from geo id to state abbreviation
 const stateToPop = require('../geodata/state_pops.json');   // map from state abbrev. to population
 
 
 const USGraph = (props) => {
 
     const { state, setTooltip } = props;
-    const data = state.data ? state.data[formatDate(state.date)] : null;
+    const data = state.data ? state.data[formatDate(state.date)] : null; // get data from requested date
 
-    console.log('rendering graph', data);
+    //console.log('rendering graph', data);
     // If no data loaded or available for selected date, return placeholder view
     if (!data) { 
         return (
             <>
-            <ComposableMap data-tip='' projection="geoAlbersUsa" style={{width: "100%", height: "75vh", }}> 
-                <Geographies geography={geoData}>
+            {/* data-tip attribute defines where tool-tip displays its data */}
+            <ComposableMap projection="geoAlbersUsa" style={{width: "100%", height: "75vh", }}> 
+                <Geographies data-tip='' geography={geoData}>
                 {({geographies}) => geographies.map(geo =>
                     <Geography key={geo.rsmKey} geography={geo} />
                 )}
@@ -41,7 +42,7 @@ const USGraph = (props) => {
     // otherwise graph by user selection:
     } else {
         const { radioSelected, mode, per_capita } = state ; // unpack relevant variables from state
-        const statistic = mode === Modes.INC ? radioSelected + Modes.INC : radioSelected;
+        const statistic = (mode === Modes.INC ? radioSelected + Modes.INC : radioSelected);
 
         // set color scale based on data available to graph
         const colorDomain = 
@@ -70,7 +71,7 @@ const USGraph = (props) => {
                     const hasData = cur !== undefined;
                     const hasStat = hasData ? cur[statistic] !== null : false;
                     //console.log('graphing', cur['state'], statistic);
-                    let normalized = 
+                    let normalized = // normalize statistic based on per_capita flag and state population
                         hasStat ? normalizeStatistic(cur[statistic], per_capita, cur['state']) : 0;
                     //console.log(`${cur[statistic]} normalized to ${normalized} for ${cur['state']}`);
                     return (
@@ -96,17 +97,18 @@ const USGraph = (props) => {
 
 /**
  * Adjust statistic depending on data mode user has selected
+ * and passed state US state (as two character abbreviation)
  */
 function normalizeStatistic(statistic, per_capita, state) {
     let divisor = per_capita ? stateToPop[state]/100000 : 1;
     return statistic / divisor;
 }
 
-/* format date to YYYYMMDD */
+/* format date to YYYYMMDD (as data passed to USGraph is keyed by YYYYMMDD strings) */
 function formatDate(date) {
     return moment(date).format('YYYYMMDD');
 }
-/* format number to string, adding comma's rounding to max of 2 decimal places */
+/* format number to string, adding comma's rounding to max of 2 decimal places for tooltip display */
 function formatNumber(n) {
     return Number(n.toFixed(n % 1 === 0 ? 0 : 2)).toLocaleString();
 }
@@ -129,5 +131,5 @@ function compareByProps(obj1, obj2, proplist) {
     return true;        
 }
 
-
+/* export memoized component so that it may be re-rendered conditionally on prevProps and nextProps */
 export default React.memo(USGraph, areEqual);
