@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, Image } from 'react';
 import { Row, Col } from 'reactstrap';
 import { LineChart, Line, XAxis, /*YAxis,*/ CartesianGrid, Tooltip, Legend } from 'recharts';
+
+import graph from '../images/graph.png';
 
 const Graph = (props) => {
 
@@ -21,7 +23,10 @@ const Graph = (props) => {
 
   if (payload.length === 0) {
     return (
-      <h4> Select information from the menu on the right to see a graph</h4>
+      <div className="inital-load">
+      <h4 className="state-view-intro"> Select information from the menu on the right to see a graph</h4>
+        <img className="static-image" src={graph} alt="this is graph image from recharts"/>
+      </div>
     );
   }
   else if (data.graph === 'g1') {
@@ -31,21 +36,31 @@ const Graph = (props) => {
     console.log("FINAL DATASET", finalPayload)
 
     return (
-      //<div> graph 1</div>
+      // <div className="chart-wrapper">
+      //   {isLoading ? 
+      //   <div> loading...</div> :
       <Row className="simpleLineChart">
         <Col xs="12">
-          <LineChart width={1200} height={700} data={finalPayload}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <XAxis dataKey="name" />
+          <LineChart
+            width={1200}
+            height={700}
+            data={finalPayload}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5
+            }}>
+            <XAxis dataKey="date" />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey='AL' stroke="#8884d8" activeDot={{ r: 8 }} />
-            <Line type="monotone" dataKey="AK" stroke="#82ca9d" />
-            <Line type="monotone" dataKey="AZ" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="finalPayload" stroke="#8884d8" activeDot={{ r: 8 }} />
           </LineChart>
         </Col>
       </Row>
+  // }
+  //     </div>
     );
   } else if (data.graph === 'g2') {
     return (
@@ -109,7 +124,7 @@ const Graph = (props) => {
 function StateToStatistic(data, stat) {
   let newDataSet = data.map(e => {
     let obj = {}
-    obj["state"] = e.state
+    // obj["state"] = e.state
     obj["date"] = e.date
 
     if (stat === 'positive') {
@@ -148,7 +163,7 @@ function convertDataset(data, statistic) {
   for (let i = 0; i < n; ++i) {
     if ((j += 1) < n) {
       if (i === 0 && (n === 2)) {                                // Case 1: with 2 objects only
-        return compressed = combineObjs(newPayl[i], newPayl[j])     
+        return compressed = combineObjs(newPayl[i], newPayl[j])
       } else if (i === 0 && (n > 2)) {                           // Case 2A: with more than 2 objects, starting point
         compressed = combineObjs(newPayl[i], newPayl[j])
       } else {                                                   // Case 2B: use temp to compare to previous merge
