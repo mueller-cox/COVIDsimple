@@ -149,23 +149,55 @@ since the might have different property  */
     padding-left: 1.25rem;
 }
 
-.state-view-intro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #615d6c;
-    border-radius: 0.25rem;
-    font-size: larger;
-    color: #ffffff;
-    width: 100%;
-    height: 3rem;
-}
 
 .static-image {
     display: block;
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
+}
+
+.covid-image.graph-page {
+    display: block;
+    width: 70%;
+    height: 100%;
+    margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container {
+    position: relative;
+    width: 50%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0%;
+    transition: .5s ease;
+    background-color: #89bbfe;
+    border-radius: 10rem;
+}
+
+.container:hover .overlay {
+    opacity: 1;
+}
+
+.info {
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 /******************************/

@@ -178,9 +178,9 @@ export default class StateView extends Component {
                                         name="graph"
                                         id="select-graph"
                                         onChange={this.handleChange} >
-                                        <option value="g1">Simple Line</option>
+                                        <option value="g1">Lines</option>
                                         <option value="g2">Stacked Area</option>
-                                        <option value="g3">Custom Shape Bar Chart</option>
+                                        <option value="g3">Bar Chart</option>
                                     </Input>
                                 </FormGroup>
                                 {/* FOR FUTURE IMPLEMENTATION */}
