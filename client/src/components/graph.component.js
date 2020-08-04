@@ -1,6 +1,16 @@
 import React, {useEffect, /*Image */} from 'react';
 import { Row, Col } from 'reactstrap';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { 
+    LineChart, 
+    Line, 
+    XAxis, 
+    YAxis, 
+    CartesianGrid, 
+    Tooltip, 
+    Legend, 
+    ResponsiveContainer,
+    Area,
+    AreaChart } from 'recharts';
 
 import graph from '../images/graph.png';
 import colors from '../colors/colors';
@@ -35,48 +45,41 @@ const Graph = (props) => {
     }
     else if (data.graph === 'g1') {
         return (
-            // <div className="chart-wrapper">
-            //   {isLoading ? 
-            //   <div> loading...</div> :
-            <Row className="simpleLineChart">
-                <Col xs="12">
-                    <LineChart
-                        width={1200} /* Need to replace with responsive values */
-                        height={700}
-                        data={finalPayload}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 20,
-                            bottom: 5
-                        }}>
-                        <XAxis dataKey="date" reversed />
-                        <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <Tooltip />
-                        <Legend />
-                        {stateList.map((state, i) => { /* We need one line for each state in data */
-                            return (
-                                <Line 
-                                    key={state} 
-                                    type="monotone" 
-                                    dataKey={state}    /* each line contains all data for the given state */ 
-                                    stroke={colors[i]} /* lookup color from color palette  */ 
-                                    strokeWidth={3}
-                                    activeDot={{ r: 5 }}
-                                />
-                            );
-                        })}
-                    </LineChart>
-                </Col>
-            </Row>
-            // }
-            //     </div>
+            <ResponsiveContainer width="100%" height='100%'>
+                <LineChart
+                    //width={1200} /* Need to replace with responsive values */
+                    //height={700}
+                    data={finalPayload}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5
+                    }}>
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    <Legend />
+                    {stateList.map((state, i) => { /* We need one line for each state in data */
+                        return (
+                            <Line 
+                                key={state} 
+                                type="monotone" 
+                                dataKey={state}    /* each line contains all data for the given state */ 
+                                stroke={colors[i]} /* lookup color from color palette  */ 
+                                strokeWidth={3}
+                                activeDot={{ r: 5 }}
+                            />
+                        );
+                    })}
+                </LineChart>
+            </ResponsiveContainer>
         );
     } else if (data.graph === 'g2') {
         return (
 
-            <div> graph 2</div>
+            <div> add graph 2</div>
             // <AreaChart width={600} height={400} data={data}
             //   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             //   <CartesianGrid strokeDasharray="3 3" />
@@ -156,7 +159,7 @@ function convertDataset(data, statistic) {
     });
 
     const sortedData = Object.values(dateKeyedMap).sort((a, b) => {
-        return a.date < b.date ? 1 : (a.date === b.date ? 0 : -1);
+        return a.date < b.date ? -1 : (a.date === b.date ? 0 : 1);
     });
     return sortedData;
 

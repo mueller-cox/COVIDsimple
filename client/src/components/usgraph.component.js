@@ -29,7 +29,10 @@ const USGraph = (props) => {
         return (
             <>
             {/* data-tip attribute defines where tool-tip displays its data */}
-            <ComposableMap projection="geoAlbersUsa" style={{width: "100%", height: "75vh", }}> 
+            <ComposableMap 
+                projection="geoAlbersUsa" 
+                style={{width: "100%", height: "75vh", }}
+            > 
                 <Geographies data-tip='' geography={geoData}>
                 {({geographies}) => geographies.map(geo =>
                     <Geography key={geo.rsmKey} geography={geo} />
@@ -64,7 +67,11 @@ const USGraph = (props) => {
             "#782618"]);
 
         return (
-            <ComposableMap data-tip='' projection="geoAlbersUsa" style={{width: "100%", height: "75vh", }}> 
+            <ComposableMap 
+                data-tip='' 
+                projection="geoAlbersUsa" 
+                style={{width: "100%", height: "75vh", }}
+            > 
                 <Geographies geography={geoData}>
                 {({geographies}) => geographies.map(geo => {
                     const cur = data[IDtoState[geo.id]]; // data entry for state on graph date
