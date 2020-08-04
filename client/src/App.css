@@ -217,14 +217,16 @@ since the might have different property  */
 /* for all four cards */
 .card-body {
     padding: 0.7rem;
+    margin-right: -5px;
+    margin-left: -5px;
 }
 
 /* for the three cards at the bottom */
 .card-deck {
     display: flex;
     flex-flow: row wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-right: -10px;
+    margin-left: -10px;
     margin-bottom: -15px;
 }
 
