@@ -1,16 +1,17 @@
-import React, {useEffect, /*Image */} from 'react';
+import React, { useEffect, /*Image */ } from 'react';
 import { Row, Col } from 'reactstrap';
-import { 
-    LineChart, 
-    Line, 
-    XAxis, 
-    YAxis, 
-    CartesianGrid, 
-    Tooltip, 
-    Legend, 
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
     ResponsiveContainer,
     Area,
-    AreaChart } from 'recharts';
+    AreaChart
+} from 'recharts';
 
 import graph from '../images/graph.png';
 import colors from '../colors/colors';
@@ -39,7 +40,7 @@ const Graph = (props) => {
         return (
             <div className="inital-load">
                 <h4 className="state-view-intro"> Select information from the menu on the right to see a graph</h4>
-                <img className="static-image" src={graph} alt="A sample graph from recharts"/>
+                <img className="static-image" src={graph} alt="A sample graph from recharts" />
             </div>
         );
     }
@@ -63,11 +64,11 @@ const Graph = (props) => {
                     <Legend />
                     {stateList.map((state, i) => { /* We need one line for each state in data */
                         return (
-                            <Line 
-                                key={state} 
-                                type="monotone" 
-                                dataKey={state}    /* each line contains all data for the given state */ 
-                                stroke={colors[i]} /* lookup color from color palette  */ 
+                            <Line
+                                key={state}
+                                type="monotone"
+                                dataKey={state}    /* each line contains all data for the given state */
+                                stroke={colors[i]} /* lookup color from color palette  */
                                 strokeWidth={3}
                                 activeDot={{ r: 5 }}
                             />
@@ -115,7 +116,6 @@ const Graph = (props) => {
         // };
 
         return (
-
             <div> add graph 3</div>
             // <BarChart width={600} height={300} data={data}
             //   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
@@ -147,12 +147,12 @@ const Graph = (props) => {
  * Values of state properties are dictated by the recorded statistic for that state, on that date
  */
 function convertDataset(data, statistic) {
-    
+
     let dateKeyedMap = {};
     data.forEach(entry => {
         /* Group entries by date */
         if (!dateKeyedMap[entry.date]) {
-            dateKeyedMap[entry.date] = { date: entry.date } 
+            dateKeyedMap[entry.date] = { date: entry.date }
         }
         /* Add state statistics as properties */
         dateKeyedMap[entry.date][entry.state] = entry[statistic];

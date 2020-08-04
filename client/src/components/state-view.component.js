@@ -11,13 +11,13 @@ import Graph from './graph.component.js'
 import '../App.css';
 
 /* Save inital state for reset, enforcing date selection boundaries */
-const initialState = { 
+const initialState = {
     graph: 'g1',
     var: '',
     stateList: [],                          // list of all requested states
     //startDate: new Date('2020/07/25'),
     /* vvv earliest available Covid data, using above date for dev purposes */
-    startDate: new Date('2020/01/22'), 
+    startDate: new Date('2020/01/22'),
     endDate: new Date(),
     radioSelected: '',                      // tracks selected radio button
     isSubmitted: false,                     // flag for submission, controls graph render
@@ -41,26 +41,26 @@ export default class StateView extends Component {
     /* Change Handlers: */
     /* basic handler:  use if solely updating value field */
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({ [event.target.name]: event.target.value });
         //console.log(this.state);
     }
     handleChangeStates = (event) => {
         // Use jQuery to get all values from select[multiple]
-        this.setState({[event.target.name] : $('#select-states').val()});
+        this.setState({ [event.target.name]: $('#select-states').val() });
         //console.log(this.state);
     }
     handleChangeStartDate = (date) => {
-        this.setState({ startDate : date });
+        this.setState({ startDate: date });
     }
     handleChangeEndDate = (date) => {
-        this.setState({ endDate : date });
+        this.setState({ endDate: date });
     }
 
     /* Submit handler: fetch requested data from API, start Graph render */
     handleSubmit = async (event) => {
         event.preventDefault();
         //console.log('State on submit:', this.state);
-        
+
         let data = await this.fetchStatesData();
         let filtered = this.filterStatesData(data);
         //console.log('Fetched data', data);
@@ -68,7 +68,7 @@ export default class StateView extends Component {
     }
 
     /* callback to pass to graph child to turn off flag for rendering */
-    handleGraphRender () {
+    handleGraphRender() {
         //console.log('setting isSubmitted: false')
         this.setState({ isSubmitted: false });
     }
@@ -81,7 +81,7 @@ export default class StateView extends Component {
         let data = []; // array whose entries correspond to states' historical data
         for (const state of this.state.stateList) {
             let stateCode = state.toLowerCase();
-            let url =`../api/covid-data/${stateCode}`;
+            let url = `../api/covid-data/${stateCode}`;
             //console.log('Fetching data:', state);
             try {
                 let response = await fetch(url);
@@ -90,7 +90,7 @@ export default class StateView extends Component {
                 }
                 let json = await response.json();
                 data.push(json);
-            } catch(error) {
+            } catch (error) {
                 console.error(error);
             }
         }
@@ -113,7 +113,7 @@ export default class StateView extends Component {
 
         data.forEach((stateData) => {
             let dateFiltered = stateData.filter((entry) => {
-                return entry.date >= startDate && entry.date <= endDate; 
+                return entry.date >= startDate && entry.date <= endDate;
             });
             filtered.push(dateFiltered);
         });
@@ -121,16 +121,16 @@ export default class StateView extends Component {
 
         /* compress by selected statistic(s) */
         let compressed = [];
-        const statistics = ['state', 'date', this.state.radioSelected]; 
+        const statistics = ['state', 'date', this.state.radioSelected];
         // (might allow multiple user statistics to be selected in future)
-        
+
         /* compressor creates new object whose only properties are the selected statistics */
         const compressor = (obj) => {
             let result = {};
-            statistics.forEach((stat) =>{
+            statistics.forEach((stat) => {
                 if (obj.hasOwnProperty(stat)) {
                     // Format date into graph-friendly display form
-                    if (stat === 'date') { 
+                    if (stat === 'date') {
                         result[stat] = formatDate(obj[stat])
                     } else {
                         result[stat] = obj[stat];
@@ -146,8 +146,8 @@ export default class StateView extends Component {
 
         /* convert date object to 'YYYYMMDD' */
         function dateToStr(date) {
-            let iso = date.toISOString().substring(0,10);
-            return iso.replace(/-/g,'');
+            let iso = date.toISOString().substring(0, 10);
+            return iso.replace(/-/g, '');
         }
 
         /**
@@ -167,23 +167,24 @@ export default class StateView extends Component {
             <Container className='grid-container state-view' fluid>
                 <Row className='state-view-row'>
                     <Col xs='10'>
-                        { <Graph data={this.state} renderCallback={this.handleGraphRender}/> }
+                        {<Graph data={this.state} renderCallback={this.handleGraphRender} />}
                     </Col>
                     <Col className='menu'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>
                             <FormGroup tag="fieldset">
                                 <FormGroup className="select-graph">
                                     <Label for="select-graph">Select Graph:</Label>
-                                    <Input  type="select"
-                                            name="graph" 
-                                            id="select-graph" 
-                                            onChange={this.handleChange} >
+                                    <Input type="select"
+                                        name="graph"
+                                        id="select-graph"
+                                        onChange={this.handleChange} >
                                         <option value="g1">Simple Line</option>
                                         <option value="g2">Stacked Area</option>
                                         <option value="g3">Custom Shape Bar Chart</option>
                                     </Input>
                                 </FormGroup>
-                                <FormGroup className="select-variable">
+                                {/* FOR FUTURE IMPLEMENTATION */}
+                                {/* <FormGroup className="select-variable">
                                     <Label for="select-variable">Select Variable:</Label>
                                     <Input  type="select"
                                             name="var"  
@@ -194,16 +195,16 @@ export default class StateView extends Component {
                                         <option>var2</option>
                                         <option>var3</option>
                                     </Input>
-                                </FormGroup>
+                                </FormGroup> */}
                                 <FormGroup className="select-states">
                                     <Label for="select-states">Select State(s):</Label>
-                                    <Input type="select" 
-                                            name="stateList" 
-                                            id="select-states" 
-                                            value={this.state.stateList} 
-                                            onChange={this.handleChangeStates} 
-                                            multiple
-                                            required>
+                                    <Input type="select"
+                                        name="stateList"
+                                        id="select-states"
+                                        value={this.state.stateList}
+                                        onChange={this.handleChangeStates}
+                                        multiple
+                                        required>
                                         <option value="AL">Alabama</option>
                                         <option value="AK">Alaska</option>
                                         <option value="AZ">Arizona</option>
@@ -281,43 +282,43 @@ export default class StateView extends Component {
                                         maxDate={initialState.endDate}
                                         onChange={this.handleChangeEndDate}
                                         popperPlacement="left-end"
-                                    />                             
+                                    />
                                 </FormGroup>
                                 <Label for="select-statistic">Select Statistic:</Label>
                                 <FormGroup className="select-statistic1" check>
                                     <Label check>
-                                    <Input  required // makes selecting one of the radioSelected group required
-                                            type="radio" 
+                                        <Input required // makes selecting one of the radioSelected group required
+                                            type="radio"
                                             name="radioSelected"
                                             value="positive"
-                                            onClick={this.handleChange}/>{' '}
+                                            onClick={this.handleChange} />{' '}
                                         Total Infected
                                         </Label>
                                 </FormGroup>
                                 <FormGroup className="select-statistic2" check>
                                     <Label check>
-                                    <Input  type="radio" 
+                                        <Input type="radio"
                                             name="radioSelected"
                                             value="death"
-                                            onClick={this.handleChange}/>{' '}
+                                            onClick={this.handleChange} />{' '}
                                         Total Deaths
                                         </Label>
                                 </FormGroup>
                                 <FormGroup className="select-statistic3" check>
                                     <Label check>
-                                        <Input  type="radio" 
-                                                name="radioSelected"
-                                                value="hospitalized"
-                                                onClick={this.handleChange}/>{' '}
+                                        <Input type="radio"
+                                            name="radioSelected"
+                                            value="hospitalized"
+                                            onClick={this.handleChange} />{' '}
                                         Total Hospitalized
                                         </Label>
                                 </FormGroup>
                                 <FormGroup className="select-statistic4" check>
                                     <Label check>
-                                        <Input  type="radio" 
-                                                name="radioSelected"
-                                                value="positiveIncrease"
-                                                onClick={this.handleChange}/>{' '}
+                                        <Input type="radio"
+                                            name="radioSelected"
+                                            value="positiveIncrease"
+                                            onClick={this.handleChange} />{' '}
                                         Daily New Cases</Label>
                                 </FormGroup>
                             </FormGroup>
@@ -326,9 +327,9 @@ export default class StateView extends Component {
                                     <Button type="submit" className='btn btn-submit btn-dark float-right'>Graph</Button>
                                 </Col>
                                 <Col>
-                                    <Button type="reset" 
-                                            className='btn btn-reset btn-dark float-left'
-                                            onClick={this.handleReset}>Reset
+                                    <Button type="reset"
+                                        className='btn btn-reset btn-dark float-left'
+                                        onClick={this.handleReset}>Reset
                                     </Button>
                                 </Col>
                             </Row>
