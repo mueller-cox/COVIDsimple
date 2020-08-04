@@ -1,6 +1,6 @@
-import React, {useEffect, Image } from 'react';
+import React, {useEffect, /*Image */} from 'react';
 import { Row, Col } from 'reactstrap';
-import { LineChart, Line, XAxis, /*YAxis,*/ CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import graph from '../images/graph.png';
 
@@ -11,30 +11,28 @@ const Graph = (props) => {
 
   // gets passed 'data' as prop when Graph is rendered
   const { data } = props;
-  //console.log('rendering graph', data)
+  console.log('rendering graph', data)
 
   if (!data) {
     return <div> Missing Data!</div>;
   }
 
-  // Get the data
-  const { payload } = data;
+  // Unpack passed data
+  const { payload, stateList, radioSelected } = data;
   console.log("payload", payload)
+   // Format payload to fit recharts graph requirements
+   const finalPayload = convertDataset(payload, radioSelected)
+   console.log("FINAL PAYLOAD", finalPayload)
 
   if (payload.length === 0) {
     return (
       <div className="inital-load">
-      <h4 className="state-view-intro"> Select information from the menu on the right to see a graph</h4>
-        <img className="static-image" src={graph} alt="this is graph image from recharts"/>
+        <h4 className="state-view-intro"> Select information from the menu on the right to see a graph</h4>
+        <img className="static-image" src={graph} alt="A sample graph from recharts"/>
       </div>
     );
   }
   else if (data.graph === 'g1') {
-
-    // Format payload to fit graph requirements
-    const finalPayload = convertDataset(payload, data.radioSelected)
-    console.log("FINAL DATASET", finalPayload)
-
     return (
       // <div className="chart-wrapper">
       //   {isLoading ? 
@@ -42,7 +40,7 @@ const Graph = (props) => {
       <Row className="simpleLineChart">
         <Col xs="12">
           <LineChart
-            width={1200}
+            width={1200} /* Need to replace with responsive values */
             height={700}
             data={finalPayload}
             margin={{
@@ -52,10 +50,15 @@ const Graph = (props) => {
               bottom: 5
             }}>
             <XAxis dataKey="date" />
+            <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="finalPayload" stroke="#8884d8" activeDot={{ r: 8 }} />
+            {stateList.map(state => { /* We need one line for each state in data */
+              return (
+                <Line key={state} type="monotone" dataKey={state} stroke="#8884d8" activeDot={{ r: 8 }} />
+              );
+            })}
           </LineChart>
         </Col>
       </Row>
