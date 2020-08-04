@@ -62,8 +62,8 @@ const Graph = (props) => {
           </LineChart>
         </Col>
       </Row>
-  // }
-  //     </div>
+      // }
+      //     </div>
     );
   } else if (data.graph === 'g2') {
     return (
