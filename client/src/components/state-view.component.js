@@ -5,6 +5,7 @@ import $ from 'jquery';
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; // styling for Datepicker
+import moment from 'moment'
 
 import Graph from './graph.component.js'
 import '../App.css';
@@ -14,9 +15,9 @@ const initialState = {
     graph: 'g1',
     var: '',
     stateList: [],                          // list of all requested states
-    startDate: new Date('2020/07/18'),
+    //startDate: new Date('2020/07/25'),
     /* vvv earliest available Covid data, using above date for dev purposes */
-    //startDate: new Date('2020/01/22'), 
+    startDate: new Date('2020/01/22'), 
     endDate: new Date(),
     radioSelected: '',                      // tracks selected radio button
     isSubmitted: false,                     // flag for submission, controls graph render
@@ -99,14 +100,17 @@ export default class StateView extends Component {
      * method:  filterStatesData:
      * purpose: use current this.state variables filter states' data down to match user request,
      *          for passing to <Graph> component
-     * return:  [filteredData1, filteredData2...] */  
+     * return:  arr: array such that for all i:
+     *               arr[i] = { state: "XX", date:"MM/DD", `${radioSelected}`: api_value }
+     * */
     filterStatesData = (data) => {
         //console.log('filtering', data);
 
+        /* filter by selected date range: */
         let filtered = [];
-        /* filter by selected date range */
-        const startDate = formatDate(this.state.startDate);
-        const endDate = formatDate(this.state.endDate)
+        const startDate = dateToStr(this.state.startDate);
+        const endDate = dateToStr(this.state.endDate)
+
         data.forEach((stateData) => {
             let dateFiltered = stateData.filter((entry) => {
                 return entry.date >= startDate && entry.date <= endDate; 
@@ -117,26 +121,44 @@ export default class StateView extends Component {
 
         /* compress by selected statistic(s) */
         let compressed = [];
-        // might allow multiple user statistics to be selected in future
         const statistics = ['state', 'date', this.state.radioSelected]; 
+        // (might allow multiple user statistics to be selected in future)
+        
         /* compressor creates new object whose only properties are the selected statistics */
         const compressor = (obj) => {
             let result = {};
             statistics.forEach((stat) =>{
-                if (obj.hasOwnProperty(stat))
-                    result[stat] = obj[stat];
+                if (obj.hasOwnProperty(stat)) {
+                    // Format date into graph-friendly display form
+                    if (stat === 'date') { 
+                        result[stat] = formatDate(obj[stat])
+                    } else {
+                        result[stat] = obj[stat];
+                    }
+                }
             });
             return result;
         }
         filtered.forEach((stateData) => {
-            compressed.push(stateData.map(compressor));
+            compressed.push(...stateData.map(compressor));
         });
         return compressed;
 
-        /* format date to YYYYMMDD */
-        function formatDate(date) {
+        /* convert date object to 'YYYYMMDD' */
+        function dateToStr(date) {
             let iso = date.toISOString().substring(0,10);
             return iso.replace(/-/g,'');
+        }
+
+        /**
+         * Take a YYYYMMDD date str as used by the API and convert it into a
+         * MM/DD string as to be used on the graph
+         */
+        function formatDate(datestr) {
+            //console.log('formatting', datestr)
+            let formatted = moment(datestr, "YYYYMMDD").format('M/DD')
+            //console.log('formatted', formatted)
+            return formatted;
         }
     }
 
