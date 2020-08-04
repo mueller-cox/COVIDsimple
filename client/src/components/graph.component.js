@@ -1,4 +1,4 @@
-import React, {useEffect, Image } from 'react';
+import React, { useEffect, Image } from 'react';
 import { Row, Col } from 'reactstrap';
 import { LineChart, Line, XAxis, /*YAxis,*/ CartesianGrid, Tooltip, Legend } from 'recharts';
 
@@ -24,8 +24,8 @@ const Graph = (props) => {
   if (payload.length === 0) {
     return (
       <div className="inital-load">
-      <h4 className="state-view-intro"> Select information from the menu on the right to see a graph</h4>
-        <img className="static-image" src={graph} alt="this is graph image from recharts"/>
+        <h4 className="state-view-intro"> Select information from the menu on the right to see a graph</h4>
+        <img className="static-image" src={graph} alt="this is graph image from recharts" />
       </div>
     );
   }
@@ -59,8 +59,8 @@ const Graph = (props) => {
           </LineChart>
         </Col>
       </Row>
-  // }
-  //     </div>
+      // }
+      //     </div>
     );
   } else if (data.graph === 'g2') {
     return (

@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 /* import { Link } from 'react-router-dom'; */
 
 import '../App.css';
+import covid19 from '../images/covid19.png';
+
 
 export default class About extends Component {
-    /*constructor(props) { super(props); } */
     render() {
         return (
             <div className="container">
-                    <div class="about-project">
-                        <div class="card-body">
-                            <div class="inner">
-                            </div>
-                            <h3 class="card-title mt-2">COVIDsimple</h3>
-                            <h5 class="card-subtitle">A more intuitivi data representation</h5>
-                            <p class="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-                            cupiditate laudantium
-                            corrupti,
-                            minima
-                            dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
+                <div class="about-project">
+                    <div class="card-body">
+                        <div class="inner">
+                            <img className="covid-image" src={covid19} alt="an image of covid-19" />
+                        </div>
+                        <h3 class="card-title mt-2">COVIDsimple</h3>
+                        <h5 class="card-subtitle">A more intuitivi data representation</h5>
+                        <p class="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+                        cupiditate laudantium
+                        corrupti,
+                        minima
+                        dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
                         exercitationem aliquam.</p>
                     </div>
                 </div>

@@ -19,7 +19,6 @@ function App() {
       <Route path="/state-view" exact component={StateView} />
       <Route path="/news" exact component={NewsList} />
       <Route path="/About" exact component={About} />
-
     </Router>
     
   );
