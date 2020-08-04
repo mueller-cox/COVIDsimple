@@ -46,15 +46,10 @@ export default class About extends Component {
                             <div className="inner">
                                 <img src="https://avatars3.githubusercontent.com/u/27927826?s=460&u=cdc6fbdf407938cd1c23d940cf15a999fbc30491&v=4" alt="developer"></img>
                             </div>
-                            <h3 className="card-title mt-2">Cosimo Gonnelli</h3>
-                            <h5 className="card-subtitle">Graduate Student</h5>
-                            <p className="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-                            cupiditate laudantium
-                            corrupti,
-                            minima
-                            dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
-                        exercitationem aliquam.</p>
-                            <a href="https://github.com/cosimogonnelli" className="btn btn-dark btn-sm float-right">GitHub</a>
+                            <h3 class="card-title mt-2">Cosimo Gonnelli</h3>
+                            <h5 class="card-subtitle">Graduate Student</h5>
+                            <p class="card-text mt-3">I am a grad student at Portland State University interested in AI/ML and building new things. I have experince in research with my previous Master and work experience in Psychology in Italy and US. My hobbies are lifting heavy weights, and watching anime and documentaries of all kinds.</p>
+                            <a href="https://github.com/cosimogonnelli" class="btn btn-dark btn-sm float-right">GitHub</a>
                         </div>
                     </div>
                     <div className="card cardSet3 ">
