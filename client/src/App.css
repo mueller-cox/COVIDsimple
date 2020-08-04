@@ -243,15 +243,27 @@ since the might have different property  */
     flex-flow: row wrap;
     margin-right: -10px;
     margin-left: -10px;
-    margin-bottom: -15px;
+    margin-bottom: 25px;
 }
 
 /* for the three cards at the bottom */
 .card {
-    background-color: #fff;
+    /* background-color: #fff; */
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 0.5rem;
+}
+
+.card.cardSet1 {
+    background-color: #cae5ff
+}
+
+.card.cardSet2 {
+    background-color: #acedff
+}
+
+.card.cardSet3 {
+    background-color: #89bbfe
 }
 
 /* zoom effect for all images addes as inner class */
