@@ -16,12 +16,10 @@ export default class About extends Component {
                         </div>
                         <h3 className="card-title mt-2">COVIDsimple</h3>
                         <h5 className="card-subtitle">A more intuitivi data representation</h5>
-                        <p className="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-                        cupiditate laudantium
-                        corrupti,
-                        minima
-                        dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
-                        exercitationem aliquam.</p>
+                        <p className="card-text mt-3">This project started with the idea of creating a site that would be able to represent
+                        COVID-19 data in an accessible and visual way. This was meant to give the user an intuitive feeling of the complexity
+                        of the pandemic and the seriousness of the problem. Due to the short time available for the project, we had to
+                        scale-down the complexity of our graphical representation. </p>
                     </div>
                 </div>
                 <div className='card-deck'>
@@ -38,7 +36,7 @@ export default class About extends Component {
                             minima
                             dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
                         exercitationem aliquam.</p>
-                            <a href="https://github.com/inordirection" className="btn btn-dark btn-sm float-right">GitHub</a>
+                            <a href="https://github.com/inordirection" className="btn btn-dark btn-sm float-right" title="Go to Connor gitHub page">GitHub</a>
                         </div>
                     </div>
                     <div className="card cardSet2 ">
@@ -49,7 +47,7 @@ export default class About extends Component {
                             <h3 class="card-title mt-2">Cosimo Gonnelli</h3>
                             <h5 class="card-subtitle">Graduate Student</h5>
                             <p class="card-text mt-3">I am a grad student at Portland State University interested in AI/ML and building new things. I have experince in research with my previous Master and work experience in Psychology in Italy and US. My hobbies are lifting heavy weights, and watching anime and documentaries of all kinds.</p>
-                            <a href="https://github.com/cosimogonnelli" class="btn btn-dark btn-sm float-right">GitHub</a>
+                            <a href="https://github.com/cosimogonnelli" class="btn btn-dark btn-sm float-right" title="Go to Cosimo gitHub page" >GitHub</a>
                         </div>
                     </div>
                     <div className="card cardSet3 ">
@@ -65,7 +63,7 @@ export default class About extends Component {
                             minima
                             dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
                         exercitationem aliquam.</p>
-                            <a href="https://github.com/mueller-cox" className="btn btn-dark btn-sm float-right">GitHub</a>
+                            <a href="https://github.com/mueller-cox" className="btn btn-dark btn-sm float-right" title="Go to Meghan gitHub page">GitHub</a>
                         </div>
                     </div>
                 </div>
