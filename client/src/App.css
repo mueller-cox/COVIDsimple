@@ -1,11 +1,27 @@
+/*******************************/
+/* Borders                     */
+/*******************************/
+
+/*html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+} */
+
+.bbox {
+    box-sizing: border-box;
+}
+
 /******************************/
 /* Custom font                */
 /******************************/
 @import url("https://fonts.googleapis.com/css2?family=Roboto");
 
+
 body {
     font-family: 'Roboto', serif;
-}
+} 
 
 
 /******************************/
