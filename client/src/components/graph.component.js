@@ -145,17 +145,16 @@ const Graph = (props) => {
  */
 function convertDataset(data, statistic) {
     
-    /* Group entries by date */
     let dateKeyedMap = {};
     data.forEach(entry => {
-        //console.log('processing entry', entry)
+        /* Group entries by date */
         if (!dateKeyedMap[entry.date]) {
             dateKeyedMap[entry.date] = { date: entry.date } 
         }
         /* Add state statistics as properties */
         dateKeyedMap[entry.date][entry.state] = entry[statistic];
     });
-    
+
     const sortedData = Object.values(dateKeyedMap).sort((a, b) => {
         return a.date < b.date ? 1 : (a.date === b.date ? 0 : -1);
     });
