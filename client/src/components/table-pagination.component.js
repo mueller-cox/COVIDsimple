@@ -7,24 +7,48 @@ const PaginationTool = ({
     currentPage,
     handlePageClick,
     handlePrevClick,
-    handleNextClick
+    handleNextClick,
+    handleGoToStartClick,
+    handleGoToEndClick,
+    startIndex,
+    endIndex
 }) => {
-   
+
+    const findEndIndex = () => {
+        if(pageCount < 5){
+            return pageCount;
+        }
+        else{
+            return endIndex;
+        }
+    }
+
+
     return (
         <Pagination>
+        <PaginationItem disabled={ currentPage <= 0 }>
+            <PaginationLink className='start-link' previous onClick={handleGoToStartClick} href="#">
+                Start
+            </PaginationLink>
+        </PaginationItem>
         <PaginationItem disabled={ currentPage <= 0 }>
             <PaginationLink className='prev-link' previous onClick={handlePrevClick} href="#">
             </PaginationLink>
         </PaginationItem>
-        {[...Array(pageCount)].slice(0,5).map((page, index) => (
-            <PaginationItem active={index === currentPage} key={index}>
-                <PaginationLink onClick={e => handlePageClick(e, index)} href="#">
-                    {index + 1}
+        {[...Array(pageCount)].slice(startIndex, findEndIndex()).map((page, index) => (
+            <PaginationItem active={index + startIndex === currentPage} key={index}>
+                <PaginationLink onClick={e => handlePageClick(e, startIndex + index)} href="#">
+                    {startIndex + index + 1}
                 </PaginationLink>
             </PaginationItem>
         ))}
         <PaginationItem disabled={ currentPage >= pageCount }>
             <PaginationLink className='next-link' next onClick={handleNextClick} href="#">
+            </PaginationLink>
+        </PaginationItem>
+        <PaginationItem disabled={ currentPage >= pageCount }>
+            <PaginationLink className='end-link' next onClick={handleGoToEndClick} href="#">
+                End
             </PaginationLink>
         </PaginationItem>
         </Pagination>
