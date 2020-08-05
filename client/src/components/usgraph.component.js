@@ -17,7 +17,7 @@ const stateToPop = require('../geodata/state_pops.json');   // map from state ab
 const USGraph = (props) => {
 
     /* dynamically resize graph on window resize */
-    const [graphHeight, setGraphHeight] = useState('auto');
+    const [graphHeight, setGraphHeight] = useState(window.innerWidth <= 768 ? 'auto' : '80vh');
     
     function handleResize() {
         setGraphHeight(window.innerWidth <= 768 ? 'auto' : '80vh')
