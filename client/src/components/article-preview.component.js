@@ -8,7 +8,7 @@ const Preview = ( {name, content} ) => {
 
     return(
         <div>
-            <Button size='sm' color='info' onClick={toggle}>Preview</Button>
+            <Button className='preview-article' size='sm' onClick={toggle}>Preview</Button>
             <Modal isOpen={modal} toggle={toggle} size='lg'>
                 <ModalHeader toggle={toggle}>Previewing: {name}</ModalHeader>
                 <ModalBody>

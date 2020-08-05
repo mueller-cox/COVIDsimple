@@ -19,6 +19,7 @@ export default class NewsList extends Component {
         }
     }
 
+    /* when news-list renders fetch data from news and articles apis */
     async componentDidMount() {
         let url_news = '../api/news';
         let url_rated = '../api/articles';
@@ -45,14 +46,23 @@ export default class NewsList extends Component {
         }
     }
 
+    /* pass in event from news filter select and updated news_src_filter with selected item
+        which then updates state and rerenders news-list prompting new data to be sent to latest table
+    */
     handleNewsSrcFilter = (event) => {
         this.setState({ news_src_filter: event.target.value })
     }
 
+    /* pass in event from rated filter select and updated rated_src_filter with selected item
+        which then updates state and rerenders news-list prompting new data to be sent to latest table
+    */
     handleRatedSrcFilter = (event) => {
         this.setState({ rated_src_filter: event.target.value })
     }
 
+    /* allows user to update rated data with out reloading entire page 
+        on click re-fetches data from articles api 
+    */
     handleUpdateRated = async () => {
         let url_rated = '../api/articles';
         try {
@@ -61,8 +71,7 @@ export default class NewsList extends Component {
                 throw (response.error);
             }
             let json = await response.json();
-            this.setState({ 'rated': json,
-                             'rated_src_filter': 'None' });
+            this.setState({ 'rated': json});
 
         } catch(error) {
             console.error(error);
@@ -70,21 +79,20 @@ export default class NewsList extends Component {
 
     }
 
-    
     render() {
         return (
-            <Container className="news-container" fluid>
+            <Container className="news-container" role='main' fluid>
                 <Row>
-                    <Col sm='12' md='6'>
-                        <Container className='news-list'>
+                    <Col xs='12' md='6'>
+                        <Container id='latest-news-list' className='latest-news-list' className='news-list'>
                             <Row className='header-row'>
                                 <Col >
-                                    <h3>Latest News</h3>
+                                    <h3 className='news-heading'>Latest News</h3>
                                 </Col>
                             </Row>
                             <Row className='news-filter-row'>
                                 <Col>
-                                    <label htmlFor="news_filter_src">Filter by Source  </label>
+                                    <label htmlFor="news_filter_src">Filter Source  </label>
                                     <select className='filter' id="news_filter_src" name="news_filter_src" onChange={this.handleNewsSrcFilter}>
                                         <option value="None">None</option>
                                         <option value="World">World Health Organization</option>
@@ -94,7 +102,7 @@ export default class NewsList extends Component {
                             </Row>
                             <Row className='news-list-row'>
                                 <Col className='news'>
-                                    <FeedTable 
+                                    <FeedTable id='latest-news-results' className='latest-news-results'
                                         articles={ this.state.news_src_filter === "None" ? 
                                                     this.state.articles : 
                                                     this.state.articles
@@ -104,27 +112,33 @@ export default class NewsList extends Component {
                             </Row>
                         </Container>
                     </Col>
-                    <Col sm="12" md="6"> 
-                        <Container>
+                    <Col xs="12" md="6"> 
+                        <Container id='rated-news-list' name='rated-news-list'>
                             <Row className='header-row'>
                                 <Col >
-                                    <h3>Rated News <Button className='rating-refresh' outline color="secondary" size='sm' onClick={this.handleUpdateRated}>Refresh Results</Button></h3>
+                                        <h3 className='news-heading'>Rated News </h3>
                                 </Col>
                             </Row>
                             <Row className='news-filter-row'>
-                                <Col>
-                                    <label htmlFor="rated_filter_src">Filter by Source  </label>
+                                <Col lg='8'md='12'>
+                                    <label htmlFor="rated_filter_src">Filter Source  </label>
                                     <select className='filter' id="rated_filter_src" name="rated_filter_src" onChange={this.handleRatedSrcFilter}>
                                         <option value="All">None</option>
                                         <option value="World">World Health Organization</option>
                                         <option value="Disease">Centers for Disease Control</option>
                                     </select>
-                                    
                                 </Col>
+                                <Col lg='4' md='12'>
+                                    <Button id='refresh-rated' className='rating-refresh' outline color="secondary" 
+                                        size='sm' onClick={this.handleUpdateRated} float-right>
+                                        Get Updates
+                                    </Button>
+                                </Col> 
                             </Row>
                             <Row className='news-list-row'>
                                 <Col  className='news'>
-                                    <RatedTable articles={ this.state.rated_src_filter === "None" ? this.state.rated : 
+                                    <RatedTable id='rated-news-results' name='rated-news-results'
+                                                articles={ this.state.rated_src_filter === "None" ? this.state.rated : 
                                                         this.state.rated.filter(article => article.source.includes(this.state.rated_src_filter))}
                                     />
                                 </Col>

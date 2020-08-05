@@ -16,7 +16,7 @@ const FeedTable = ({ articles }) => {
 
     return(
         <div>
-        <Table borderless responsive>
+        <Table id='latest-news' name='latest-news' borderless responsive>
             <thead>
             </thead>
             <tbody>
@@ -26,8 +26,8 @@ const FeedTable = ({ articles }) => {
                    return (
                     <tr key={ i }>
                         <td ><span className="name">{ReactHtmlParser(article.name)}</span> <Badge color="dark">{ article.date.slice(0,10) }</Badge></td>
-                        <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
-                        <td><RatingDropDownButton 
+                        <td ><Button className='read-latest' size='sm' onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
+                        <td><RatingDropDownButton
                             handleItemClick={async (e, rating) => {
                                 let url = ('../api/articles/add');
                                 let to_send = article;
@@ -53,7 +53,7 @@ const FeedTable = ({ articles }) => {
                          
             </tbody>
             </Table>
-            <PaginationTool pageCount={pageCount} 
+            <PaginationTool aria-label='latest-news-pagintation' pageCount={pageCount} 
             currentPage={currentPage} 
             handlePageClick={(e, index) => {
                 e.preventDefault();

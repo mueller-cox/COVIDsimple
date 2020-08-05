@@ -14,7 +14,7 @@ const RatedTable = ({ articles }) => {
 
     return(
         <div className="xs=5">
-        <Table responsive borderless>
+        <Table id='rated-news' name='rated-news' responsive borderless>
             <thead>
             </thead>
             <tbody>
@@ -23,8 +23,10 @@ const RatedTable = ({ articles }) => {
                 .map( (article, index) => {
                    return (
                     <tr key={index}>
-                        <td >{ ReactHtmlParser(article.name) } <Badge color="dark">{ article.date.slice(0,10) }</Badge> <Badge color='warning' pill>Rating: { Math.floor(article.rating_sum / article.rating_count)}</Badge></td>
-                        <td ><Button color="primary" size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
+                        <td >{ ReactHtmlParser(article.name) } <Badge color="dark">{ article.date.slice(0,10) }</Badge> 
+                            <Badge className='rating-badge' pill>Rating: { Math.floor(article.rating_sum / article.rating_count)}
+                            </Badge></td>
+                        <td ><Button className='read-rated' size="sm" onClick={() => window.open(`${article.url}`, "_blank")}>Read</Button></td>
                         <td >
                             <RatingDropDownButton 
                             handleItemClick={async (e, rating) => {
@@ -52,7 +54,7 @@ const RatedTable = ({ articles }) => {
                          
             </tbody>
         </Table>
-        <PaginationTool pageCount={pageCount} 
+        <PaginationTool aria-label='rated-news-pagination' pageCount={pageCount} 
         currentPage={currentPage} 
         handlePageClick={(e, index) => {
             e.preventDefault();

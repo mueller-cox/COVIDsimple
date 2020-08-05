@@ -228,6 +228,7 @@ since the might have different property  */
     border-radius: 0.2em;
     margin-left: 1em;
     margin-right: 1em;
+    margin-bottom: 3em;
     border: 1px solid gainsboro;
 }
 
@@ -348,13 +349,62 @@ p.card-text {
 
 .news-container .col {
     background: white;
+    padding: .50em;
 }
 
 .filter {
     margin: .25em;
-    padding: .25em;
 }
 
 label {
     font-weight: bold;
+}
+
+button.read-latest {
+    background-color: #615D6C;
+    border-color:  #615D6C;
+
+}
+
+button.read-rated {
+    background-color: #615D6C;
+    border-color:  #615D6C;
+
+}
+
+button.preview-article {
+    background-color: #5976AB;
+    border-color:  #5976AB;
+}
+
+span.rating-badge {
+    background-color: #89BBFE;
+    border-color:  #89BBFE;
+    color: black;
+}
+
+a.page-link {
+    color: black;
+}
+
+a.page-link:hover {
+    color: black;
+    font-weight: bold;
+}
+
+li.page-item.active > .page-link {
+    background-color: #615D6C;
+    border-color:  #615D6C;
+}
+
+h3.news-heading {
+    color: #615D6C;
+    font-weight: bolder;
+}
+
+@media (max-width: 768px){
+    button.preview-article {
+        display:none;
+    }
+    
 }
