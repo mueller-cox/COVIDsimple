@@ -56,7 +56,7 @@ body {
 /******************************/
 
 .national-map {
-    /*display: table;*/
+    display: table;
     border-radius: 0.2em;
     margin-left: 1em;
     margin-right: 1em;
@@ -76,7 +76,7 @@ body {
 
 /* stile for the graph box */
 .graph {
-    /*display: table;*/
+    display: table;
     border-radius: 0.2em;
     margin-left: 1em;
     margin-right: 1em;
@@ -103,7 +103,6 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 0.2em;
-    /*margin-right: .5em;*/
     border: 1px solid gainsboro;
 }
 

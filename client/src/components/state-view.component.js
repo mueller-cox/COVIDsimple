@@ -10,7 +10,7 @@ import moment from 'moment'
 import Graph from './graph.component.js'
 import '../App.css';
 
-/* Save inital state for reset, enforcing date selection boundaries */
+/* Save inital state for reset and enforcing date selection boundaries */
 const initialState = {
     graph: 'g1',
     var: '',
@@ -20,7 +20,6 @@ const initialState = {
     startDate: new Date('2020/01/22'),
     endDate: new Date(),
     radioSelected: '',                      // tracks selected radio button
-    isSubmitted: false,                     // flag for submission, controls graph render
     payload: []                             // array to populate with requested data from user
 };
 
@@ -29,7 +28,7 @@ export default class StateView extends Component {
         super(props);
         let initState = Object.assign({}, initialState) // copy state to avoid overwriting initialState
         this.state = initState;
-        this.handleGraphRender = this.handleGraphRender.bind(this); // bind state-view context to render handler for graph
+        //this.handleGraphRender = this.handleGraphRender.bind(this); // bind state-view context to render handler for graph
     }
 
     /* Reset Handler */
@@ -64,14 +63,14 @@ export default class StateView extends Component {
         let data = await this.fetchStatesData();
         let filtered = this.filterStatesData(data);
         //console.log('Fetched data', data);
-        this.setState({ payload: filtered, isSubmitted: true }); // triggers Graph to render
+        this.setState({ payload: filtered }); // triggers Graph to render
     }
 
     /* callback to pass to graph child to turn off flag for rendering */
-    handleGraphRender() {
+    /*handleGraphRender() {
         //console.log('setting isSubmitted: false')
         this.setState({ isSubmitted: false });
-    }
+    }*/
 
     /* Helpers to Submit handler: */
     /*  method:     fetchStatesData:
@@ -167,7 +166,7 @@ export default class StateView extends Component {
             <Container className='grid-container state-view' fluid>
                 <Row className='state-view-row'>
                     <Col xs='10'>
-                        {<Graph data={this.state} renderCallback={this.handleGraphRender} />}
+                        {<Graph data={this.state} />}
                     </Col>
                     <Col className='menu bg-main'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>

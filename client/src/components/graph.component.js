@@ -1,5 +1,5 @@
-import React, { useEffect, /*Image */ } from 'react';
-import { Row, Col } from 'reactstrap';
+import React from 'react';
+//import { Row, Col } from 'reactstrap';
 import {
     LineChart,
     Line,
@@ -20,9 +20,6 @@ import covid from '../images/covid19.png';
 import colors from '../colors/colors';
 
 const Graph = (props) => {
-
-    // toggle off isSubmitted flag when component mounts/updates
-    useEffect(props.renderCallback);
 
     // gets passed 'data' as prop when Graph is rendered
     const { data } = props;
@@ -53,8 +50,6 @@ const Graph = (props) => {
         return (
             <ResponsiveContainer width="100%" height='100%'>
                 <LineChart
-                    //width={1200} /* Need to replace with responsive values */
-                    //height={700}
                     data={finalPayload}
                     margin={{
                         top: 5,
@@ -86,8 +81,6 @@ const Graph = (props) => {
         return (
             <ResponsiveContainer width="100%" height='100%'>
                 <AreaChart
-                    // width={1200}
-                    // height={700}
                     data={finalPayload}
                     margin={{
                         top: 5,
@@ -120,8 +113,6 @@ const Graph = (props) => {
         return (
             <ResponsiveContainer width="100%" height='100%'>
                 <BarChart
-                    // width={1200}
-                    // height={700}
                     data={finalPayload}
                     margin={{
                         top: 5,
@@ -254,8 +245,16 @@ function convertDataset(data, statistic) {
  */
 function graphsEqual(prevProps, nextProps) {
     // if the graph is not set to be submit, don't re-render
-    //console.log('should graph render?')
-    return !nextProps.data.isSubmitted
+    console.log('should graph render?')
+    const p = prevProps.data, n = nextProps.data;
+    return compareByProps(p, n, ['payload']);
+}
+
+function compareByProps(obj1, obj2, proplist) {
+    for (const prop of proplist) {
+        if (obj1[prop] !== obj2[prop]) return false;
+    }    
+    return true;        
 }
 
 // export a memoized Graph to control re-rendering
