@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 //import { Row, Col } from 'reactstrap';
 import {
     LineChart,
@@ -8,7 +8,6 @@ import {
     CartesianGrid,
     Tooltip,
     Legend,
-    ResponsiveContainer,
     Area,
     AreaChart,
     BarChart,
@@ -21,9 +20,27 @@ import colors from '../colors/colors';
 
 const Graph = (props) => {
 
+    /* dynamically resize graph on window resize */
+    const [graphDimensions, setGraphDimensions] = useState({
+        height: window.innerHeight * getHeightFactor(), 
+        width: window.innerWidth * getWidthFactor()
+    });
+
+    function handleResize() {
+        setGraphDimensions({ 
+            height: Math.round(window.innerHeight * getHeightFactor()), 
+            width: Math.round(window.innerWidth * getWidthFactor())
+        });
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize)
+        return _ => { window.removeEventListener('resize', handleResize) }
+    })
+
     // gets passed 'data' as prop when Graph is rendered
     const { data } = props;
-    console.log('rendering graph', data)
+    //console.log('rendering graph', data)
 
     if (!data) {
         return <div> Missing Data!</div>;
@@ -31,112 +48,113 @@ const Graph = (props) => {
 
     // Unpack passed data
     const { payload, stateList, radioSelected } = data;
-    console.log("payload", payload)
+    //console.log("payload", payload)
+
     // Format payload to fit recharts graph requirements
     const finalPayload = convertDataset(payload, radioSelected)
-    console.log("FINAL PAYLOAD", finalPayload)
+    //console.log("FINAL PAYLOAD", finalPayload)
 
     if (payload.length === 0) {
         return (
             <div className='container'>
                 <img className="covid-image graph-page" src={covid} alt="COVID-19" />
                 <div className="overlay">
-                    <div className="info"> Use the menu to the right to graph data</div>
+                    <div className="info"> Use the adjacent menu to graph data</div>
                 </div>
             </div>
         );
     }
     else if (data.graph === 'g1') {
         return (
-            <ResponsiveContainer width="100%" height='100%'>
-                <LineChart
-                    data={finalPayload}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                    }}>
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Tooltip />
-                    <Legend />
-                    {stateList.map((state, i) => { /* We need one line for each state in data */
-                        return (
-                            <Line
-                                key={state}
-                                type="monotone"
-                                dataKey={state}    /* each line contains all data for the given state */
-                                stroke={colors[i]} /* lookup color from color palette  */
-                                strokeWidth={1}
-                                activeDot={{ r: 5 }}
-                            />
-                        );
-                    })}
-                </LineChart>
-            </ResponsiveContainer>
+            <LineChart
+                height={ graphDimensions.height }
+                width={ graphDimensions.width }
+                data={ finalPayload }
+                margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                }}>
+                <XAxis dataKey="date" />
+                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Tooltip />
+                <Legend />
+                {stateList.map((state, i) => { /* We need one line for each state in data */
+                    return (
+                        <Line
+                            key={state}
+                            type="monotone"
+                            dataKey={state}    /* each line contains all data for the given state */
+                            stroke={colors[i]} /* lookup color from color palette  */
+                            strokeWidth={1}
+                            activeDot={{ r: 5 }}
+                        />
+                    );
+                })}
+            </LineChart>
         );
     } else if (data.graph === 'g2') {
         return (
-            <ResponsiveContainer width="100%" height='100%'>
-                <AreaChart
-                    data={finalPayload}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                    }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    {stateList.map((state, i) => { /* We need one line for each state in data */
-                        return (
-                            <Area
-                                key={state}
-                                type="monotone"
-                                dataKey={state}    /* each line contains all data for the given state */
-                                stroke={colors[i]} /* lookup color from color palette  */
-                                strokeWidth={1}
-                                activeDot={{ r: 5 }}
-                                fill={colors[i]}
-                            />
-                        );
-                    })}
-                </AreaChart>
-            </ResponsiveContainer >
+            <AreaChart
+                height={ graphDimensions.height }
+                width={ graphDimensions.width }
+                data={ finalPayload }
+                margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {stateList.map((state, i) => { /* We need one line for each state in data */
+                    return (
+                        <Area
+                            key={state}
+                            type="monotone"
+                            dataKey={state}    /* each line contains all data for the given state */
+                            stroke={colors[i]} /* lookup color from color palette  */
+                            strokeWidth={1}
+                            activeDot={{ r: 5 }}
+                            fill={colors[i]}
+                        />
+                    );
+                })}
+            </AreaChart>
         );
     } else if (data.graph === 'g3') {
         return (
-            <ResponsiveContainer width="100%" height='100%'>
-                <BarChart
-                    data={finalPayload}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                    }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    {stateList.map((state, i) => { /* We need one line for each state in data */
-                        return (
-                            <Bar
-                                key={state}
-                                type="monotone"
-                                dataKey={state}    /* each line contains all data for the given state */
-                                fill={colors[i]}
-                            />
-                        );
-                    })}
-                </BarChart>
-            </ResponsiveContainer >
+            <BarChart
+                height={ graphDimensions.height }
+                width={ graphDimensions.width }
+                data={ finalPayload }
+                margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {stateList.map((state, i) => { /* We need one line for each state in data */
+                    return (
+                        <Bar
+                            key={state}
+                            type="monotone"
+                            dataKey={state}    /* each line contains all data for the given state */
+                            fill={colors[i]}
+                        />
+                    );
+                })}
+            </BarChart>
         );
     }
 }
@@ -171,6 +189,48 @@ function convertDataset(data, statistic) {
     return sortedData;
 
 }
+
+/** 
+ * return the scale factors used determine graph dimensions responsively
+ *      appropriate factors are determined with refernce to hosting 
+ *      Col's dimensions in parent, state-view component
+ * */
+function getWidthFactor() {
+    let width = window.innerWidth;
+    if (width < 768) {       /* bootstap xs, sm */
+        return 11.5/12;
+    }
+    else if (width < 1200) { /* bootstrap md, lg */
+        return 8.5/12;
+    }
+    else {                   /* bootstrap xl */
+        return 9.5/12; 
+    }
+}
+function getHeightFactor() {
+    let width = window.innerWidth;
+    if (width < 768) { /* bootstrap xs, sm */
+        return 0.5;
+    }
+    else { return 0.8; }
+}
+
+function graphsEqual(prevProps, nextProps) {
+    // if the graph does not have a new payload, don't render
+    // console.log('should graph render?')
+    const p = prevProps.data, n = nextProps.data;
+    return compareByProps(p, n, ['payload']);
+}
+
+function compareByProps(obj1, obj2, proplist) {
+    for (const prop of proplist) {
+        if (obj1[prop] !== obj2[prop]) return false;
+    }    
+    return true;        
+}
+
+// export a memoized Graph to control re-rendering
+export default React.memo(Graph, graphsEqual)
 
 // // Change statistic key into state name
 // function StateToStatistic(data, stat) {
@@ -243,19 +303,3 @@ function convertDataset(data, statistic) {
 /** Controls whether memoized graph re-renders:
  *  (functional equivalent of shouldComponent(not)Update lifecycle method)
  */
-function graphsEqual(prevProps, nextProps) {
-    // if the graph is not set to be submit, don't re-render
-    console.log('should graph render?')
-    const p = prevProps.data, n = nextProps.data;
-    return compareByProps(p, n, ['payload']);
-}
-
-function compareByProps(obj1, obj2, proplist) {
-    for (const prop of proplist) {
-        if (obj1[prop] !== obj2[prop]) return false;
-    }    
-    return true;        
-}
-
-// export a memoized Graph to control re-rendering
-export default React.memo(Graph, graphsEqual)

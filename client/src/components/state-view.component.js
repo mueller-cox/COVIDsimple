@@ -13,7 +13,7 @@ import '../App.css';
 /* Save inital state for reset and enforcing date selection boundaries */
 const initialState = {
     graph: 'g1',
-    var: '',
+    //var: '',
     stateList: [],                          // list of all requested states
     //startDate: new Date('2020/07/25'),
     /* vvv earliest available Covid data, using above date for dev purposes */
@@ -165,7 +165,7 @@ export default class StateView extends Component {
         return (
             <Container className='grid-container state-view' fluid>
                 <Row className='state-view-row'>
-                    <Col xs='10'>
+                    <Col xs='12' md='9' xl='10' className="graph">
                         {<Graph data={this.state} />}
                     </Col>
                     <Col className='menu bg-main'>
@@ -322,12 +322,12 @@ export default class StateView extends Component {
                                 </FormGroup>
                             </FormGroup>
                             <Row>
-                                <Col>
-                                    <Button type="submit" className='btn btn-submit btn-dark float-right'>Graph</Button>
+                                <Col xs="4" sm="6">
+                                    <Button type="submit" className='btn btn-submit btn-dark'>Graph</Button>
                                 </Col>
-                                <Col>
+                                <Col >
                                     <Button type="reset"
-                                        className='btn btn-reset btn-dark float-left'
+                                        className='btn btn-reset btn-dark'
                                         onClick={this.handleReset}>Reset
                                     </Button>
                                 </Col>

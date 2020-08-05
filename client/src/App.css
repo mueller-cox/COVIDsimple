@@ -58,9 +58,9 @@ body {
 .national-map {
     display: table;
     border-radius: 0.2em;
-    margin-left: 1em;
+    /*margin-left: 1em;
     margin-right: 1em;
-    /*height: 100%;*/
+    height: 100%;*/
 }
 
 .recommended-news {
@@ -77,10 +77,12 @@ body {
 /* stile for the graph box */
 .graph {
     display: table;
-    border-radius: 0.2em;
-    margin-left: 1em;
-    margin-right: 1em;
-    border: 1px solid gainsboro;
+    /* height: 80vh; */
+    width: 100%;
+    /* border-radius: 0.2em; */
+    /* margin-left: 1em;*/
+    /* margin-right: 1em; */
+    /* border: 1px solid gainsboro; */
 }
 
 /* style fot the entire window excluded bavbar*/
@@ -180,7 +182,8 @@ since the might have different property  */
     display: block;
     width: 70%;
     height: 100%;
-    margin-top: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     margin-left: auto;
     margin-right: auto;
 }
