@@ -1,29 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ComposableMap,
   Geographies,
   Geography,
 } from "react-simple-maps";
-import {
-    scaleQuantile,
-    //scaleQuantize
-} from "d3-scale";
 import { Modes } from './national-view.component';
 
-const moment = require('moment'); // for formatting date
+const d3 = require('d3');           // for coloring graph
+const moment = require('moment');   // for formatting date
 
 // Import geodata maps
 const geoData = require('../geodata/states_topojson.json')  // url to a valid topojson file
 const IDtoState = require('../geodata/state_ids.json');     // map from geo id to state abbreviation
 const stateToPop = require('../geodata/state_pops.json');   // map from state abbrev. to population
 
-
 const USGraph = (props) => {
+
+    /* dynamically resize graph on window resize */
+    const [graphHeight, setGraphHeight] = useState('auto');
+    
+    useEffect(() => {
+        function handleResize() {
+            setGraphHeight(window.innerWidth <= 768 ? 'auto' : '80vh')
+        }
+        
+        window.addEventListener('resize', handleResize)
+    
+        return _ => { window.removeEventListener('resize', handleResize) }
+    })
 
     const { state, setTooltip } = props;
     const data = state.data ? state.data[formatDate(state.date)] : null; // get data from requested date
 
-    //console.log('rendering graph', data);
+    // console.log('rendering graph', data);
     // If no data loaded or available for selected date, return placeholder view
     if (!data) { 
         return (
@@ -31,7 +40,7 @@ const USGraph = (props) => {
             {/* data-tip attribute defines where tool-tip displays its data */}
             <ComposableMap 
                 projection="geoAlbersUsa" 
-                style={{width: "100%", height: "75vh", }}
+                style={{width: "100%", height: graphHeight, }}
             > 
                 <Geographies data-tip='' geography={geoData}>
                 {({geographies}) => geographies.map(geo =>
@@ -52,25 +61,16 @@ const USGraph = (props) => {
             Object.values(data)
             .filter(entry => entry[statistic] !== null) // only entries with stat available affect scale
             .map(entry => normalizeStatistic(entry[statistic], per_capita, entry['state']));
-        const colorScale = 
-            scaleQuantile()
-            .domain(colorDomain)
-            .range([
-            "#ffedea",
-            "#ffcec5",
-            "#ffad9f",
-            "#ff8a75",
-            "#ff5533",
-            "#e2492d",
-            "#be3d26",
-            "#9a311f",
-            "#782618"]);
+         
+
+        const colorScale = d3.scaleSequentialQuantile(colorDomain, d3.interpolateBlues)
 
         return (
+            <>
             <ComposableMap 
                 data-tip='' 
                 projection="geoAlbersUsa" 
-                style={{width: "100%", height: "75vh", }}
+                style={{width: "100%", height: graphHeight, }}
             > 
                 <Geographies geography={geoData}>
                 {({geographies}) => geographies.map(geo => {
@@ -98,6 +98,8 @@ const USGraph = (props) => {
                 })}
                 </Geographies>
             </ComposableMap>
+            <h2>{' '}</h2>
+            </>
         )
     }
 }

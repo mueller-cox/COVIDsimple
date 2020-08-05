@@ -105,13 +105,13 @@ export default class NationalView extends Component {
         return (
             <Container className='grid-container national-view' fluid>
                 <Row className='national-view-row'>
-                    <Col xs='10' className='national-map'>
+                    <Col xs='12' md='9' xl='10' className='national-map'>
                         <>
                         <ReactTooltip>{this.state.tooltip}</ReactTooltip>
                         <USGraph state={this.state} setTooltip={this.setTooltip}/>
                         </>
                     </Col>
-                    <Col className='menu'>
+                    <Col className='menu bg-main'>
                         <Form className='info-selector'>
                             <FormGroup tag="fieldset">
                                 <FormGroup className="select-mode">
@@ -166,9 +166,9 @@ export default class NationalView extends Component {
                                     </Label>
                                 </FormGroup><br/>
                                 <Label for="select-date">Select Date:</Label>
-                                <FormGroup className="select-date" id="select-date">
+                                <FormGroup id="select-date">
                                     <Row>
-                                        <Col xs="2">
+                                        <Col xs='1'>
                                             <Slider /* y value encodes the day since DAY0 */
                                                 axis="y"
                                                 ymin={0}
@@ -192,7 +192,7 @@ export default class NationalView extends Component {
                                                   }}
                                             />
                                         </Col>
-                                        <Col xs="10" className="align-self-center">
+                                        <Col xs='2' md='5' className="align-self-center">
                                             {this.state.date.toLocaleDateString()}
                                         </Col>
                                     </Row>

@@ -169,7 +169,7 @@ export default class StateView extends Component {
                     <Col xs='10'>
                         {<Graph data={this.state} renderCallback={this.handleGraphRender} />}
                     </Col>
-                    <Col className='menu'>
+                    <Col className='menu bg-main'>
                         <Form className='info-selector' onSubmit={this.handleSubmit}>
                             <FormGroup tag="fieldset">
                                 <FormGroup className="select-graph">

@@ -94,8 +94,11 @@ export default class NewsList extends Component {
                             </Row>
                             <Row className='news-list-row'>
                                 <Col className='news'>
-                                    <FeedTable articles={ this.state.news_src_filter === "None" ? this.state.articles : this.state.articles.filter 
-                                                                                (article => article.source.includes(this.state.news_src_filter)) }
+                                    <FeedTable 
+                                        articles={ this.state.news_src_filter === "None" ? 
+                                                    this.state.articles : 
+                                                    this.state.articles
+                                                    .filter(article => article.source.includes(this.state.news_src_filter)) }
                                     />
                                 </Col>
                             </Row>
