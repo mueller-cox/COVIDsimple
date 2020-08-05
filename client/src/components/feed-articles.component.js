@@ -11,8 +11,10 @@ import '../App.css';
 
 const FeedTable = ({ articles }) => {
     const [currentPage, setPage] = useState(0);
-    const pageSize=20;
+    const pageSize=10;
     const pageCount = Math.ceil((articles.length) / pageSize);
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(5);
 
     return(
         <div>
@@ -58,19 +60,47 @@ const FeedTable = ({ articles }) => {
             handlePageClick={(e, index) => {
                 e.preventDefault();
                 setPage(index);
-            }
                 
-            }
+            }}
             handleNextClick={() => {
                 if(currentPage < pageCount){
                     setPage(currentPage + 1);
+                }
+
+                if(pageCount > 5){
+                    if(endIndex < pageCount){
+                        setStartIndex(startIndex + 1);
+                        setEndIndex(endIndex + 1);
+                    }
                 }
             }} 
             handlePrevClick={() => {
                 if(currentPage > 0){
                     setPage(currentPage - 1);
                 }
-            }}/>
+                if(pageCount > 5){
+                    if(startIndex > 0){
+                        setStartIndex(startIndex - 1);
+                        setEndIndex(endIndex - 1);
+                    }
+                }
+            }}
+            handleGoToStartClick={() => {
+                setPage(0);
+                if(pageCount > 5){
+                    setStartIndex(0);
+                    setEndIndex(5);
+                }
+            }}
+            handleGoToEndClick={() => {
+                setPage(pageCount);
+                if(pageCount > 5){
+                    setStartIndex(pageCount - 5);
+                    setEndIndex(pageCount);
+                }
+            }}
+            startIndex={startIndex} endIndex={endIndex}
+            />
             </div>
                 
     );
