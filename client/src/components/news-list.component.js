@@ -84,7 +84,7 @@ export default class NewsList extends Component {
             <Container className="news-container" role='main' fluid>
                 <Row>
                     <Col xs='12' md='6'>
-                        <Container id='latest-news-list' className='latest-news-list' className='news-list'>
+                        <Container id='latest-news-list' className='latest-news-list'>
                             <Row className='header-row'>
                                 <Col >
                                     <h3 className='news-heading'>Latest News</h3>
@@ -130,7 +130,7 @@ export default class NewsList extends Component {
                                 </Col>
                                 <Col lg='4' md='12'>
                                     <Button id='refresh-rated' className='rating-refresh' outline color="secondary" 
-                                        size='sm' onClick={this.handleUpdateRated} float-right>
+                                        size='sm' onClick={this.handleUpdateRated}>
                                         Get Updates
                                     </Button>
                                 </Col> 
