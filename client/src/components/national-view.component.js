@@ -103,7 +103,7 @@ export default class NationalView extends Component {
     
     render() {
         return (
-            <Container className='grid-container national-view' fluid>
+            <Container className='grid-container national-view' fluid role="main">
                 <Row className='national-view-row'>
                     <Col xs='12' md='9' xl='10' className='national-map'>
                         <>
@@ -118,7 +118,8 @@ export default class NationalView extends Component {
                                     <Label for="select-mode">Select Data Mode:</Label>
                                     <Input  type="select"
                                             name="mode"  
-                                            id="select-type" 
+                                            id="select-type"
+                                            aria-label="Select data mode dropdown" 
                                             onChange={this.handleChange} >
                                         <option value={Modes.AGG}>Aggregate</option>
                                         <option value={Modes.INC}>Daily Increase</option>

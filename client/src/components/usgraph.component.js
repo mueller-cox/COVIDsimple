@@ -19,13 +19,12 @@ const USGraph = (props) => {
     /* dynamically resize graph on window resize */
     const [graphHeight, setGraphHeight] = useState('auto');
     
+    function handleResize() {
+        setGraphHeight(window.innerWidth <= 768 ? 'auto' : '80vh')
+    }
+
     useEffect(() => {
-        function handleResize() {
-            setGraphHeight(window.innerWidth <= 768 ? 'auto' : '80vh')
-        }
-        
         window.addEventListener('resize', handleResize)
-    
         return _ => { window.removeEventListener('resize', handleResize) }
     })
 
@@ -93,12 +92,14 @@ const USGraph = (props) => {
                                 else setTooltip(formatNumber(normalized));  
                             }}
                             onMouseLeave={() => setTooltip('')}
+                            style={{
+                                alt: `${geo.rsmKey}`
+                            }}
                         />
                     );
                 })}
                 </Geographies>
             </ComposableMap>
-            <h2>{' '}</h2>
             </>
         )
     }

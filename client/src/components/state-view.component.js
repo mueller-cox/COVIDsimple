@@ -163,7 +163,7 @@ export default class StateView extends Component {
 
     render() {
         return (
-            <Container className='grid-container state-view' fluid>
+            <Container className='grid-container state-view' fluid role="main">
                 <Row className='state-view-row'>
                     <Col xs='12' md='9' xl='10' className="graph">
                         {<Graph data={this.state} />}
@@ -257,12 +257,13 @@ export default class StateView extends Component {
                                         <option value="WY">Wyoming</option>
                                     </Input>
                                 </FormGroup>
-                                <Label for="select-date">Select Date Range:</Label>
+                                <Label for="select-date">Select Date Range:
                                 <FormGroup className="select-date" id="select-date">
                                     {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
                                     {/* Ref: https://reactdatepicker.com/ */}
-                                    <DatePicker className="date"
+                                    <DatePicker 
+                                        className="date"
                                         selected={this.state.startDate}
                                         selectsStart
                                         startDate={this.state.startDate}
@@ -272,7 +273,8 @@ export default class StateView extends Component {
                                         onChange={this.handleChangeStartDate}
                                         popperPlacement="left-end"
                                     />
-                                    <DatePicker className="date"
+                                    <DatePicker 
+                                        className="date"
                                         selected={this.state.endDate}
                                         selectsEnd
                                         startDate={this.state.startDate}
@@ -283,6 +285,7 @@ export default class StateView extends Component {
                                         popperPlacement="left-end"
                                     />
                                 </FormGroup>
+                                </Label>
                                 <Label for="select-statistic">Select Statistic:</Label>
                                 <FormGroup className="select-statistic1" check>
                                     <Label check>
