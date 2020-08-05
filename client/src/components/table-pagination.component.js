@@ -11,9 +11,9 @@ const PaginationTool = ({
 }) => {
    
     return (
-        <Pagination aria-label="Paginate Table">
+        <Pagination>
         <PaginationItem disabled={ currentPage <= 0 }>
-            <PaginationLink previous onClick={handlePrevClick} href="#">
+            <PaginationLink className='prev-link' previous onClick={handlePrevClick} href="#">
             </PaginationLink>
         </PaginationItem>
         {[...Array(pageCount)].slice(0,5).map((page, index) => (
@@ -24,7 +24,7 @@ const PaginationTool = ({
             </PaginationItem>
         ))}
         <PaginationItem disabled={ currentPage >= pageCount }>
-            <PaginationLink next onClick={handleNextClick} href="#">
+            <PaginationLink className='next-link' next onClick={handleNextClick} href="#">
             </PaginationLink>
         </PaginationItem>
         </Pagination>

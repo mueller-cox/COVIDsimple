@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import {ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import '../App.css';
 
+/* used to rate articles in news */
+
 const RatingDropDownButton = ( {handleItemClick} ) => {
     const [dropdownOpen, setOpen] = useState(false);
     const toggle = () => setOpen(!dropdownOpen);
 
 
     return(
-        <ButtonDropdown color="secondary" size="sm" isOpen={dropdownOpen} toggle={toggle}>
+        <ButtonDropdown name='rate-article' color="secondary" size="sm" isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle caret>
                 Rate
             </DropdownToggle>
@@ -22,10 +24,10 @@ const RatingDropDownButton = ( {handleItemClick} ) => {
                 <DropdownItem  onClick={e => handleItemClick(e, 3)}>
                     3
                 </DropdownItem>
-                <DropdownItem  onClick={e => handleItemClick(e, 2)}>
+                <DropdownItem onClick={e => handleItemClick(e, 2)}>
                     2
                 </DropdownItem>
-                <DropdownItem  onClick={e => handleItemClick(e, 1)}>
+                <DropdownItem onClick={e => handleItemClick(e, 1)}>
                     1
                 </DropdownItem>
             </DropdownMenu>
