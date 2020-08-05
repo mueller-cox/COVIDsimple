@@ -10,10 +10,13 @@ import {
     Legend,
     ResponsiveContainer,
     Area,
-    AreaChart
+    AreaChart,
+    BarChart,
+    Bar,
 } from 'recharts';
 
-import graph from '../images/graph.png';
+
+import covid from '../images/covid19.png';
 import colors from '../colors/colors';
 
 const Graph = (props) => {
@@ -38,9 +41,11 @@ const Graph = (props) => {
 
     if (payload.length === 0) {
         return (
-            <div className="inital-load">
-                <h4 className="state-view-intro"> Select information from the menu on the right to see a graph</h4>
-                <img className="static-image" src={graph} alt="A sample graph from recharts" />
+            <div className='container'>
+                <img className="covid-image graph-page" src={covid} alt="COVID-19" />
+                <div className="overlay">
+                    <div className="info"> Use the menu to the right to graph data</div>
+                </div>
             </div>
         );
     }
@@ -69,7 +74,7 @@ const Graph = (props) => {
                                 type="monotone"
                                 dataKey={state}    /* each line contains all data for the given state */
                                 stroke={colors[i]} /* lookup color from color palette  */
-                                strokeWidth={3}
+                                strokeWidth={1}
                                 activeDot={{ r: 5 }}
                             />
                         );
@@ -79,57 +84,68 @@ const Graph = (props) => {
         );
     } else if (data.graph === 'g2') {
         return (
-
-            <div> add graph 2</div>
-            // <AreaChart width={600} height={400} data={data}
-            //   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            //   <CartesianGrid strokeDasharray="3 3" />
-            //   <XAxis dataKey="name" />
-            //   <YAxis />
-            //   <Tooltip />
-            //   <Area type='monotone' dataKey='uv' stackId="1" stroke='#8884d8' fill='#8884d8' />
-            //   <Area type='monotone' dataKey='pv' stackId="1" stroke='#82ca9d' fill='#82ca9d' />
-            //   <Area type='monotone' dataKey='amt' stackId="1" stroke='#ffc658' fill='#ffc658' />
-            // </AreaChart>
-
+            <ResponsiveContainer width="100%" height='100%'>
+                <AreaChart
+                    // width={1200}
+                    // height={700}
+                    data={finalPayload}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5
+                    }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {stateList.map((state, i) => { /* We need one line for each state in data */
+                        return (
+                            <Area
+                                key={state}
+                                type="monotone"
+                                dataKey={state}    /* each line contains all data for the given state */
+                                stroke={colors[i]} /* lookup color from color palette  */
+                                strokeWidth={1}
+                                activeDot={{ r: 5 }}
+                                fill={colors[i]}
+                            />
+                        );
+                    })}
+                </AreaChart>
+            </ResponsiveContainer >
         );
     } else if (data.graph === 'g3') {
-        // const getPath = (x, y, width, height) => {
-        //   return `M${x},${y + height}
-        //       C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3} ${x + width / 2}, ${y}
-        //       C${x + width / 2},${y + height / 3} ${x + 2 * width / 3},${y + height} ${x + width}, ${y + height}
-        //       Z`;
-        // };
-
-        // const TriangleBar = (props) => {
-        //   const { fill, x, y, width, height } = props;
-
-        //   return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
-        // };
-
-        // TriangleBar.propTypes = {
-        //   fill: PropTypes.string,
-        //   x: PropTypes.number,
-        //   y: PropTypes.number,
-        //   width: PropTypes.number,
-        //   height: PropTypes.number,
-        // };
-
         return (
-            <div> add graph 3</div>
-            // <BarChart width={600} height={300} data={data}
-            //   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            //   <XAxis dataKey="name" />
-            //   <YAxis />
-            //   <CartesianGrid strokeDasharray="3 3" />
-            //   <Bar dataKey="female" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
-            //     {
-            //       data.map((entry, index) => (
-            //         <Cell key={`cell-${index}`} fill={colors[index % 20]} />
-            //       ))
-            //     }
-            //   </Bar>
-            // </BarChart>
+            <ResponsiveContainer width="100%" height='100%'>
+                <BarChart
+                    // width={1200}
+                    // height={700}
+                    data={finalPayload}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5
+                    }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {stateList.map((state, i) => { /* We need one line for each state in data */
+                        return (
+                            <Bar
+                                key={state}
+                                type="monotone"
+                                dataKey={state}    /* each line contains all data for the given state */
+                                fill={colors[i]}
+                            />
+                        );
+                    })}
+                </BarChart>
+            </ResponsiveContainer >
         );
     }
 }
