@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import { Row, Col } from 'reactstrap';
 import {
     LineChart,
     Line,
@@ -28,8 +27,8 @@ const Graph = (props) => {
 
     function handleResize() {
         setGraphDimensions({ 
-            height: Math.round(window.innerHeight * getHeightFactor()), 
-            width: Math.round(window.innerWidth * getWidthFactor())
+            height: Math.floor(window.innerHeight * getHeightFactor()), 
+            width: Math.floor(window.innerWidth * getWidthFactor())
         });
     }
 
@@ -193,7 +192,7 @@ function convertDataset(data, statistic) {
 /** 
  * return the scale factors used determine graph dimensions responsively
  *      appropriate factors are determined with refernce to hosting 
- *      Col's dimensions in parent, state-view component
+ *      Col's dimensions in the parent, state-view component
  * */
 function getWidthFactor() {
     let width = window.innerWidth;
@@ -215,8 +214,12 @@ function getHeightFactor() {
     else { return 0.8; }
 }
 
+/** 
+ * Controls whether memoized graph re-renders:
+ * (functional equivalent of shouldComponent(not)Update lifecycle method)
+ *     if the graph does not have a new payload, don't render
+ */
 function graphsEqual(prevProps, nextProps) {
-    // if the graph does not have a new payload, don't render
     // console.log('should graph render?')
     const p = prevProps.data, n = nextProps.data;
     return compareByProps(p, n, ['payload']);
@@ -299,7 +302,3 @@ export default React.memo(Graph, graphsEqual)
 //     })
 //     return combined
 // }
-
-/** Controls whether memoized graph re-renders:
- *  (functional equivalent of shouldComponent(not)Update lifecycle method)
- */
