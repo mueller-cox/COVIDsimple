@@ -405,7 +405,37 @@ h3.news-heading {
 .jump-link {
     color: #5976AB;
     font-weight: bolder;
+    padding: .5em;
+    text-decoration: none;
 }
+
+.jump-link:active {
+    background: gainsboro;
+    color: #5976AB;
+    font-weight: bolder;
+    border: gainsboro solid;
+    border-radius: 0.5rem;
+    text-decoration: none;
+  
+}
+  
+.jump-link:hover{  
+    color: #5976AB;
+    font-weight: bolder;
+    border: #89BBFE solid;
+    border-radius: 0.5rem;
+    text-decoration: none;
+  }
+  
+  .jump-link:focus{
+    color: #5976AB;
+    font-weight: bolder;
+    border: #89BBFE solid;
+    border-radius: 0.5rem;
+    text-decoration: none;
+  }
+
+ 
 
 @media (max-width: 768px){
     button.preview-article {
