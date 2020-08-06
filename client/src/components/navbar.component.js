@@ -22,7 +22,7 @@ import {
 
 
 // ALTERNATIVE HEADER
-// // export default class NavMenu extends Component {
+// export default class NavMenu extends Component {
 //     render() {
 //     const [isOpen, setIsOpen] = useState(false);
 //     const toggle = () => setIsOpen(!isOpen);
@@ -35,10 +35,10 @@ const NavMenu = () => {
 
     return (
         <div className="navbar">
-            <Navbar light expand="md">
-                <NavbarBrand className="project-name"
+            <Navbar color="faded" light expand="md">
+                <Nav className="project-name"
                     title="project-name">COVIDsimple
-                    </NavbarBrand>
+                    </Nav>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
