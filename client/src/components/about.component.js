@@ -57,12 +57,9 @@ export default class About extends Component {
                             </div>
                             <h3 className="card-title mt-2">Meghan Mueller-Cox</h3>
                             <h5 className="card-subtitle">Graduate Student</h5>
-                            <p className="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-                            cupiditate laudantium
-                            corrupti,
-                            minima
-                            dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
-                        exercitationem aliquam.</p>
+                            <p className="card-text mt-3">I am a grad student at PSU. While at PSU my focus areas of study have been Databases and Security. 
+                                                          Prior to arriving at PSU I was a release manager and program manager at several software companies here in Portland. 
+                                                          In my spare time I like to play soccer, hike, go for bike rides, and spend time with my 2 dogs. </p>
                             <a href="https://github.com/mueller-cox" className="btn btn-dark btn-sm float-right" title="Go to Meghan gitHub page">GitHub</a>
                         </div>
                     </div>
