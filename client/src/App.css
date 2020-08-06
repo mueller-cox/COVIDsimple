@@ -497,19 +497,20 @@ h3.news-heading {
 }
 
 .card.cardSet5 {
-    background-color: #6f8ab7
-}
-
-
-
-.card-text-set5 {
-    color: #ffffff;
+    background-color: #7aa0e0
 }
 
 
 .card.cardSet6 {
     background-color: #615d6c
 }
+
+.card-text-set5 {
+    /* color: #ffffff; */
+    color: #000000;
+}
+
+
 
 .card-text-set6 {
     color: #ffffff;
@@ -521,7 +522,11 @@ h3.news-heading {
 }
 
 .card-intro {
-    color: #ffffff;
+    color: #000000;
+}
+
+.card-intro-white {
+    color: #fff;
 }
 
 h3.card-title-white {

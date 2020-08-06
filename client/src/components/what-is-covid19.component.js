@@ -69,8 +69,8 @@ export default class WhatIsCovid extends Component {
                     </div>
                     <div className="card cardSet5 ">
                         <div className="card-body">
-                            <h3 className="card-title-white mt-2">Protect yourself</h3>
-                            <h5 className="card-subtitle-white">Data from CDC</h5>
+                            <h3 className="card-title mt-2">Protect yourself</h3>
+                            <h5 className="card-subtitle">Data from CDC</h5>
                             <p className="card-intro mt-3">Older adults and people who have severe underlying
                             medical conditions like heart or lung disease or
                             diabetes seem to be at higher risk for developing
@@ -97,7 +97,7 @@ export default class WhatIsCovid extends Component {
                         <div className="card-body">
                             <h3 className="card-title-white mt-2">Coping with stress</h3>
                             <h5 className="card-subtitle-white">Data from CDC</h5>
-                            <p className='card-intro mt-3'>Stress during an infectious disease outbreak can sometimes cause the following:</p>
+                            <p className='card-intro-white mt-3'>Stress during an infectious disease outbreak can sometimes cause the following:</p>
                             <ul className="card-text-set6 mt-3">
                                 <li>Pandemic can be stressful</li>
                                 <li>Wash you hands often</li>
