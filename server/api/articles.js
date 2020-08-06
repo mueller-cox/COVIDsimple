@@ -8,7 +8,9 @@ router.get('/', (req, res) => {
   Articles.retrieveAll((err, articles) => {
     if (err)
       return res.json(err);
-    return res.json(articles);
+
+    return res.json(result);
+    
   });
 });
 
@@ -31,5 +33,16 @@ router.post('/update', (req, res) => {
     return res.json(result);
   });
 });
+
+/* updates the rating of an article if it is in the database */
+router.post('/delete', (req, res) => {
+  let article = req.body;
+  Articles.deleteArticle(article, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
 
 module.exports = router;

@@ -27,6 +27,16 @@ class Articles {
         });
   }
 
+  static deleteArticle (url, callback) {
+    let query_string = `DELETE FROM articles WHERE url= $1`;
+    let key = url;
+    db.query(query_string, [key], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
   static update (article, callback) {
     let query_string = `UPDATE articles SET rating_sum = rating_sum + $2, rating_count = rating_count+1 WHERE url=$1`;
     let url = article.url;
