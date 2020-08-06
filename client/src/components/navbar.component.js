@@ -66,6 +66,12 @@ const NavMenu = () => {
                                 title="about">About
                             </NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink href="/what-is-covid19"
+                                className="nav-item nav-link"
+                                title="what-is-covid19">What is COVID-19
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>

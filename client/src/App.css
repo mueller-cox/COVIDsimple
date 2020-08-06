@@ -74,8 +74,8 @@ body {
     font-size: large;
 }
 
-li:hover {
-    font-size: larger;
+.nav-item:hover {
+    font-size: medium;
     color: #89bbfe;
     text-decoration: underline;
     text-decoration-thickness: 3px;
@@ -484,4 +484,60 @@ h3.news-heading {
     .jump-link {
         display: none;
     }
+}
+
+
+
+/******************************/
+/* What is                    */
+/******************************/
+
+.card.cardSet4 {
+    background-color: #89bbfe
+}
+
+.card.cardSet5 {
+    background-color: #6f8ab7
+}
+
+
+
+.card-text-set5 {
+    color: #ffffff;
+}
+
+
+.card.cardSet6 {
+    background-color: #615d6c
+}
+
+.card-text-set6 {
+    color: #ffffff;
+}
+
+.btn.CDC {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+.card-intro {
+    color: #ffffff;
+}
+
+h3.card-title-white {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+h5.card-subtitle-white {
+    color: #ffffff;
+    font-size: 0.8rem;
+    margin-top: -.380rem;
+    margin-bottom: 0;
+}
+
+
+p.card-text {
+    padding-bottom: 0.8rem;
+    line-height: 1.2rem;
 }
