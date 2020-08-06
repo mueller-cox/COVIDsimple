@@ -259,12 +259,12 @@ export default class StateView extends Component {
                                     </Input>
                                 </FormGroup>
                                 <Label for="select-date">Select Date Range:
-                                <FormGroup className="select-date" id="select-date">
+                                <FormGroup className="select-date">
                                         {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
                                         {/* Ref: https://reactdatepicker.com/ */}
                                         <DatePicker
-                                            id="select-start-date"
+                                            id="select-date"
                                             className="date"
                                             selected={this.state.startDate}
                                             selectsStart
@@ -276,7 +276,7 @@ export default class StateView extends Component {
                                             popperPlacement="left-end"
                                         />
                                         <DatePicker
-                                            id="select-end-date"
+                                            id="select-date"
                                             className="date"
                                             selected={this.state.endDate}
                                             selectsEnd
