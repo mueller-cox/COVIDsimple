@@ -87,8 +87,14 @@ export default class NewsList extends Component {
                         <Container id='latest-news-list' className='latest-news-list'>
                             <Row className='header-row'>
                                 <Col >
-                                    <h3 className='news-heading'>Latest News</h3>
+                                    <h3 className='news-heading' id='latest-news-heading'>Latest News</h3>
                                 </Col>
+                                <Col >
+                                    <a id='jump-to-rated' className='jump-link' href="#rated-news-heading">
+                                        See Rated News
+                                    </a>
+                                </Col>
+                                
                             </Row>
                             <Row className='news-filter-row'>
                                 <Col>
@@ -116,7 +122,12 @@ export default class NewsList extends Component {
                         <Container id='rated-news-list' name='rated-news-list'>
                             <Row className='header-row'>
                                 <Col >
-                                        <h3 className='news-heading'>Rated News </h3>
+                                        <h3 className='news-heading' id='rated-news-heading'>Rated News </h3>
+                                </Col>
+                                <Col >
+                                    <a id='jump-to-latest' className='jump-link' href="#latest-news-heading">
+                                        See Latest News
+                                    </a>
                                 </Col>
                             </Row>
                             <Row className='news-filter-row'>
