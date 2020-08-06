@@ -41,7 +41,7 @@ const NavMenu = () => {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <Link href="/" className="nav-item nav-link">NationalView</Link>
+                            <NavLink href="/" className="nav-item nav-link">NationalView</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/state-view" className="nav-item nav-link">StateView</NavLink>
@@ -50,7 +50,7 @@ const NavMenu = () => {
                             <NavLink href="/news" className="nav-item nav-link">News</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink to="/about" className="nav-item nav-link">About</NavLink>
+                            <NavLink href="/about" className="nav-item nav-link">About</NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
