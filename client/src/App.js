@@ -4,23 +4,23 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 // How to import relevant component from the module for reactstrap
 // import { Container, Row, Col} from 'reactstrap';
 
-import Navbar from "./components/navbar.component";
+import NavMenu from "./components/navbar.component";
 import NationalView from "./components/national-view.component";
 import StateView from "./components/state-view.component";
-import NewsList from "./components/news-list.component"; 
+import NewsList from "./components/news-list.component";
 import About from "./components/about.component";
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      <NavMenu />
       <br />
       <Route path="/" exact component={NationalView} />
       <Route path="/state-view" exact component={StateView} />
       <Route path="/news" exact component={NewsList} />
       <Route path="/About" exact component={About} />
     </Router>
-    
+
   );
 }
 
