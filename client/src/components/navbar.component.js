@@ -34,23 +34,37 @@ const NavMenu = () => {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <div>
-            <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">COVIDsimple</NavbarBrand>
+        <div className="navbar">
+            <Navbar light expand="md">
+                <NavbarBrand className="project-name"
+                    title="project-name">COVIDsimple
+                    </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <NavLink href="/" className="nav-item nav-link">NationalView</NavLink>
+                            <NavLink href="/"
+                                className="nav-item nav-link"
+                                title="national-view">NationalView
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/state-view" className="nav-item nav-link">StateView</NavLink>
+                            <NavLink href="/state-view"
+                                className="nav-item nav-link"
+                                title="state-view">StateView
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/news" className="nav-item nav-link">News</NavLink>
+                            <NavLink href="/news"
+                                className="nav-item nav-link"
+                                title="news">News
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/about" className="nav-item nav-link">About</NavLink>
+                            <NavLink href="/about"
+                                className="nav-item nav-link"
+                                title="about">About
+                            </NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
