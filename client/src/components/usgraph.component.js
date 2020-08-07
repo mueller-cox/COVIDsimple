@@ -64,8 +64,8 @@ const USGraph = (props) => {
 
         // set color scale based on data available to graph
         const colorDomain = Object.values(data)
-            .filter((entry) => entry[statistic] !== null) // only entries with stat available affect scale
-            .map((entry) =>
+            .filter((entry) => entry[stripInc(statistic)] !== null) // only entries with stat available affect scale
+            .map((entry) => 
                 normalizeStatistic(entry[statistic], per_capita, entry.state)
             );
         //console.log('colorDomain', colorDomain);
@@ -117,7 +117,7 @@ const USGraph = (props) => {
                                 const cur = data[IDtoState[geo.id]]; // data entry for state on graph date
                                 const hasData = cur !== undefined;
                                 const hasStat = hasData
-                                    ? cur[statistic] !== null
+                                    ? cur[stripInc(statistic)] !== null
                                     : false;
                                 //console.log('graphing', cur['state'], statistic);
 
@@ -140,20 +140,12 @@ const USGraph = (props) => {
                                             (colorDomain.length > 1 ? colorScale(normalized) : legendScale(normalized))
                                             : 0
                                         }
-                                        onMouseEnter={() => {
-                                            //console.log('normalized value', normalized);
-                                            if (!hasData)
-                                                setTooltip(`No data available`);
-                                            else if (!hasStat)
-                                                setTooltip(
-                                                    `Selected statistic not reported`
-                                                );
-                                            else
-                                                setTooltip(
-                                                    formatNumber(normalized)
-                                                );
-                                        }}
+                                        /* desktop tooltip handlers */
+                                        onMouseEnter={() => { selectTooltip(hasData, hasStat, normalized, setTooltip)}}
                                         onMouseLeave={() => setTooltip("")}
+                                        /* mobile tooltip handlers (bugged) */
+                                        onTouchStart={() => { selectTooltip(hasData, hasStat, normalized, setTooltip)}}
+                                        onTouchEnd={() => setTooltip("")}
                                         style={{
                                             alt: `${geo.rsmKey}`,
                                         }}
@@ -187,6 +179,32 @@ function formatDate(date) {
 /* format number to string, adding comma's rounding to max of 2 decimal places for tooltip display */
 function formatNumber(n) {
     return Number(n.toFixed(n % 1 === 0 ? 0 : 2)).toLocaleString();
+}
+
+/**
+ * Strip the 'Increasing' modifier from the passed statistic
+ *  A necessary evil to handle statistic not-available checks when API
+ *  incorrectly reports hospitalizedIncreased as 0 for states with no
+ *  hospitalized data available (meaning Increased should be null)
+ */
+function stripInc(statistic) {
+    return statistic.replace('Increase', '');
+}
+
+/**
+ * Determine the correct tooltip based on data availability
+ */
+function selectTooltip(hasData, hasStat, normalizedStat, setter) {
+    if (!hasData)
+        setter(`No data available`);
+    else if (!hasStat)
+        setter(
+            `Selected statistic not reported`
+        );
+    else
+        setter(
+            formatNumber(normalizedStat)
+        );
 }
 
 /**

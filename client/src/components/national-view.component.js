@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 import Slider from "react-input-slider";
-import USGraph from "./usgraph.component.js";
 import ReactTooltip from "react-tooltip";
+
+import USGraph from "./usgraph.component.js";
 
 import "../App.css";
 
@@ -10,6 +11,7 @@ import "../App.css";
 export const Modes = {
     AGG: "Aggregate",
     INC: "Increase",
+    ROL: "Rolling",
 };
 
 // Time constants for date slider
@@ -22,12 +24,12 @@ export default class NationalView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            radioSelected: "positive", // tracks selected statistic radio button
-            mode: Modes.AGG, // Aggregate or rolling increase
-            per_capita: false, // normalize data per capita?
+            radioSelected: "positive",  // tracks selected statistic radio button
+            mode: Modes.AGG,            // Aggregate or daily/weekly rolling increase
+            per_capita: false,          // normalize data per capita?
             date: new Date(TODAY.getTime() - ONE_DAY), // Currently selected date. Default to yesterday
-            tooltip: "Loading...", // MouseOver toolip for chart
-            // data: this.loadData()                   // all historic covid data, fetched after mount (below)
+            tooltip: "Loading...",      // MouseOver toolip for chart
+            // data: this.loadData()    // all historic covid data, fetched after mount (below)
         };
     }
 
@@ -38,8 +40,7 @@ export default class NationalView extends Component {
     async componentDidMount() {
         //console.log('mount state', this.state);
         let covidData = await this.loadData();
-        this.setState({ data: covidData });
-        this.setState({ tooltip: "" });
+        this.setState({ data: covidData, tooltip: "" });
         //console.log('state after load', this.state);
     }
 
@@ -103,6 +104,8 @@ export default class NationalView extends Component {
         nextDate.setTime(DATE0.getTime() + x * ONE_DAY);
         this.setState({ date: nextDate });
     };
+
+    /* callback passed to USGraph component to set the tooltip state */
     setTooltip = (tip) => {
         // console.log('setting tooltip', tip);
         this.setState({ tooltip: tip });
@@ -187,6 +190,9 @@ export default class NationalView extends Component {
                                         </option>
                                         <option value={Modes.INC}>
                                             Daily Increase
+                                        </option>
+                                        <option value={Modes.ROL}>
+                                            Weekly Rolling
                                         </option>
                                     </Input>
                                 </FormGroup>
