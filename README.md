@@ -24,5 +24,38 @@
 	* Allow users to view hospitalizations, icu cases, deaths, testing data, recovered cases.
 3. Present articles or news relevant to COVID
 	* Allow users to rate articles with a database preserving user ratings.
-	* Allow users to filter articles based on rating, recency, and locality.
-	* Allow admins on to curate, featuring noteworthy articles or headlines.
+	* Allow users to sorted latest articles by source, date, name (asc, desc)
+	* Allow users to sort rated articles by source, date, rating (asc, desc)
+	* Allow users to filter latest and rated articles by source
+	* Allow users to preview latest article
+
+### Tutorials Used
+1. Full Stack React/Express with Postgres: https://www.youtube.com/watch?v=Z4jCvpSROp8
+2. Full Stack React/Express: https://www.youtube.com/watch?v=7CqJlxBYj-M
+3. React-Strap Sample Code for understanding how to implement their components: https://reactstrap.github.io/
+
+### Stack Technologies
+1. React
+2. React-Strap Bootstrap4 for React package
+3. CSS
+4. Express
+5. PostgresSQL hosted in Google Cloud using environment variables
+
+### Packages integrated
+#### Client
+1. Packages to support graphing: d3, re-charts, react-simple-maps
+2. Packages to support forms associated with graphs: react-country-region-selector, react-datepicker, jquery, react-input-slider, moment, react-tooltip
+3. General purpose packages used: typescript, 
+4. Packages to help with news: react-html-parser
+#### Server
+1. Packages to support external apis; axios, rss-parser
+2. Packages to support general infrastructure: pg, dotenv, cors, cookie-parser, body-parser
+
+### Install Insructions for Developers
+1. Please note that the db expects to connect to our Google Cloud hosted DB, or another PG instance we use environment variable to connect
+2. Environment variable file (env) should include (with appropriate values assigned of course):
+DB_USER=
+DB_NAME=
+DB_HOST=
+DB_PWD=
+PG_PORT=

@@ -387,9 +387,13 @@ p.card-text {
     line-height: 1.2rem;
 }
 
+/*******************************/
+/* News                        */
+/*******************************/
+
 .news-container .col {
     background: white;
-    padding: .50em;
+    padding: .50em, .50em;
 }
 
 .filter {
@@ -422,6 +426,7 @@ span.sorted-on-text {
     font-size: 1rem;
 }
 
+/* pagination */
 span.rating-badge {
     background-color: #89BBFE;
     border-color: #89BBFE;
@@ -446,7 +451,7 @@ h3.news-heading {
     color: #615D6C;
     font-weight: bolder;
 }
-
+/* jump to links */
 .jump-link {
     color: #5976AB;
     font-weight: bolder;
@@ -478,6 +483,17 @@ h3.news-heading {
     border: #89BBFE solid;
     border-radius: 0.5rem;
     text-decoration: none;
+}
+
+ /* preview modal */
+ .preview-heading {
+    color: #5976AB;
+    font-weight: bolder;
+}
+
+.summary-heading {
+    color: #615D6C;
+    font-weight: bolder;
 }
 
 /******************************/
