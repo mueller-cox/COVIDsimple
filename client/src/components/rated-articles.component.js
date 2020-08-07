@@ -11,7 +11,7 @@ import '../App.css';
 
 const RatedTable = ({ articles }) => {
     const [currentPage, setPage] = useState(0);
-    const pageSize=20;
+    const pageSize=10;
     const pageCount = Math.ceil((articles.length) / pageSize);
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(5);
@@ -85,7 +85,7 @@ const RatedTable = ({ articles }) => {
             </thead>
             <tbody>
              {(articles.length > 0) ? articles
-                .sort(rated_sort === 'rating' ? compareValuesRating : compareValuesRating)
+                .sort(rated_sort === 'rating' ? compareValuesRating : compareValuesNotRating)
                 .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
                 .map( (article, index) => {
                    return (
