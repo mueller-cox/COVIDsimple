@@ -74,7 +74,7 @@ export default class WhatIsCovid extends Component {
                             medical conditions like heart or lung disease or
                             diabetes seem to be at higher risk for developing
                             serious complications from COVID-19 illness. More
-                                information on Are you at higher risk for serious illness."</p>
+                                information on 'Are you at higher risk for serious illness.' Click on 'Go to CDC'."</p>
                             <ul className="card-text-set5 mt-3">
                                 <li>Know how it spreads</li>
                                 <li>Wash you hands often</li>
@@ -97,7 +97,7 @@ export default class WhatIsCovid extends Component {
                             <h5 className="card-subtitle-white">Data from CDC</h5>
                             <p className='card-intro-white mt-3'>"The coronavirus disease 2019 (COVID-19) pandemic may be stressful for people.
                             Public health actions, such as social distancing, can make people feel isolated and lonely and can
-                            increase stress and anxiety.Stress during an infectious disease outbreak can sometimes cause the following:"</p>
+                            increase stress and anxiety. Stress during an infectious disease outbreak can sometimes cause the following:"</p>
                             <ul className="card-text-set6 mt-3">
                                 <li>Pandemic can be stressful</li>
                                 <li>Wash you hands often</li>
