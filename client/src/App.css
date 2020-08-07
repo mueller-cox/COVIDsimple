@@ -255,6 +255,10 @@ since the might have different property  */
     text-align: center;
 }
 
+#select-states {
+    resize: vertical;
+}
+
 /******************************/
 /* News                       */
 /******************************/

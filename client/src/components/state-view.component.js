@@ -289,8 +289,9 @@ export default class StateView extends Component {
                                         />
                                     </FormGroup>
                                 </Label>
+                                <br />
                                 <Label for="select-statistic">Select Statistic:</Label>
-                                <FormGroup className="select-statistic1" check>
+                                <FormGroup className="select-statistic" check>
                                     <Label check>
                                         <Input required // makes selecting one of the radioSelected group required
                                             type="radio"
@@ -300,7 +301,7 @@ export default class StateView extends Component {
                                         Total Infected
                                         </Label>
                                 </FormGroup>
-                                <FormGroup className="select-statistic2" check>
+                                <FormGroup className="select-statistic" check>
                                     <Label check>
                                         <Input type="radio"
                                             name="radioSelected"
@@ -309,7 +310,7 @@ export default class StateView extends Component {
                                         Total Deaths
                                         </Label>
                                 </FormGroup>
-                                <FormGroup className="select-statistic3" check>
+                                <FormGroup className="select-statistic" check>
                                     <Label check>
                                         <Input type="radio"
                                             name="radioSelected"
@@ -318,7 +319,7 @@ export default class StateView extends Component {
                                         Total Hospitalized
                                         </Label>
                                 </FormGroup>
-                                <FormGroup className="select-statistic4" check>
+                                <FormGroup className="select-statistic" check>
                                     <Label check>
                                         <Input type="radio"
                                             name="radioSelected"
