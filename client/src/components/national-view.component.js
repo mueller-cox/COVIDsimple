@@ -180,16 +180,11 @@ export default class NationalView extends Component {
                                                 onChange={this.handleDate}
                                                 yreverse
                                                 styles={{
-                                                    /*track: {
-                                                      backgroundColor: 'blue'
-                                                    },*/
                                                     active: {
                                                         backgroundColor: '#6F8AB7'
                                                     },
                                                     thumb: {
                                                         width: 25,
-                                                        //height: 40,
-                                                        //opacity: 0.8
                                                     }
                                                 }}
                                             />

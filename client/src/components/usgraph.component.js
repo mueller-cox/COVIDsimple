@@ -49,7 +49,7 @@ const USGraph = (props) => {
                 )}
                 </Geographies>
             </ComposableMap>
-            <h2>{ data === null ? 'Loading...' : 'No data available' }</h2>
+            <h3>{ data === null ? 'Loading...' : 'No data available' }</h3>
             </>
         );
     // otherwise graph by user selection:
@@ -62,30 +62,22 @@ const USGraph = (props) => {
             Object.values(data)
             .filter(entry => entry[statistic] !== null) // only entries with stat available affect scale
             .map(entry => normalizeStatistic(entry[statistic], per_capita, entry['state']));
-        const colorScale = d3.scaleSequentialQuantile(colorDomain, d3.interpolateBlues)
+        //console.log('colorDomain', colorDomain);
 
-        // set up domain and range for d3 legend utility
-        // const legendDomain = []
-        const legendRange = d3.quantize(d3.interpolateBlues, 8)
+        const colorRange = d3.interpolateBlues;
+        const colorScale = d3.scaleSequentialQuantile(colorDomain, colorRange)
+
+        /* create an analogous discrete scale for the legend */ 
+        const legendRange = d3.quantize(d3.interpolateBlues, 8);
         const legendScale = d3.scaleQuantile().domain(colorDomain).range(legendRange)
         
-        //const legendScale = d3.scaleSequentialQuantile(colorDomain.map((d) => {
-            //return Math.round(d * 100)/100;
-        //})
-        //, d3.interpolateBlues)
-        
-        // let leg =legend({
-        //     color: colorScale3,
-        //     title: radioSelected,
-        //     tickFormat: d3.format('.2s')
-        //   })
-        //document.querySelector('body').append(leg)
-        //const svg = d3.select('svg')
-        //svg.append('leg')
-
+        /**
+         * Construct a legend at the top of the previous graph's svg element, 
+         * into which the new USGraph component will also render
+        */
         const svg = d3.select("svg");
         svg.append("g")
-        .attr("class", "legendSequential")
+        .attr("class", "legend")
         //.attr("transform", "translate(0,0)");
 
         const legendSequential = legendColor()
@@ -97,9 +89,13 @@ const USGraph = (props) => {
         //.title(radioSelected)
         // console.log('legendSequential', legendSequential)
 
-        svg.select(".legendSequential")
-        .call(legendSequential);
-
+        if (colorDomain.length > 0) {
+            svg.select(".legend")
+            .call(legendSequential);
+        }
+        else { // remove legend if no data is graphed
+            svg.select(".legend").remove()
+        }
         return (
             <>
             <ComposableMap 
@@ -120,7 +116,9 @@ const USGraph = (props) => {
                         <Geography 
                             key={geo.rsmKey} 
                             geography={geo}
-                            fill={hasStat ? colorScale(normalized) : 0}
+                            fill={hasStat ? 
+                                (colorDomain.length > 1 ? colorScale(normalized) : legendScale(normalized)) 
+                                : 0}
                             onMouseEnter={() => {
                                 //console.log('normalized value', normalized);
                                 if (!hasData) setTooltip(`No data available`);
@@ -136,6 +134,7 @@ const USGraph = (props) => {
                 })}
                 </Geographies>
             </ComposableMap>
+            {colorDomain.length === 0 && <h3>No data available.</h3> }
             </>
         )
     }
