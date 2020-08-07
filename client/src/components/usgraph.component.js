@@ -36,7 +36,7 @@ const USGraph = (props) => {
     // console.log('rendering graph', data);
     // If no data loaded or available for selected date, return placeholder view
     if (!data) {
-        d3.select("svg").select('.legend').remove(); // clear pre-existing legend
+        d3.select("svg").select('.legend').remove(); // clear any pre-existing legend
         return (
             <>
             {/* data-tip attribute defines where tool-tip displays its data */}
@@ -137,7 +137,7 @@ const USGraph = (props) => {
                 })}
                 </Geographies>
             </ComposableMap>
-            {colorDomain.length === 0 && <h2 className="flex-text">No data available.</h2>}
+            {colorDomain.length === 0 && <h2 className="flex-text">No data available</h2>}
             </>
         )
     }
