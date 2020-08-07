@@ -42,6 +42,7 @@ export default class WhatIsCovid extends Component {
                         <div className="card-body">
                             <h3 className="card-title mt-2">Symptoms</h3>
                             <h5 className="card-subtitle">Data from CDC</h5>
+                            <p className='card-intro mt-3'>"Symptoms may appear 2-14 days after exposure to the virus. People with these symptoms may have COVID-19:"</p>
                             <ul className="card-text mt-3">
                                 <li>Fever or chills</li>
                                 <li>Cough</li>
@@ -59,41 +60,44 @@ export default class WhatIsCovid extends Component {
                                 <li>Nausea or vomiting</li>
                                 <li>Diarrhea</li>
                             </ul>
-                        </div>
-                        <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html"
-                            className="btn CDC btn-dark btn-sm float-right"
-                            title="Go to CDC-symptoms">Go to CDC
+                            <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html"
+                                className="btn CDC btn-dark btn-sm float-right"
+                                title="Go to CDC-symptoms">Go to CDC
                         </a>
+                        </div>
                     </div>
                     <div className="card cardSet5 ">
                         <div className="card-body">
                             <h3 className="card-title mt-2">Protect yourself</h3>
                             <h5 className="card-subtitle">Data from CDC</h5>
-                            <p className="card-intro mt-3">Older adults and people who have severe underlying
+                            <p className="card-intro mt-3">"Older adults and people who have severe underlying
                             medical conditions like heart or lung disease or
                             diabetes seem to be at higher risk for developing
                             serious complications from COVID-19 illness. More
-                                information on Are you at higher risk for serious illness.</p>
+                                information on Are you at higher risk for serious illness."</p>
                             <ul className="card-text-set5 mt-3">
                                 <li>Know how it spreads</li>
                                 <li>Wash you hands often</li>
                                 <li>Avoid close contact</li>
                                 <li>Cover your mouth and nose with a mask when around others</li>
-                                <li>Cover coughs and sneezes</li>
+                                <li>Cover coughs</li>
+                                <li>Cover sneezes</li>
                                 <li>Clean and disinfect</li>
                                 <li>Monitor Your Health Daily</li>
                             </ul>
-                        </div>
-                        <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/prevention.html"
-                            className="btn CDC btn-dark btn-sm float-right"
-                            title="Go to CDC-symptoms">Go to CDC
+                            <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/prevention.html"
+                                className="btn CDC btn-dark btn-sm float-right"
+                                title="Go to CDC-symptoms">Go to CDC
                         </a>
+                        </div>
                     </div>
                     <div className="card cardSet6 ">
                         <div className="card-body">
                             <h3 className="card-title-white mt-2">Coping with stress</h3>
                             <h5 className="card-subtitle-white">Data from CDC</h5>
-                            <p className='card-intro-white mt-3'>Stress during an infectious disease outbreak can sometimes cause the following:</p>
+                            <p className='card-intro-white mt-3'>"The coronavirus disease 2019 (COVID-19) pandemic may be stressful for people.
+                            Public health actions, such as social distancing, can make people feel isolated and lonely and can
+                            increase stress and anxiety.Stress during an infectious disease outbreak can sometimes cause the following:"</p>
                             <ul className="card-text-set6 mt-3">
                                 <li>Pandemic can be stressful</li>
                                 <li>Wash you hands often</li>
@@ -102,11 +106,11 @@ export default class WhatIsCovid extends Component {
                                 <li>Take care of yourself and your community</li>
                                 <li>Recovering from COVID-19 or ending home isolation</li>
                             </ul>
-                        </div>
-                        <a href="https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/managing-stress-anxiety.html"
-                            className="btn CDC btn-dark btn-sm float-right"
-                            title="Go to CDC-symptoms">Go to CDC
+                            <a href="https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/managing-stress-anxiety.html"
+                                className="btn CDC btn-dark btn-sm float-right"
+                                title="Go to CDC-symptoms">Go to CDC
                         </a>
+                        </div>
                     </div>
                 </div>
             </div >
