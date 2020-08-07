@@ -13,9 +13,9 @@ import {
     Bar,
     ReferenceLine,
     Brush,
-    RadialBar,
+    /*RadialBar,
     style,
-    RadialBarChart
+    RadialBarChart*/
 } from 'recharts';
 
 

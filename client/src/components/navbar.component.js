@@ -9,7 +9,7 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
+    /*NavbarBrand,*/
     Nav,
     NavItem,
     NavLink,
@@ -38,7 +38,7 @@ const NavMenu = () => {
             <Navbar color="faded" light expand="md">
                 <Nav className="project-name"
                     title="project-name">COVIDsimple
-                    </Nav>
+                </Nav>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>

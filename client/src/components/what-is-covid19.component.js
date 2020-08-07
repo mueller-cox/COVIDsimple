@@ -1,4 +1,4 @@
-import React, { Component, isValidElement } from 'react';
+import React, { Component, /*isValidElement*/ } from 'react';
 /* import { Link } from 'react-router-dom'; */
 
 import '../App.css';
@@ -60,11 +60,9 @@ export default class WhatIsCovid extends Component {
                                 <li>Diarrhea</li>
                             </ul>
                         </div>
-                        <a>
-                            <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html"
-                                className="btn CDC btn-dark btn-sm float-right"
-                                title="Go to CDC-symptoms">Go to CDC
-                            </a>
+                        <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html"
+                            className="btn CDC btn-dark btn-sm float-right"
+                            title="Go to CDC-symptoms">Go to CDC
                         </a>
                     </div>
                     <div className="card cardSet5 ">
@@ -86,11 +84,9 @@ export default class WhatIsCovid extends Component {
                                 <li>Monitor Your Health Daily</li>
                             </ul>
                         </div>
-                        <a>
-                            <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/prevention.html"
-                                className="btn CDC btn-dark btn-sm float-right"
-                                title="Go to CDC-symptoms">Go to CDC
-                            </a>
+                        <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/prevention.html"
+                            className="btn CDC btn-dark btn-sm float-right"
+                            title="Go to CDC-symptoms">Go to CDC
                         </a>
                     </div>
                     <div className="card cardSet6 ">
@@ -107,11 +103,9 @@ export default class WhatIsCovid extends Component {
                                 <li>Recovering from COVID-19 or ending home isolation</li>
                             </ul>
                         </div>
-                        <a>
-                            <a href="https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/managing-stress-anxiety.html"
-                                className="btn CDC btn-dark btn-sm float-right"
-                                title="Go to CDC-symptoms">Go to CDC
-                           </a>
+                        <a href="https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/managing-stress-anxiety.html"
+                            className="btn CDC btn-dark btn-sm float-right"
+                            title="Go to CDC-symptoms">Go to CDC
                         </a>
                     </div>
                 </div>
