@@ -328,15 +328,13 @@ export default class StateView extends Component {
                                         Daily New Cases</Label>
                                 </FormGroup>
                             </FormGroup>
-                            <Row>
-                                <Col xs="4" sm="6">
-                                    <Button type="submit"
-                                        className='btn btn-submit btn-dark float-right'>Graph
-                                    </Button>
-                                </Col>
+                            <Row> 
                                 <Col >
+                                    <Button type="submit"
+                                        className='btn btn-submit btn-dark mr-3'>Graph
+                                    </Button>
                                     <Button type="reset"
-                                        className='btn btn-reset btn-dark float-left'
+                                        className='btn btn-reset btn-dark ml-md-2'
                                         onClick={this.handleReset}>Reset
                                     </Button>
                                 </Col>
