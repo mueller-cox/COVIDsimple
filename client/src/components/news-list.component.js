@@ -76,7 +76,6 @@ export default class NewsList extends Component {
         } catch(error) {
             console.error(error);
         }
-
     }
 
     render() {
@@ -103,16 +102,20 @@ export default class NewsList extends Component {
                                         <option value="None">None</option>
                                         <option value="World">World Health Organization</option>
                                         <option value="Disease">Centers for Disease Control</option>
-                                    </select>
+                                    </select>  
+                                </Col>
+                                <Col>
+                                    
                                 </Col>
                             </Row>
                             <Row className='news-list-row'>
                                 <Col className='news'>
                                     <FeedTable id='latest-news-results' className='latest-news-results'
                                         articles={ this.state.news_src_filter === "None" ? 
-                                                    this.state.articles : 
+                                                    this.state.articles.sort(this.compareValues) : 
                                                     this.state.articles
-                                                    .filter(article => article.source.includes(this.state.news_src_filter)) }
+                                                    .filter(article => article.source.includes(this.state.news_src_filter))
+                                                    .sort(this.compareValues) }
                                     />
                                 </Col>
                             </Row>

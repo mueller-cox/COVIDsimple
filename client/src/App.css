@@ -377,6 +377,11 @@ button.preview-article {
     border-color:  #5976AB;
 }
 
+span.sorted-on-text {
+    font-weight: lighter;
+    font-size: 1rem;
+}
+
 span.rating-badge {
     background-color: #89BBFE;
     border-color:  #89BBFE;
