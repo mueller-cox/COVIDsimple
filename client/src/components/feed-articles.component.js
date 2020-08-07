@@ -46,7 +46,7 @@ const FeedTable = ({ articles}) => {
         <Table id='latest-news' name='latest-news' borderless responsive>
             <thead>
                 <tr>
-                    <th colSpan="2">
+                    <th colSpan="4">
                         <SortNewsButton 
                              handleSortClick={(e, filter) =>{
                                  if(filter === news_sort && news_sort_dir === "Desc"){

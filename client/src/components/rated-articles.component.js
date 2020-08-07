@@ -67,7 +67,7 @@ const RatedTable = ({ articles }) => {
         <Table id='rated-news' name='rated-news' responsive borderless>
             <thead>
                 <tr>
-                    <th colSpan="2">
+                    <th colSpan="4">
                         <SortRatedButton 
                              handleSortClick={(e, filter) =>{
                                  if(filter === rated_sort && rated_sort_dir === "Desc"){
