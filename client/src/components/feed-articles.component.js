@@ -5,24 +5,66 @@ import ReactHtmlParser from 'react-html-parser';
 import PaginationTool from './table-pagination.component';
 import RatingDropDownButton from './rating.component';
 import Preview from './article-preview.component';
+import SortNewsButton from './sort-news.component';
 
 import '../App.css';
 
 
-const FeedTable = ({ articles }) => {
+const FeedTable = ({ articles}) => {
     const [currentPage, setPage] = useState(0);
-    const pageSize=10;
-    const pageCount = Math.ceil((articles.length) / pageSize);
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(5);
+    const pageSize=10;
+    const [news_sort, setNewsSort] = useState("date");
+    const [news_sort_dir, setNewsSortDir] = useState("Desc");
+    const pageCount = Math.ceil((articles.length) / pageSize);
+
+    /* compare values for sort */
+    const compareValues = (a, b) => {
+        if(news_sort_dir === "Desc"){
+            if(b[news_sort] < a[news_sort]){
+                return -1
+            }
+            if( b[news_sort] > a[news_sort]){
+                return 1;
+            }
+            return 0;
+        }else{
+            if(b[news_sort] > a[news_sort]){
+                return -1
+            }
+            if( b[news_sort] < a[news_sort]){
+                return 1;
+            }
+            return 0;
+        }
+        
+    }
 
     return(
         <div>
         <Table id='latest-news' name='latest-news' borderless responsive>
             <thead>
+                <tr>
+                    <th colSpan="2">
+                        <SortNewsButton 
+                             handleSortClick={(e, filter) =>{
+                                 if(filter === news_sort && news_sort_dir === "Desc"){
+                                     setNewsSortDir("Asc");
+                                 }
+                                 else{
+                                     setNewsSortDir("Desc");
+                                 }
+                                 setNewsSort(filter);
+                             }}
+                        />
+                         <span className="sorted-on-text"> Sorted: {news_sort.charAt(0).toUpperCase()+news_sort.slice(1)} {news_sort_dir} </span>
+                    </th>
+                </tr>    
             </thead>
             <tbody>
             {(articles.length > 0) ? articles
+                .sort(compareValues)
                 .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
                 .map( (article, i) => {
                    return (
