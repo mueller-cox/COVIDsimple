@@ -42,11 +42,11 @@ const PaginationTool = ({
                 </PaginationLink>
             </PaginationItem>
         ))}
-        <PaginationItem disabled={ currentPage >= pageCount }>
+        <PaginationItem disabled={ currentPage >= pageCount-1 }>
             <PaginationLink className='next-link' next onClick={handleNextClick} href="#">
             </PaginationLink>
         </PaginationItem>
-        <PaginationItem disabled={ currentPage >= pageCount }>
+        <PaginationItem disabled={ currentPage >= pageCount-1 }>
             <PaginationLink className='end-link' next onClick={handleGoToEndClick} href="#">
                 End
             </PaginationLink>
