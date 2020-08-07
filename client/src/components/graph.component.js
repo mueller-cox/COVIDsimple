@@ -227,9 +227,9 @@ function convertDataset(data, statistic) {
 }
 
 /** 
- * return the scale factors used determine graph dimensions responsively.
+ * return the scale factors used to determine graph dimensions responsively.
  *      Appropriate factors are determined with refernce to hosting 
- *      Col's dimensions in the parent, state-view component
+ *      Col's dimensions in the parent, state-view component (aka evil magic numbers)
  * */
 function getWidthFactor() {
     let width = window.innerWidth;

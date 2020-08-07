@@ -29,16 +29,29 @@ const USGraph = (props) => {
         };
     });
 
-    const { state, setTooltip } = props;
-    const data = state.data ? state.data[formatDate(state.date)] : null; // get data from requested date
+    const { state, setTooltip } = props;                     // unpack props
+    const { radioSelected, mode, per_capita, date } = state; // unpack relevant variables from state prop
+    
+    /* Get data from requested date */
+    let tmp_data = state.data ? state.data[formatDate(date)] : null;
 
-    // console.log('rendering graph', data);
+    /* determine requested statistic based on data mode :
+     *  (if user has selected daily increase or weekly rolling, use <radioSelected>Increase as statistic) */
+    const statistic =
+        (mode === Modes.INC || mode === Modes.ROL) ? radioSelected + Modes.INC : radioSelected;
+    //console.log('selected statistic', statistic)
+
+    //console.log('pre-roll data', data)
+    /* aggregate weekly data if weekly rolling mode is selected */
+    const data = (tmp_data && mode === Modes.ROL) ? rollData(state.data, statistic, date) : tmp_data;
+
+    //console.log('rendering graph with data', data);
     // If no data loaded or available for selected date, return placeholder view
     if (!data) {
         d3.select("svg").select(".legend").remove(); // clear any pre-existing legend
         return (
             <>
-                {/* data-tip attribute defines where tool-tip displays its data */}
+                {/* data-tip attribute (in <Geographies>) defines where tool-tip displays its data */}
                 <ComposableMap
                     projection="geoAlbersUsa"
                     style={{ width: "100%", height: graphHeight }}
@@ -56,12 +69,8 @@ const USGraph = (props) => {
                 </h2>
             </>
         );
-        // otherwise graph by user selection:
+    // otherwise graph by user selection:
     } else {
-        const { radioSelected, mode, per_capita } = state; // unpack relevant variables from state
-        const statistic =
-            mode === Modes.INC ? radioSelected + Modes.INC : radioSelected;
-
         // set color scale based on data available to graph
         const colorDomain = Object.values(data)
             .filter((entry) => entry[stripInc(statistic)] !== null) // only entries with stat available affect scale
@@ -74,7 +83,6 @@ const USGraph = (props) => {
         const colorScale = d3.scaleSequentialQuantile(colorDomain, colorRange);
 
         /* create an analogous discrete scale for the legend */
-
         const legendRange = d3.quantize(d3.interpolateBlues, 8);
         const legendScale = d3
             .scaleQuantile()
@@ -116,19 +124,20 @@ const USGraph = (props) => {
                             geographies.map((geo) => {
                                 const cur = data[IDtoState[geo.id]]; // data entry for state on graph date
                                 const hasData = cur !== undefined;
-                                const hasStat = hasData
-                                    ? cur[stripInc(statistic)] !== null
-                                    : false;
+                                const hasStat = hasData ?
+                                    // strip increasing modifier to determine stat's true availability
+                                    cur[stripInc(statistic)] !== null :
+                                    false; 
                                 //console.log('graphing', cur['state'], statistic);
 
                                 // normalize statistic based on per_capita flag and state population
-                                let normalized = hasStat
-                                    ? normalizeStatistic(
+                                let normalized = hasStat ?
+                                    normalizeStatistic(
                                           cur[statistic],
                                           per_capita,
                                           cur.state
-                                      )
-                                    : 0;
+                                      ) :
+                                    0;
                                 //console.log(`${cur[statistic]} normalized to ${normalized} for ${cur['state']}`);
                                 return (
                                     <Geography
@@ -141,10 +150,10 @@ const USGraph = (props) => {
                                             : 0
                                         }
                                         /* desktop tooltip handlers */
-                                        onMouseEnter={() => { selectTooltip(hasData, hasStat, normalized, setTooltip)}}
+                                        onMouseEnter={() => setTooltip(selectTooltip(hasData, hasStat, normalized))}
                                         onMouseLeave={() => setTooltip("")}
                                         /* mobile tooltip handlers (bugged) */
-                                        onTouchStart={() => { selectTooltip(hasData, hasStat, normalized, setTooltip)}}
+                                        onTouchStart={() => setTooltip(selectTooltip(hasData, hasStat, normalized))}
                                         onTouchEnd={() => setTooltip("")}
                                         style={{
                                             alt: `${geo.rsmKey}`,
@@ -172,6 +181,38 @@ function normalizeStatistic(statistic, per_capita, state) {
     return statistic / divisor;
 }
 
+/**
+ * Aggregate statistic data from preceeding week into result: resData
+ *    resData mirrors structure of a rawData entry but with
+ *    resData[statistic] = sum(rawData[date - i][statistic]) for days i in [0...6]
+ *      date0 must be a date for which rawData has data
+ */
+function rollData(rawData, statistic, date0) {
+    const ONE_DAY = 1000 * 60 * 60 * 24; // millisecs in one day
+    //console.log('rolling data')
+    //console.log('rawData', rawData[formatDate(date0)]);
+    let resData = JSON.parse(JSON.stringify(rawData[formatDate(date0)])); // make copy to not mutate rawData
+    //console.log('resData', resData);
+    //console.log('did clone?', resData !== rawData[formatDate(date0)])
+    for (let days_ago = 1; days_ago < 7; days_ago++) {
+        let curDate = new Date();
+        curDate.setTime(date0.getTime() - days_ago * ONE_DAY);
+        //console.log('date0', date0, 'curDate', curDate);
+
+        let curData = rawData[formatDate(curDate)];
+        //console.log('curData', curData);
+        if (!curData) break; // don't reach back prior to first day of available data
+
+        for (let [state, stateEntry] of Object.entries(curData)) {
+            let priorStat = stateEntry[statistic];
+            //console.log(`prior stat: ${formatDate(curDate)} ${state}[${statistic}] = ${priorStat}`)
+            if (priorStat)
+                resData[state][statistic] += priorStat;
+        }
+    }
+    return resData;
+}
+
 /* format date to YYYYMMDD (as data passed to USGraph is keyed by YYYYMMDD strings) */
 function formatDate(date) {
     return moment(date).format("YYYYMMDD");
@@ -194,17 +235,13 @@ function stripInc(statistic) {
 /**
  * Determine the correct tooltip based on data availability
  */
-function selectTooltip(hasData, hasStat, normalizedStat, setter) {
+function selectTooltip(hasData, hasStat, normalizedStat) {
     if (!hasData)
-        setter(`No data available`);
+        return `No data available`;
     else if (!hasStat)
-        setter(
-            `Selected statistic not reported`
-        );
+        return `Selected statistic not reported`
     else
-        setter(
-            formatNumber(normalizedStat)
-        );
+        return formatNumber(normalizedStat)
 }
 
 /**
