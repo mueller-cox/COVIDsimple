@@ -305,7 +305,7 @@ function convertDatasetTwo(data, statistic) {
     for (let i = 0; i < data.length; ++i) {
         newPayl.push(StateToStatistic(data[i], statistic))
     }
-    console.log('newPayl after stateToStat', newPayl)
+    // console.log('newPayl after stateToStat', newPayl)
 
     n = newPayl.length;
 
