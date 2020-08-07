@@ -49,7 +49,7 @@ const USGraph = (props) => {
                 )}
                 </Geographies>
             </ComposableMap>
-            <h3>{ data === null ? 'Loading...' : 'No data available' }</h3>
+            <h2>{ data === null ? 'Loading...' : 'No data available' }</h2>
             </>
         );
     // otherwise graph by user selection:
@@ -134,7 +134,7 @@ const USGraph = (props) => {
                 })}
                 </Geographies>
             </ComposableMap>
-            {colorDomain.length === 0 && <h3>No data available.</h3> }
+            {colorDomain.length === 0 && <h2>No data available.</h2> }
             </>
         )
     }
