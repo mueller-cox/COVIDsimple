@@ -26,8 +26,8 @@ const Graph = (props) => {
 
     /* dynamically resize graph on window resize */
     const [graphDimensions, setGraphDimensions] = useState({
-        height: window.innerHeight * getHeightFactor(),
-        width: window.innerWidth * getWidthFactor()
+        height: Math.floor(window.innerHeight * getHeightFactor()),
+        width: Math.floor(window.innerWidth * getWidthFactor())
     });
 
     function handleResize() {
@@ -42,12 +42,12 @@ const Graph = (props) => {
         return _ => { window.removeEventListener('resize', handleResize) }
     })
 
-    // gets passed 'data' as prop when Graph is rendered
+    // Component gets passed 'data' as prop when Graph is rendered
     const { data } = props;
     //console.log('rendering graph', data)
 
     if (!data) {
-        return <div> Missing Data!</div>;
+        return <div>Missing Data!</div>;
     }
 
     // Unpack passed data
@@ -195,10 +195,6 @@ const Graph = (props) => {
 }
 
 
-
-
-
-
 /**
  * Format dataset into an array:
  * [
@@ -231,8 +227,8 @@ function convertDataset(data, statistic) {
 }
 
 /** 
- * return the scale factors used determine graph dimensions responsively
- *      appropriate factors are determined with refernce to hosting 
+ * return the scale factors used determine graph dimensions responsively.
+ *      Appropriate factors are determined with refernce to hosting 
  *      Col's dimensions in the parent, state-view component
  * */
 function getWidthFactor() {
