@@ -162,7 +162,7 @@ const RatedTable = ({ articles }) => {
                 setPage(pageCount-1);
                 if(pageCount > 5){
                     setStartIndex(pageCount - 5);
-                    setEndIndex(pageCount);
+                    setEndIndex(pageCount - 1);
                 }
             }}
             startIndex={startIndex} endIndex={endIndex}

@@ -13,7 +13,7 @@ const Preview = ( {name, content} ) => {
                 <ModalHeader className='preview-heading' toggle={toggle}>Previewing: {name}</ModalHeader>
                 <ModalBody>
                    <div className='summary-heading'>Summary provided by source...</div>
-                   <div fluid>{content}</div>
+                   <div>{content}</div>
                 </ModalBody>
              </Modal>
         </div>  
