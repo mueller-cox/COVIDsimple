@@ -112,10 +112,9 @@ export default class NewsList extends Component {
                                 <Col className='news'>
                                     <FeedTable id='latest-news-results' className='latest-news-results'
                                         articles={ this.state.news_src_filter === "None" ? 
-                                                    this.state.articles.sort(this.compareValues) : 
+                                                    this.state.articles : 
                                                     this.state.articles
-                                                    .filter(article => article.source.includes(this.state.news_src_filter))
-                                                    .sort(this.compareValues) }
+                                                    .filter(article => article.source.includes(this.state.news_src_filter))}
                                     />
                                 </Col>
                             </Row>
