@@ -8,8 +8,7 @@ router.get('/', (req, res) => {
   Articles.retrieveAll((err, articles) => {
     if (err)
       return res.json(err);
-
-    return res.json(result);
+    return res.json(articles);
     
   });
 });
