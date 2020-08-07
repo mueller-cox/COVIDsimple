@@ -347,9 +347,10 @@ p.card-text {
     line-height: 1.2rem;
 }
 
+/* news page css */
 .news-container .col {
     background: white;
-    padding: .50em;
+    padding: .50em, .50em;
 }
 
 .filter {
