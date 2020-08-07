@@ -75,7 +75,7 @@ body {
 }
 
 .nav-item:hover {
-    font-size: medium;
+    font-size: x-large;
     color: #89bbfe;
     text-decoration: underline;
     text-decoration-thickness: 3px;
@@ -476,23 +476,6 @@ h3.news-heading {
     text-decoration: none;
 }
 
-
-
-@media (max-width: 768px) {
-    button.preview-article {
-        display: none;
-    }
-
-}
-
-@media (min-width: 768px) {
-    .jump-link {
-        display: none;
-    }
-}
-
-
-
 /******************************/
 /* What is                    */
 /******************************/
@@ -550,4 +533,50 @@ h5.card-subtitle-white {
 p.card-text {
     padding-bottom: 0.8rem;
     line-height: 1.2rem;
+}
+
+
+/******************************/
+/* Media Queries              */
+/******************************/
+/* bootstrap-xs */
+@media (max-width: 576px) {
+    button.preview-article {
+        display: none;
+    }
+    .info {
+        font-size: 18px
+    }
+    h2.flex-text {
+        font-size: 1rem;
+    }
+    .date-sidebar {
+        display: none;
+    }
+}
+
+/* bootstrap-sm */
+@media (min-width: 576px) and (max-width: 768px) {
+    button.preview-article {
+        display: none;
+    }
+    h2.flex-text {
+        font-size: 1.3rem;
+    }
+    .info {
+        font-size: 24px;
+    }
+    .date-side {
+        display: none;
+    }
+}
+
+/* bootstrap-md - */
+@media (min-width: 768px) {
+    .jump-link {
+        display: none;
+    }
+    .date-bottom {
+        display: none;
+    }
 }

@@ -91,9 +91,15 @@ export default class NationalView extends Component {
         this.setState({ [event.target.name]: event.target.checked });
         //console.log(this.state);
     }
-    handleDate = ({ y }) => { // unpack y from object {x: xval, y: yval} as parameter
+    /* TODO: refactor handleDate methods, componentize date Slider */
+    handleDateY = ({ y }) => { // unpack y from object {x: xval, y: yval} as parameter
         let nextDate = new Date();
         nextDate.setTime(DATE0.getTime() + y * ONE_DAY);
+        this.setState({ date: nextDate })
+    }
+    handleDateX= ({ x }) => { // unpack x from object {x: xval, y: yval} as parameter
+        let nextDate = new Date();
+        nextDate.setTime(DATE0.getTime() + x * ONE_DAY);
         this.setState({ date: nextDate })
     }
     setTooltip = (tip) => {
@@ -114,6 +120,33 @@ export default class NationalView extends Component {
                     <Col className='menu bg-main'>
                         <Form className='info-selector'>
                             <FormGroup tag="fieldset">
+                            <Label className='date-bottom' for="select-date-bottom">Select Date:</Label>
+                                <FormGroup className='date-bottom' id="select-date-bottom">
+                                    <Row>
+                                        <Col xs='12'>
+                                            <Slider /* x value encodes the day since DAY0 */
+                                                axis="x"
+                                                xmin={0}
+                                                xmax={SPAN}
+                                                xstep={1}
+                                                x={Math.floor((this.state.date.getTime() - DATE0) / ONE_DAY)}
+                                                onChange={this.handleDateX}
+                                                xreverse
+                                                styles={{
+                                                    active: {
+                                                        backgroundColor: '#6F8AB7'
+                                                    },
+                                                    thumb: {
+                                                        width: 25,
+                                                    }
+                                                }}
+                                            />
+                                        </Col>
+                                        <Col xs='12' className="align-self-center">
+                                            {this.state.date.toLocaleDateString()}
+                                        </Col>
+                                    </Row>
+                                </FormGroup>
                                 <FormGroup className="select-mode">
                                     <Label for="select-mode">Select Data Mode:</Label>
                                     <Input type="select"
@@ -167,8 +200,8 @@ export default class NationalView extends Component {
                                         Deaths
                                     </Label>
                                 </FormGroup><br />
-                                <Label for="select-date">Select Date:</Label>
-                                <FormGroup id="select-date">
+                                <Label className='date-side' for="select-date">Select Date:</Label>
+                                <FormGroup className='date-side' id="select-date">
                                     <Row>
                                         <Col xs='1'>
                                             <Slider /* y value encodes the day since DAY0 */
@@ -177,7 +210,7 @@ export default class NationalView extends Component {
                                                 ymax={SPAN}
                                                 ystep={1}
                                                 y={Math.floor((this.state.date.getTime() - DATE0) / ONE_DAY)}
-                                                onChange={this.handleDate}
+                                                onChange={this.handleDateY}
                                                 yreverse
                                                 styles={{
                                                     active: {

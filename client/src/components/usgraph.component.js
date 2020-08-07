@@ -35,7 +35,8 @@ const USGraph = (props) => {
 
     // console.log('rendering graph', data);
     // If no data loaded or available for selected date, return placeholder view
-    if (!data) { 
+    if (!data) {
+        d3.select("svg").select('.legend').remove(); // clear pre-existing legend
         return (
             <>
             {/* data-tip attribute defines where tool-tip displays its data */}
@@ -49,7 +50,7 @@ const USGraph = (props) => {
                 )}
                 </Geographies>
             </ComposableMap>
-            <h2>{ data === null ? 'Loading...' : 'No data available' }</h2>
+            <h2 className="flex-text">{ data === null ? 'Loading...' : 'No data available' }</h2>
             </>
         );
     // otherwise graph by user selection:
@@ -61,7 +62,7 @@ const USGraph = (props) => {
         const colorDomain = 
             Object.values(data)
             .filter(entry => entry[statistic] !== null) // only entries with stat available affect scale
-            .map(entry => normalizeStatistic(entry[statistic], per_capita, entry['state']));
+            .map(entry => normalizeStatistic(entry[statistic], per_capita, entry.state));
         //console.log('colorDomain', colorDomain);
 
         const colorRange = d3.interpolateBlues;
@@ -110,13 +111,15 @@ const USGraph = (props) => {
                     const hasStat = hasData ? cur[statistic] !== null : false;
                     //console.log('graphing', cur['state'], statistic);
                     let normalized = // normalize statistic based on per_capita flag and state population
-                        hasStat ? normalizeStatistic(cur[statistic], per_capita, cur['state']) : 0;
+                        hasStat ? normalizeStatistic(cur[statistic], per_capita, cur.state) : 0;
                     //console.log(`${cur[statistic]} normalized to ${normalized} for ${cur['state']}`);
                     return (
                         <Geography 
                             key={geo.rsmKey} 
                             geography={geo}
                             fill={hasStat ? 
+                                /* use legendScale for colorDomain's of length === 1 to properly color singleton with
+                                   a discrete rather than sequential scale */
                                 (colorDomain.length > 1 ? colorScale(normalized) : legendScale(normalized)) 
                                 : 0}
                             onMouseEnter={() => {
@@ -134,7 +137,7 @@ const USGraph = (props) => {
                 })}
                 </Geographies>
             </ComposableMap>
-            {colorDomain.length === 0 && <h2>No data available.</h2> }
+            {colorDomain.length === 0 && <h2 className="flex-text">No data available.</h2>}
             </>
         )
     }
