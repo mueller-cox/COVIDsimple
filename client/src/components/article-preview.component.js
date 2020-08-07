@@ -10,10 +10,10 @@ const Preview = ( {name, content} ) => {
         <div>
             <Button className='preview-article' size='sm' onClick={toggle}>Preview</Button>
             <Modal isOpen={modal} toggle={toggle} size='lg'>
-                <ModalHeader toggle={toggle}>Previewing: {name}</ModalHeader>
+                <ModalHeader className='preview-heading' toggle={toggle}>Previewing: {name}</ModalHeader>
                 <ModalBody>
-                   <div>Summary from source...</div>
-                   <div fluid>{content}</div>
+                   <div className='summary-heading'>Summary provided by source...</div>
+                   <div>{content}</div>
                 </ModalBody>
              </Modal>
         </div>  

@@ -104,9 +104,6 @@ export default class NewsList extends Component {
                                         <option value="Disease">Centers for Disease Control</option>
                                     </select>  
                                 </Col>
-                                <Col>
-                                    
-                                </Col>
                             </Row>
                             <Row className='news-list-row'>
                                 <Col className='news'>
