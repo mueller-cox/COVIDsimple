@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { Link } from 'react-router-dom';
+/*import { Component } from 'react';
+import { Link } from 'react-router-dom';*/
 
 import '../App.css';
 
@@ -13,11 +13,11 @@ import {
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
+    /*UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText
+    NavbarText*/
 } from 'reactstrap';
 
 

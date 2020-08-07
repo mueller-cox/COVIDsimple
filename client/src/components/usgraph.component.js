@@ -5,6 +5,8 @@ import {
   Geography,
 } from "react-simple-maps";
 import { Modes } from './national-view.component';
+import { legendColor } from 'd3-svg-legend';
+
 
 const d3 = require('d3');           // for coloring graph
 const moment = require('moment');   // for formatting date
@@ -60,9 +62,43 @@ const USGraph = (props) => {
             Object.values(data)
             .filter(entry => entry[statistic] !== null) // only entries with stat available affect scale
             .map(entry => normalizeStatistic(entry[statistic], per_capita, entry['state']));
-         
-
         const colorScale = d3.scaleSequentialQuantile(colorDomain, d3.interpolateBlues)
+
+        // set up domain and range for d3 legend utility
+        // const legendDomain = []
+        const legendRange = d3.quantize(d3.interpolateBlues, 8)
+        const legendScale = d3.scaleQuantile().domain(colorDomain).range(legendRange)
+        
+        //const legendScale = d3.scaleSequentialQuantile(colorDomain.map((d) => {
+            //return Math.round(d * 100)/100;
+        //})
+        //, d3.interpolateBlues)
+        
+        // let leg =legend({
+        //     color: colorScale3,
+        //     title: radioSelected,
+        //     tickFormat: d3.format('.2s')
+        //   })
+        //document.querySelector('body').append(leg)
+        //const svg = d3.select('svg')
+        //svg.append('leg')
+
+        const svg = d3.select("svg");
+        svg.append("g")
+        .attr("class", "legendSequential")
+        //.attr("transform", "translate(0,0)");
+
+        const legendSequential = legendColor()
+        .labelFormat(d3.format('.2s'))
+        .labelWrap(98)
+        .shapeWidth(98.5)
+        .orient("horizontal")
+        .scale(legendScale) 
+        //.title(radioSelected)
+        // console.log('legendSequential', legendSequential)
+
+        svg.select(".legendSequential")
+        .call(legendSequential);
 
         return (
             <>

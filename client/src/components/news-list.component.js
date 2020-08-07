@@ -85,7 +85,7 @@ export default class NewsList extends Component {
                 <Row>
                     <Col xs='12' md='6'>
                         <Container id='latest-news-list' className='latest-news-list'>
-                            <Row className='header-row'>
+                            <Row className='header-row align-items-baseline'>
                                 <Col >
                                     <h3 className='news-heading' id='latest-news-heading'>Latest News</h3>
                                 </Col>
@@ -120,7 +120,7 @@ export default class NewsList extends Component {
                     </Col>
                     <Col xs="12" md="6"> 
                         <Container id='rated-news-list' name='rated-news-list'>
-                            <Row className='header-row'>
+                            <Row className='header-row align-items-baseline'>
                                 <Col >
                                         <h3 className='news-heading' id='rated-news-heading'>Rated News </h3>
                                 </Col>
