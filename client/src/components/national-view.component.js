@@ -16,11 +16,11 @@ export const Modes = {
 // Time constants for date slider
 const TODAY = new Date();
 const DATE0 = new Date(2020, 0, 22) // Jan 22nd, 2020. First documented case in WA
-const ONE_DAY = 1000*60*60*24;      // number of milliseconds in one day
-const SPAN = Math.floor((TODAY-DATE0)/ONE_DAY); // days since first case
+const ONE_DAY = 1000 * 60 * 60 * 24;      // number of milliseconds in one day
+const SPAN = Math.floor((TODAY - DATE0) / ONE_DAY); // days since first case
 
 export default class NationalView extends Component {
-    constructor(props) { 
+    constructor(props) {
         super(props);
         this.state = {
             radioSelected: 'positive',                 // tracks selected statistic radio button
@@ -57,7 +57,7 @@ export default class NationalView extends Component {
             //console.log('covid data loaded', json);
             let data = this.structureData(json);
             return data;
-        } catch(error) {
+        } catch (error) {
             console.error(error);
         }
     }
@@ -80,35 +80,35 @@ export default class NationalView extends Component {
         }
         return map;
     }
-    
+
     /* Change Handlers: */
     /* basic handler:  use if solely updating value field */
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({ [event.target.name]: event.target.value });
         //console.log(this.state);
     }
     handleCheck = (event) => {
-        this.setState({[event.target.name]: event.target.checked});
+        this.setState({ [event.target.name]: event.target.checked });
         //console.log(this.state);
     }
-    handleDate = ({y}) => { // unpack y from object {x: xval, y: yval} as parameter
-        let nextDate = new Date(); 
-        nextDate.setTime(DATE0.getTime()+y*ONE_DAY);
+    handleDate = ({ y }) => { // unpack y from object {x: xval, y: yval} as parameter
+        let nextDate = new Date();
+        nextDate.setTime(DATE0.getTime() + y * ONE_DAY);
         this.setState({ date: nextDate })
     }
     setTooltip = (tip) => {
         // console.log('setting tooltip', tip);
         this.setState({ tooltip: tip });
     }
-    
+
     render() {
         return (
             <Container className='grid-container national-view' fluid role="main">
                 <Row className='national-view-row'>
                     <Col xs='12' md='9' xl='10' className='national-map'>
                         <>
-                        <ReactTooltip>{this.state.tooltip}</ReactTooltip>
-                        <USGraph state={this.state} setTooltip={this.setTooltip}/>
+                            <ReactTooltip>{this.state.tooltip}</ReactTooltip>
+                            <USGraph state={this.state} setTooltip={this.setTooltip} />
                         </>
                     </Col>
                     <Col className='menu bg-main'>
@@ -116,56 +116,57 @@ export default class NationalView extends Component {
                             <FormGroup tag="fieldset">
                                 <FormGroup className="select-mode">
                                     <Label for="select-mode">Select Data Mode:</Label>
-                                    <Input  type="select"
-                                            name="mode"  
-                                            id="select-type"
-                                            aria-label="Select data mode dropdown" 
-                                            onChange={this.handleChange} >
+                                    <Input type="select"
+                                        name="mode"
+                                        id="select-type"
+                                        aria-label="Select data mode dropdown"
+                                        onChange={this.handleChange} >
                                         <option value={Modes.AGG}>Aggregate</option>
                                         <option value={Modes.INC}>Daily Increase</option>
                                     </Input>
                                 </FormGroup>
                                 <FormGroup check>
                                     <Label for="per_capita" check>
-                                    <Input 
-                                        name="per_capita"
-                                        type="checkbox"
-                                        checked={this.state.per_capita}
-                                        onChange={this.handleCheck}
-                                    />{' '}
+                                        <Input
+                                            id="per_capita"
+                                            name="per_capita"
+                                            type="checkbox"
+                                            checked={this.state.per_capita}
+                                            onChange={this.handleCheck}
+                                        />{' '}
                                         Per 100,000
                                     </Label>
-                                </FormGroup><br/>
+                                </FormGroup><br />
                                 <Label for="select-statistic">Select Statistic:</Label>
                                 <FormGroup id="select-statistic" check>
                                     <Label check>
-                                    <Input  required // makes selecting one of the radioSelected group required
-                                            type="radio" 
+                                        <Input required // makes selecting one of the radioSelected group required
+                                            type="radio"
                                             name="radioSelected"
                                             value="positive"
                                             defaultChecked           // default value
-                                            onClick={this.handleChange}/>{' '}
+                                            onClick={this.handleChange} />{' '}
                                         Infections
                                     </Label>
                                 </FormGroup>
                                 <FormGroup check>
                                     <Label check>
-                                    <Input  type="radio" 
+                                        <Input type="radio"
                                             name="radioSelected"
                                             value="hospitalized"
-                                            onClick={this.handleChange}/>{' '}
+                                            onClick={this.handleChange} />{' '}
                                         Hospitalized
                                     </Label>
                                 </FormGroup>
                                 <FormGroup check>
                                     <Label check>
-                                    <Input  type="radio" 
+                                        <Input type="radio"
                                             name="radioSelected"
                                             value="death"
-                                            onClick={this.handleChange}/>{' '}
+                                            onClick={this.handleChange} />{' '}
                                         Deaths
                                     </Label>
-                                </FormGroup><br/>
+                                </FormGroup><br />
                                 <Label for="select-date">Select Date:</Label>
                                 <FormGroup id="select-date">
                                     <Row>
@@ -175,7 +176,7 @@ export default class NationalView extends Component {
                                                 ymin={0}
                                                 ymax={SPAN}
                                                 ystep={1}
-                                                y={Math.floor((this.state.date.getTime() - DATE0)/ONE_DAY)}
+                                                y={Math.floor((this.state.date.getTime() - DATE0) / ONE_DAY)}
                                                 onChange={this.handleDate}
                                                 yreverse
                                                 styles={{
@@ -183,14 +184,14 @@ export default class NationalView extends Component {
                                                       backgroundColor: 'blue'
                                                     },*/
                                                     active: {
-                                                      backgroundColor: '#6F8AB7'
+                                                        backgroundColor: '#6F8AB7'
                                                     },
                                                     thumb: {
-                                                      width: 25,
-                                                      //height: 40,
-                                                      //opacity: 0.8
+                                                        width: 25,
+                                                        //height: 40,
+                                                        //opacity: 0.8
                                                     }
-                                                  }}
+                                                }}
                                             />
                                         </Col>
                                         <Col xs='2' md='5' className="align-self-center">

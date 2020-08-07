@@ -180,6 +180,7 @@ export default class StateView extends Component {
                                         <option value="g1">Lines</option>
                                         <option value="g2">Stacked Area</option>
                                         <option value="g3">Bar Chart</option>
+                                        <option value="g4">Zoom Bar Chart</option>
                                     </Input>
                                 </FormGroup>
                                 {/* FOR FUTURE IMPLEMENTATION */}
@@ -258,33 +259,35 @@ export default class StateView extends Component {
                                     </Input>
                                 </FormGroup>
                                 <Label for="select-date">Select Date Range:
-                                <FormGroup className="select-date" id="select-date">
-                                    {/* issues: selected value doesn't clear if changing month menu
+                                <FormGroup className="select-date">
+                                        {/* issues: selected value doesn't clear if changing month menu
                                                 in middle of selection. */}
-                                    {/* Ref: https://reactdatepicker.com/ */}
-                                    <DatePicker 
-                                        className="date"
-                                        selected={this.state.startDate}
-                                        selectsStart
-                                        startDate={this.state.startDate}
-                                        endDate={this.state.endDate}
-                                        minDate={initialState.startDate}
-                                        maxDate={initialState.endDate}
-                                        onChange={this.handleChangeStartDate}
-                                        popperPlacement="left-end"
-                                    />
-                                    <DatePicker 
-                                        className="date"
-                                        selected={this.state.endDate}
-                                        selectsEnd
-                                        startDate={this.state.startDate}
-                                        endDate={this.state.endDate}
-                                        minDate={this.state.startDate}
-                                        maxDate={initialState.endDate}
-                                        onChange={this.handleChangeEndDate}
-                                        popperPlacement="left-end"
-                                    />
-                                </FormGroup>
+                                        {/* Ref: https://reactdatepicker.com/ */}
+                                        <DatePicker
+                                            id="select-date"
+                                            className="date"
+                                            selected={this.state.startDate}
+                                            selectsStart
+                                            startDate={this.state.startDate}
+                                            endDate={this.state.endDate}
+                                            minDate={initialState.startDate}
+                                            maxDate={initialState.endDate}
+                                            onChange={this.handleChangeStartDate}
+                                            popperPlacement="left-end"
+                                        />
+                                        <DatePicker
+                                            id="select-date"
+                                            className="date"
+                                            selected={this.state.endDate}
+                                            selectsEnd
+                                            startDate={this.state.startDate}
+                                            endDate={this.state.endDate}
+                                            minDate={this.state.startDate}
+                                            maxDate={initialState.endDate}
+                                            onChange={this.handleChangeEndDate}
+                                            popperPlacement="left-end"
+                                        />
+                                    </FormGroup>
                                 </Label>
                                 <Label for="select-statistic">Select Statistic:</Label>
                                 <FormGroup className="select-statistic1" check>
@@ -326,11 +329,13 @@ export default class StateView extends Component {
                             </FormGroup>
                             <Row>
                                 <Col xs="4" sm="6">
-                                    <Button type="submit" className='btn btn-submit btn-dark'>Graph</Button>
+                                    <Button type="submit"
+                                        className='btn btn-submit btn-dark float-right'>Graph
+                                    </Button>
                                 </Col>
                                 <Col >
                                     <Button type="reset"
-                                        className='btn btn-reset btn-dark'
+                                        className='btn btn-reset btn-dark float-left'
                                         onClick={this.handleReset}>Reset
                                     </Button>
                                 </Col>

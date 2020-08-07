@@ -3,11 +3,14 @@
 /*******************************/
 
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-*, *:before, *:after {
-  box-sizing: inherit;
-} 
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
 
 .bbox {
     box-sizing: border-box;
@@ -29,26 +32,55 @@ html {
 
 body {
     font-family: 'Roboto', serif;
-} 
+}
 
 
 /******************************/
 /* Navbar                      */
 /******************************/
 .navbar {
-    background-color: #cae5ff
+    background-color: #cae5ff;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
 }
 
-.navbar-brand {
-    color: #ffffff;
+.navbar-toggler {
+    background-color: #000000;
+}
 
+.project-name.nav {
+    border: 3px solid #615d6c;
+    color: #000000;
+    border-radius: 2.0rem;
+    font-size: large;
+    font-style: italic;
+    text-align: center;
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-right: 10px;
 }
 
 .nav-item {
     color: #000000;
-    font-size: larger;
-
+    font-size: large;
 }
+
+.nav-item:hover {
+    font-size: medium;
+    color: #89bbfe;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+}
+
 
 
 /******************************/
@@ -100,7 +132,7 @@ body {
     flex-grow: 1;
     min-width: 0;
     max-width: 100%;
-    position: absolute; 
+    position: absolute;
     padding: 15px;
     width: 100%;
     height: 100%;
@@ -207,7 +239,8 @@ since the might have different property  */
     border-radius: 10rem;
 }
 
-.container:hover .overlay, .container:active .overlay {
+.container:hover .overlay,
+.container:active .overlay {
     opacity: 1;
 }
 
@@ -316,7 +349,8 @@ since the might have different property  */
     transition: all 1.5s ease;
 }
 
-.inner:hover img, .inner:active img {
+.inner:hover img,
+.inner:active img {
     transform: scale(1.5);
 }
 
@@ -364,24 +398,24 @@ label {
 
 button.read-latest {
     background-color: #615D6C;
-    border-color:  #615D6C;
+    border-color: #615D6C;
 
 }
 
 button.read-rated {
     background-color: #615D6C;
-    border-color:  #615D6C;
+    border-color: #615D6C;
 
 }
 
 button.preview-article {
     background-color: #5976AB;
-    border-color:  #5976AB;
+    border-color: #5976AB;
 }
 
 span.rating-badge {
     background-color: #89BBFE;
-    border-color:  #89BBFE;
+    border-color: #89BBFE;
     color: black;
 }
 
@@ -394,9 +428,9 @@ a.page-link:hover {
     font-weight: bold;
 }
 
-li.page-item.active > .page-link {
+li.page-item.active>.page-link {
     background-color: #615D6C;
-    border-color:  #615D6C;
+    border-color: #615D6C;
 }
 
 h3.news-heading {
@@ -418,36 +452,97 @@ h3.news-heading {
     border: gainsboro solid;
     border-radius: 0.5rem;
     text-decoration: none;
-  
+
 }
-  
-.jump-link:hover{  
+
+.jump-link:hover {
     color: #5976AB;
     font-weight: bolder;
     border: #89BBFE solid;
     border-radius: 0.5rem;
     text-decoration: none;
-  }
-  
-  .jump-link:focus{
+}
+
+.jump-link:focus {
     color: #5976AB;
     font-weight: bolder;
     border: #89BBFE solid;
     border-radius: 0.5rem;
     text-decoration: none;
-  }
+}
 
- 
 
-@media (max-width: 768px){
+
+@media (max-width: 768px) {
     button.preview-article {
-        display:none;
+        display: none;
     }
-    
+
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     .jump-link {
         display: none;
     }
+}
+
+
+
+/******************************/
+/* What is                    */
+/******************************/
+
+.card.cardSet4 {
+    background-color: #89bbfe
+}
+
+.card.cardSet5 {
+    background-color: #7aa0e0
+}
+
+
+.card.cardSet6 {
+    background-color: #615d6c
+}
+
+.card-text-set5 {
+    /* color: #ffffff; */
+    color: #000000;
+}
+
+
+
+.card-text-set6 {
+    color: #ffffff;
+}
+
+.btn.CDC {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+.card-intro {
+    color: #000000;
+}
+
+.card-intro-white {
+    color: #fff;
+}
+
+h3.card-title-white {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+h5.card-subtitle-white {
+    color: #ffffff;
+    font-size: 0.8rem;
+    margin-top: -.380rem;
+    margin-bottom: 0;
+}
+
+
+p.card-text {
+    padding-bottom: 0.8rem;
+    line-height: 1.2rem;
 }

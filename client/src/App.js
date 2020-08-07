@@ -9,6 +9,7 @@ import NationalView from "./components/national-view.component";
 import StateView from "./components/state-view.component";
 import NewsList from "./components/news-list.component";
 import About from "./components/about.component";
+import WhatIsCovid from "./components/what-is-covid19.component";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/state-view" exact component={StateView} />
       <Route path="/news" exact component={NewsList} />
       <Route path="/about" exact component={About} />
+      <Route path="/What-is-covid19" exact component={WhatIsCovid} />
     </Router>
 
   );
