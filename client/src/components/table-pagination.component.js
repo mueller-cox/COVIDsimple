@@ -25,7 +25,7 @@ const PaginationTool = ({
 
 
     return (
-        <Pagination>
+        <Pagination size="sm">
         <PaginationItem disabled={ currentPage <= 0 }>
             <PaginationLink className='start-link' previous onClick={handleGoToStartClick} href="#">
                 Start
