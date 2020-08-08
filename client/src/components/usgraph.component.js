@@ -151,7 +151,7 @@ const USGraph = (props) => {
                                         fill={
                                             hasStat
                                                 ? /* use legendScale for colorDomain's of length === 1 to properly color singleton with
-                                            a discrete rather than sequential scale */
+                                                    a discrete rather than sequential scale */
                                                   colorDomain.length > 1
                                                     ? colorScale(normalized)
                                                     : legendScale(normalized)
@@ -209,7 +209,7 @@ function normalizeStatistic(statistic, per_capita, state) {
  * Aggregate statistic data from preceeding week into result: resData
  *    resData mirrors structure of a rawData entry but with
  *    resData[statistic] = sum(rawData[date - i][statistic]) for days i in [0...6]
- *      date0 must be a date for which rawData has data
+ *  date0 must be a date for which rawData has data
  */
 function rollData(rawData, statistic, date0) {
     const ONE_DAY = 1000 * 60 * 60 * 24; // millisecs in one day
