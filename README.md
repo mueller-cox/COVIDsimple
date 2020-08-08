@@ -33,6 +33,7 @@
 1. Full Stack React/Express with Postgres: https://www.youtube.com/watch?v=Z4jCvpSROp8
 2. Full Stack React/Express: https://www.youtube.com/watch?v=7CqJlxBYj-M
 3. React-Strap Sample Code for understanding how to implement their components: https://reactstrap.github.io/
+4. Attempted to do 404 redirecting using examples here: https://www.youtube.com/watch?v=c5ODpAPrB74, but abandoned as requiring too many changes too late in the process
 
 ### Stack Technologies
 1. React
@@ -52,10 +53,21 @@
 2. Packages to support general infrastructure: pg, dotenv, cors, cookie-parser, body-parser
 
 ### Install Insructions for Developers
-1. Please note that the db expects to connect to our Google Cloud hosted DB, or another PG instance we use environment variable to connect
+1. Please note that the db expects to connect to our Google Cloud hosted DB, or another PG instance we use environment variable to connect. See the create_table.sql file for context
 2. Environment variable file (env) should include (with appropriate values assigned of course):
 DB_USER=
 DB_NAME=
 DB_HOST=
 DB_PWD=
 PG_PORT=
+3. Dev install: 
+   * checkout code
+   * cd covidsimple/
+   * run npm install
+   * cd covidsimple/client/
+   * run npm install
+   * run npm start 
+4. At this point both the client and server should be running
+5. If you are not immediately redirected, navigate to http://localhost:3000/
+6. To just excercise the server api endpoints navigate to http://localhost:5000 and the appropriate end point
+
