@@ -1,6 +1,5 @@
 var express = require('express');
 var Articles = require('../models/articles');
-const database = require('../database');
 
 var router = express.Router();
 
