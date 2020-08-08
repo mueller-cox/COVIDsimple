@@ -33,7 +33,7 @@
 1. Full Stack React/Express with Postgres: https://www.youtube.com/watch?v=Z4jCvpSROp8
 2. Full Stack React/Express: https://www.youtube.com/watch?v=7CqJlxBYj-M
 3. React-Strap Sample Code for understanding how to implement their components: https://reactstrap.github.io/
-4. Attempted to do 404 redirecting using examples here: 
+4. Attempted to do 404 redirecting using examples here: https://www.youtube.com/watch?v=c5ODpAPrB74, but abandoned as requiring too many changes too late in the process
 
 ### Stack Technologies
 1. React
