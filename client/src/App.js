@@ -10,6 +10,9 @@ import StateView from "./components/state-view.component";
 import NewsList from "./components/news-list.component";
 import About from "./components/about.component";
 import WhatIsCovid from "./components/what-is-covid19.component";
+// import noMatch from "./components/404page.component";
+
+
 
 function App() {
   return (
@@ -21,8 +24,8 @@ function App() {
       <Route path="/news" exact component={NewsList} />
       <Route path="/about" exact component={About} />
       <Route path="/What-is-covid19" exact component={WhatIsCovid} />
+      {/* <Route path="/404page" exact component={noMatch} /> */}
     </Router>
-
   );
 }
 

@@ -4,8 +4,10 @@ class Articles {
   static retrieveAll (callback) {
     let text = 'SELECT * FROM articles';
     db.query(text, (err, res) => {
-      if (err.error)
-        return callback(err);
+      if (err.error){
+        console.log(err.error);
+        return callback(err.error);
+      }
       callback(res);
     });
   }
@@ -37,6 +39,17 @@ class Articles {
     });
   }
 
+  static exists (url, callback) {
+    let query_string = `SELECT EXISTS(SELECT 1 from articles where url=$1)`;
+    let key = url;
+    db.query(query_string, [key], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  /* only updates rating fields, will not update any other fields at this time */
   static update (article, callback) {
     let query_string = `UPDATE articles SET rating_sum = rating_sum + $2, rating_count = rating_count+1 WHERE url=$1`;
     let url = article.url;
