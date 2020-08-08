@@ -641,3 +641,10 @@ p.card-text {
         display: none;
     }
 }
+
+/* bootstrap just md */
+@media (min-width: 768px) and (max-width: 990px){
+    button.preview-article {
+        display: none;
+    }
+}
