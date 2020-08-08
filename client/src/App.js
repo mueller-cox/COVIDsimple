@@ -18,6 +18,7 @@ function App() {
   return (
     <Router>
       <NavMenu />
+      <br />
       <Switch>
         <Route path="/" exact component={NationalView} />
         <Route path="/state-view" exact component={StateView} />
