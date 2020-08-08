@@ -560,7 +560,7 @@ p.card-text {
 /* Media Queries              */
 /******************************/
 /* bootstrap-xs */
-@media (max-width: 576px) {
+@media (max-width: 575px) {
     button.preview-article {
         display: none;
     }
@@ -576,7 +576,7 @@ p.card-text {
 }
 
 /* bootstrap-sm */
-@media (min-width: 576px) and (max-width: 768px) {
+@media (min-width: 576px) and (max-width: 767px) {
     button.preview-article {
         display: none;
     }

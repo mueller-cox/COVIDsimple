@@ -50,7 +50,7 @@ const USGraph = (props) => {
             ? rollData(state.data, statistic, date)
             : tmp_data;
 
-    //console.log('rendering graph with data', data);
+    // console.log('rendering graph with data', data);
     // If no data loaded or available for selected date, return placeholder view
     if (!data) {
         d3.select("svg").select(".legend").remove(); // clear any pre-existing legend
@@ -99,7 +99,8 @@ const USGraph = (props) => {
          * into which the new USGraph component will also render
          */
         const svg = d3.select("svg");
-        svg.append("g").attr("class", "legend");
+        svg.select(".legend").remove();             // remove any prior legend
+        svg.append("g").attr("class", "legend");    // generate a new legend
         //.attr("transform", "translate(0,0)");
 
         const legendSequential = legendColor()
@@ -108,19 +109,19 @@ const USGraph = (props) => {
             .shapeWidth(98.5)
             .orient("horizontal")
             .scale(legendScale);
-        //.title(radioSelected)
+        // .title(radioSelected)
         // console.log('legendSequential', legendSequential)
 
-        if (colorDomain.length > 0) {
+        if (colorDomain.length > 0) { // populate legend with colorData if it exists
             svg.select(".legend").call(legendSequential);
         } else {
-            // remove legend if no data is graphed
+            // else remove legend if no data is being displayed
             svg.select(".legend").remove();
         }
-        return (
+        return ( // Render the US Map
             <>
                 <ComposableMap
-                    data-tip=""
+                    data-tip="" // for tooltip
                     projection="geoAlbersUsa"
                     style={{ width: "100%", height: graphHeight }}
                 >
@@ -215,7 +216,7 @@ function rollData(rawData, statistic, date0) {
     const ONE_DAY = 1000 * 60 * 60 * 24; // millisecs in one day
     //console.log('rolling data')
     //console.log('rawData', rawData[formatDate(date0)]);
-    let resData = JSON.parse(JSON.stringify(rawData[formatDate(date0)])); // make copy to not mutate rawData
+    let resData = JSON.parse(JSON.stringify(rawData[formatDate(date0)])); // make deep copy to not mutate rawData
     //console.log('resData', resData);
     //console.log('did clone?', resData !== rawData[formatDate(date0)])
     for (let days_ago = 1; days_ago < 7; days_ago++) {

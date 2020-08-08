@@ -29,6 +29,7 @@ export default class NationalView extends Component {
             per_capita: false,          // normalize data per capita?
             date: new Date(TODAY.getTime() - ONE_DAY), // Currently selected date. Default to yesterday
             tooltip: "Loading...",      // MouseOver toolip for chart
+            dimensions: { x: window.innerWidth, y: window.innerHeight} // for date slider dynamic size
             // data: this.loadData()    // all historic covid data, fetched after mount (below)
         };
     }
@@ -36,8 +37,11 @@ export default class NationalView extends Component {
     /**
      * Only make async request modifying state once component mounts so that
      * it does not have to re-render immediately and can show placeholder while rendering
+     * 
+     * Force component to update on window resize 
      * */
     async componentDidMount() {
+        window.addEventListener('resize', this.handleResize);
         //console.log('mount state', this.state);
         let covidData = await this.loadData();
         this.setState({ data: covidData, tooltip: "" });
@@ -104,12 +108,27 @@ export default class NationalView extends Component {
         nextDate.setTime(DATE0.getTime() + x * ONE_DAY);
         this.setState({ date: nextDate });
     };
+    /**
+     * track screen dimensions as state to dynamically resize date slider
+     * forces update on resize
+     * */
+    handleResize = () => {
+        this.setState({dimensions : { x: window.innerWidth, y: window.innerHeight }})
+    }
+    
 
     /* callback passed to USGraph component to set the tooltip state */
     setTooltip = (tip) => {
         // console.log('setting tooltip', tip);
         this.setState({ tooltip: tip });
     };
+
+    /**
+     * cleanup added event listener
+     */
+    componentWillUnmount() {
+        window.removeEventListener('resize');
+    }
 
     render() {
         return (
@@ -144,6 +163,7 @@ export default class NationalView extends Component {
                                     <Row>
                                         <Col xs="12">
                                             <Slider /* x value encodes the day since DAY0 */
+                                                className ="slider slider-x"
                                                 axis="x"
                                                 xmin={0}
                                                 xmax={SPAN}
@@ -163,6 +183,9 @@ export default class NationalView extends Component {
                                                     thumb: {
                                                         width: 25,
                                                     },
+                                                    track: {
+                                                        width: this.state.dimensions.x * .9
+                                                    }
                                                 }}
                                             />
                                         </Col>
@@ -258,6 +281,7 @@ export default class NationalView extends Component {
                                     <Row>
                                         <Col xs="1">
                                             <Slider /* y value encodes the day since DAY0 */
+                                                className="slider slider-y"
                                                 axis="y"
                                                 ymin={0}
                                                 ymax={SPAN}
@@ -277,6 +301,9 @@ export default class NationalView extends Component {
                                                     thumb: {
                                                         width: 25,
                                                     },
+                                                    track: {
+                                                        height: this.state.dimensions.y * .35
+                                                    }
                                                 }}
                                             />
                                         </Col>
