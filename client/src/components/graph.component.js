@@ -274,6 +274,7 @@ export default React.memo(Graph, graphsEqual)
 
 // Less efficient convertion 
 // Change statistic key into state name
+// eslint-disable-next-line
 function StateToStatistic(data, stat) {
     let newDataSet = data.map(e => {
         let obj = {}
@@ -295,6 +296,7 @@ function StateToStatistic(data, stat) {
 }
 
 // Add state statistics with same date together
+// eslint-disable-next-line
 function convertDatasetTwo(data, statistic) {
     let compressed = [];
     let newPayl = [];
@@ -329,6 +331,7 @@ function convertDatasetTwo(data, statistic) {
 }
 
 // Helper function to merge data
+// eslint-disable-next-line
 function combineObjs(objA, objB) {
     let combined = []
     objA.forEach(x => {
