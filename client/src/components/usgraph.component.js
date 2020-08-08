@@ -29,21 +29,26 @@ const USGraph = (props) => {
         };
     });
 
-    const { state, setTooltip } = props;                     // unpack props
+    const { state, setTooltip } = props; // unpack props
     const { radioSelected, mode, per_capita, date } = state; // unpack relevant variables from state prop
-    
+
     /* Get data from requested date */
     let tmp_data = state.data ? state.data[formatDate(date)] : null;
 
     /* determine requested statistic based on data mode :
      *  (if user has selected daily increase or weekly rolling, use <radioSelected>Increase as statistic) */
     const statistic =
-        (mode === Modes.INC || mode === Modes.ROL) ? radioSelected + Modes.INC : radioSelected;
+        mode === Modes.INC || mode === Modes.ROL
+            ? radioSelected + Modes.INC
+            : radioSelected;
     //console.log('selected statistic', statistic)
 
     //console.log('pre-roll data', data)
     /* aggregate weekly data if weekly rolling mode is selected */
-    const data = (tmp_data && mode === Modes.ROL) ? rollData(state.data, statistic, date) : tmp_data;
+    const data =
+        tmp_data && mode === Modes.ROL
+            ? rollData(state.data, statistic, date)
+            : tmp_data;
 
     //console.log('rendering graph with data', data);
     // If no data loaded or available for selected date, return placeholder view
@@ -69,12 +74,12 @@ const USGraph = (props) => {
                 </h2>
             </>
         );
-    // otherwise graph by user selection:
+        // otherwise graph by user selection:
     } else {
         // set color scale based on data available to graph
         const colorDomain = Object.values(data)
             .filter((entry) => entry[stripInc(statistic)] !== null) // only entries with stat available affect scale
-            .map((entry) => 
+            .map((entry) =>
                 normalizeStatistic(entry[statistic], per_capita, entry.state)
             );
         //console.log('colorDomain', colorDomain);
@@ -124,36 +129,55 @@ const USGraph = (props) => {
                             geographies.map((geo) => {
                                 const cur = data[IDtoState[geo.id]]; // data entry for state on graph date
                                 const hasData = cur !== undefined;
-                                const hasStat = hasData ?
-                                    // strip increasing modifier to determine stat's true availability
-                                    cur[stripInc(statistic)] !== null :
-                                    false; 
+                                const hasStat = hasData
+                                    ? // strip increasing modifier to determine stat's true availability
+                                      cur[stripInc(statistic)] !== null
+                                    : false;
                                 //console.log('graphing', cur['state'], statistic);
 
                                 // normalize statistic based on per_capita flag and state population
-                                let normalized = hasStat ?
-                                    normalizeStatistic(
+                                let normalized = hasStat
+                                    ? normalizeStatistic(
                                           cur[statistic],
                                           per_capita,
                                           cur.state
-                                      ) :
-                                    0;
+                                      )
+                                    : 0;
                                 //console.log(`${cur[statistic]} normalized to ${normalized} for ${cur['state']}`);
                                 return (
                                     <Geography
                                         key={geo.rsmKey}
                                         geography={geo}
-                                        fill={hasStat ? 
-                                            /* use legendScale for colorDomain's of length === 1 to properly color singleton with
+                                        fill={
+                                            hasStat
+                                                ? /* use legendScale for colorDomain's of length === 1 to properly color singleton with
                                             a discrete rather than sequential scale */
-                                            (colorDomain.length > 1 ? colorScale(normalized) : legendScale(normalized))
-                                            : 0
+                                                  colorDomain.length > 1
+                                                    ? colorScale(normalized)
+                                                    : legendScale(normalized)
+                                                : 0
                                         }
                                         /* desktop tooltip handlers */
-                                        onMouseEnter={() => setTooltip(selectTooltip(hasData, hasStat, normalized))}
+                                        onMouseEnter={() =>
+                                            setTooltip(
+                                                selectTooltip(
+                                                    hasData,
+                                                    hasStat,
+                                                    normalized
+                                                )
+                                            )
+                                        }
                                         onMouseLeave={() => setTooltip("")}
                                         /* mobile tooltip handlers (bugged) */
-                                        onTouchStart={() => setTooltip(selectTooltip(hasData, hasStat, normalized))}
+                                        onTouchStart={() =>
+                                            setTooltip(
+                                                selectTooltip(
+                                                    hasData,
+                                                    hasStat,
+                                                    normalized
+                                                )
+                                            )
+                                        }
                                         onTouchEnd={() => setTooltip("")}
                                         style={{
                                             alt: `${geo.rsmKey}`,
@@ -206,8 +230,7 @@ function rollData(rawData, statistic, date0) {
         for (let [state, stateEntry] of Object.entries(curData)) {
             let priorStat = stateEntry[statistic];
             //console.log(`prior stat: ${formatDate(curDate)} ${state}[${statistic}] = ${priorStat}`)
-            if (priorStat)
-                resData[state][statistic] += priorStat;
+            if (priorStat) resData[state][statistic] += priorStat;
         }
     }
     return resData;
@@ -229,19 +252,16 @@ function formatNumber(n) {
  *  hospitalized data available (meaning Increased should be null)
  */
 function stripInc(statistic) {
-    return statistic.replace('Increase', '');
+    return statistic.replace("Increase", "");
 }
 
 /**
  * Determine the correct tooltip based on data availability
  */
 function selectTooltip(hasData, hasStat, normalizedStat) {
-    if (!hasData)
-        return `No data available`;
-    else if (!hasStat)
-        return `Selected statistic not reported`
-    else
-        return formatNumber(normalizedStat)
+    if (!hasData) return `No data available`;
+    else if (!hasStat) return `Selected statistic not reported`;
+    else return formatNumber(normalizedStat);
 }
 
 /**
