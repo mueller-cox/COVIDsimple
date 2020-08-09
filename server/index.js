@@ -12,7 +12,12 @@ let db = require("./database"); // (shorthand for requiring database/index.js)
 /* Environment variables */
 const ENV = process.env.NODE_ENV;
 // use registered port or default to 5000 for server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
+
+//for deploying to heroku
+if (process.env.NODE_ENV === 'production'){
+
+}
 
 /* Register middleware */
 const app = express(); // init express
@@ -54,6 +59,12 @@ process.on("uncaughtException", (e) => {
     console.error(e.stack);
     process.exit(99);
 });
+
+//for deploying to heroku
+if (process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
+    
+}
 
 // export app variable so it can be run on command
 module.exports = app;
