@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import '../App.css';
 import covid19 from '../images/covid19.png';
+import IMG_1217 from '../images/IMG_1217.JPG';
 
 
 export default class About extends Component {
@@ -32,12 +33,7 @@ export default class About extends Component {
                             </div>
                             <h3 className="card-title mt-2">Connor Robetorye</h3>
                             <h5 className="card-subtitle">Graduate Student</h5>
-                            <p className="card-text mt-3">Interests include lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-                            cupiditate laudantium
-                            corrupti,
-                            minima
-                            dolore commodi eius. Ea, nam possimus laborum ab magnam quia ipsam nemo dolores? A doloribus
-                        exercitationem aliquam.</p>
+                            <p className="card-text mt-3">I'm a grad student at PSU and have spent most of my time focusing on machine learning.</p>
                             <a href="https://github.com/inordirection"
                                 className="btn btn-dark btn-sm float-right"
                                 title="Go to Connor gitHub page">GitHub
@@ -63,9 +59,7 @@ export default class About extends Component {
                     <div className="card cardSet3 ">
                         <div className="card-body">
                             <div className="inner">
-                                <img src="https://avatars1.githubusercontent.com/u/6835377?s=400&u=6a4741de1ef918135a280438b02cbc28d42bb48b&v=4"
-                                    alt="developer">
-                                </img>
+                                <img src={IMG_1217} alt="developer's dog"></img>
                             </div>
                             <h3 className="card-title mt-2">Meghan Mueller-Cox</h3>
                             <h5 className="card-subtitle">Graduate Student</h5>
