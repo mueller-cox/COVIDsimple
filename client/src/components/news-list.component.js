@@ -133,7 +133,7 @@ export default class NewsList extends Component {
                                 <Col lg='8'md='12'>
                                     <label htmlFor="rated_filter_src">Filter Source  </label>
                                     <select className='filter' id="rated_filter_src" name="rated_filter_src" onChange={this.handleRatedSrcFilter}>
-                                        <option value="All">None</option>
+                                        <option value="None">None</option>
                                         <option value="World">World Health Organization</option>
                                         <option value="Disease">Centers for Disease Control</option>
                                     </select>
