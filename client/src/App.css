@@ -610,6 +610,9 @@ p.card-text {
     .date-side {
         display: none;
     }
+    .jump-link:hover, .jump-link:active, .jump-link:focus {
+        border: none;
+    }
 }
 
 /* bootstrap-sm */
